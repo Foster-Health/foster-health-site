@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Dancing+Script:wght@400..700&family=Great+Vibes&display=swap"
     rel="stylesheet" />
   <script>
     window.tailwind = window.tailwind || {};
@@ -36,6 +36,7 @@
           fontFamily: {
             display: ["Space Grotesk", "sans-serif"],
             body: ["Source Sans 3", "sans-serif"],
+            cursive: ["Great Vibes", "cursive"],
           },
         },
       },
@@ -49,21 +50,55 @@
   <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
     <header
       class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
-      <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Foster Health
-      </a>
-      <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/workflow">Workflow</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink"
-          href="/analytics">Analytics</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/team">Team</a>
-        <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
-          href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
-          Request Demo
+      <div class="flex w-full items-center justify-between px-4 py-3 lg:px-6">
+        <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
+          <span class="brand-mark" aria-hidden="true"></span>
+          Foster Health
         </a>
-      </nav>
+
+        <!-- Hamburger Button -->
+        <button id="menu-toggle"
+          class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-white shadow-sm transition-all hover:bg-sand md:hidden"
+          aria-label="Toggle Menu" aria-expanded="false">
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+        </button>
+
+        <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-clinicians">For
+            Clinicians</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-execs">For Execs</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/team">Team</a>
+          <!-- <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/blog">Blog</a> -->
+          <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+            Request Demo
+          </a>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu"
+        class="absolute left-0 right-0 top-full mt-2 hidden origin-top scale-95 flex-col gap-2 rounded-2xl border border-line bg-white p-4 opacity-0 shadow-panel transition-all duration-300 md:hidden">
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-clinicians">For Clinicians</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-execs">For Execs</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/pricing">Pricing</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/team">Team</a>
+        <!-- <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/blog">Blog</a> -->
+        <div class="mt-2 border-t border-line pt-2">
+          <a class="site-nav-cta font-display block rounded-xl bg-[#112036] px-4 py-4 text-center font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+            Request Demo
+          </a>
+        </div>
+      </div>
     </header>
 
     <main class="space-y-6 lg:space-y-8">
@@ -82,15 +117,12 @@
           </div>
 
           <div class="space-y-4">
-            <h1 class="font-display max-w-[12ch] text-[clamp(2.4rem,4vw,4.9rem)] leading-[0.98]">
-              AI MDS Copilot for Skilled Nursing Facilities
+            <h1 class="font-display max-w-[15ch] min-h-[4em] text-[clamp(2.4rem,4vw,4.9rem)] leading-[0.98]">
+              <span id="typewriter-headline">Capture the Reimbursement You've Already Earned</span>
             </h1>
             <p class="max-w-[38rem] text-[1.35rem] leading-tight text-[#1f3651]">
-              Designed to think like the best MDS nurses.
-            </p>
-            <p class="max-w-[42rem] text-lg leading-8 text-muted">
-              Foster reads the full chart and turns clinical signals into physician queries, PDPM drivers, and
-              audit-ready evidence before the assessment closes.
+              Clinical AI designed to think like the best MDS coordinators — reading the full chart to surface missed
+              PDPM drivers, documentation gaps, and physician query opportunities before the MDS closes.
             </p>
           </div>
 
@@ -112,19 +144,19 @@
       <section class="grid gap-4 md:grid-cols-3" aria-label="Key outcomes">
         <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
           <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Revenue Impact</p>
-          <strong class="font-display mt-3 block text-3xl">Up to 10%</strong>
-          <p class="mt-2 text-muted">PDPM uplift identified through missed drivers, query opportunities, and cleaner
-            documentation.</p>
+          <strong class="font-display mt-3 block text-3xl">~$500K+ per facility</strong>
+          <p class="mt-2 text-muted">Average annual PDPM revenue leakage identified through missed drivers, query
+            opportunities, and documentation gaps.</p>
         </article>
         <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
           <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Cross-Validation</p>
-          <strong class="font-display mt-3 block text-3xl">Evidence-backed</strong>
-          <p class="mt-2 text-muted">Every recommendation is paired with source documentation and a defensible next
-            step.</p>
+          <strong class="font-display mt-3 block text-3xl">100% evidence-backed</strong>
+          <p class="mt-2 text-muted">Every recommendation includes source chart documentation and a defensible query or
+            correction path.</p>
         </article>
         <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
           <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Efficiency</p>
-          <strong class="font-display mt-3 block text-3xl">Hours reduced</strong>
+          <strong class="font-display mt-3 block text-3xl">10–20 hours saved weekly</strong>
           <p class="mt-2 text-muted">Less chart hunting, fewer retrospective reviews, and more time for judgment calls.
           </p>
         </article>
@@ -211,8 +243,8 @@
                     <p class="text-[9px] font-bold uppercase text-[#634992]">PDPM Classification</p>
                     <p class="text-[13px] font-bold text-[#4c3479]">Special Care High</p>
                   </div>
-                  <button class="rounded-lg bg-[#4c3479] px-3 py-1.5 text-[11px] font-bold text-white shadow-sm">Open in
-                    PCC</button>
+                  <div class="rounded-lg bg-[#4c3479] px-3 py-1.5 text-[11px] font-bold text-white shadow-sm cursor-default select-none">Open in
+                    PCC</div>
                 </div>
               </div>
             </div>
@@ -261,14 +293,14 @@
                     • Nursing Notes</span>
                 </div>
                 <div class="pt-4">
-                  <button
-                    class="flex items-center gap-2 rounded-xl border border-white bg-white px-6 py-3 text-xs font-bold text-red-900 shadow-soft hover:bg-red-50 transition-colors">
+                  <div
+                    class="flex items-center gap-2 rounded-xl border border-white bg-white px-6 py-3 text-xs font-bold text-red-900 shadow-soft cursor-default select-none">
                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
                     </svg>
                     Download ADR Package
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -356,9 +388,9 @@
                     <span class="block text-xs font-bold text-ink">Physician Query: CHF Specificity</span>
                     <span class="text-[10px] text-muted">Impacts PDPM classification</span>
                   </div>
-                  <button
-                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm hover:bg-[#92400e] transition-colors">Review
-                    & Send</button>
+                  <div
+                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm cursor-default select-none">Review
+                    & Send</div>
                 </div>
 
                 <!-- Row 3: Action Required -->
@@ -368,9 +400,9 @@
                     <span class="block text-xs font-bold text-ink">IPA Trigger: Functional Decline (Section GG)</span>
                     <span class="text-[10px] text-muted">Detected from therapy + vitals</span>
                   </div>
-                  <button
-                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm hover:bg-[#92400e] transition-colors">Initiate
-                    IPA</button>
+                  <div
+                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm cursor-default select-none">Initiate
+                    IPA</div>
                 </div>
               </div>
             </div>
@@ -389,17 +421,18 @@
           <div>
             <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">See It In Action</p>
             <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3.2rem)] leading-tight text-[#112036]">
-              Supercharge your MDS staff with an AI copilot built for defensible reimbursement.
+              Free Documentation Diagnostic
             </h2>
             <p class="mt-4 max-w-[40rem] text-lg leading-8 text-[#112036]/85">
-              Book time with Foster Health to see how cross-validation, query guidance, and PDPM driver detection fit
-              into your MDS workflow.
+              We review one facility’s documentation and MDS workflow to identify missed PDPM drivers, query
+              opportunities, and abstraction gaps. You get a concrete report with evidence-backed findings and estimated
+              reimbursement impact.
             </p>
           </div>
           <div class="flex flex-wrap gap-3 lg:justify-end">
             <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
               href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
-              Ask for Demo
+              Request a free diagnostic
             </a>
           </div>
         </div>
@@ -835,12 +868,90 @@
       );
     }
 
+    function TypewriterHeading() {
+      const p1 = "The top 1% of MDS expertise. ";
+      const p2 = " Built into your facility.";
+      const p3 = "Capture the reimbursement you’ve already earned.";
+
+      const [text, setText] = useState("");
+      const [step, setStep] = useState(0); // 0: p1, 1: p2, 2: deleting, 3: p3
+      const [isComplete, setIsComplete] = useState(false);
+
+      useEffect(() => {
+        if (isComplete) return;
+
+        let timeout;
+        if (step === 0) {
+          if (text.length < p1.length) {
+            timeout = setTimeout(() => setText(p1.slice(0, text.length + 1)), 25);
+          } else {
+            timeout = setTimeout(() => setStep(1), 1000);
+          }
+        } else if (step === 1) {
+          const combined = p1 + p2;
+          if (text.length < combined.length) {
+            timeout = setTimeout(() => setText(combined.slice(0, text.length + 1)), 20);
+          } else {
+            timeout = setTimeout(() => {
+              setText("");
+              setStep(3);
+            }, 1800);
+          }
+        } else if (step === 3) {
+          if (text.length < p3.length) {
+            timeout = setTimeout(() => setText(p3.slice(0, text.length + 1)), 30);
+          } else {
+            setIsComplete(true);
+          }
+        }
+
+        return () => clearTimeout(timeout);
+      }, [text, step, isComplete]);
+
+      const renderText = () => {
+        let currentP = step === 1 ? p1 + p2 : p3;
+        let target = step === 1 ? "your" : "reimbursement";
+
+        if (step !== 1 && step !== 3) return text;
+
+        const start = currentP.indexOf(target);
+        if (start === -1 || text.length <= start) return text;
+
+        const before = text.slice(0, start);
+        const match = text.slice(start, Math.min(text.length, start + target.length));
+        const after = text.slice(start + target.length);
+
+        return (
+          <>
+            {before}
+            <span style={{ color: "rgb(80, 165, 155)", fontStyle: "italic" }}>{match}</span>
+            {after}
+          </>
+        );
+      };
+
+      return (
+        <span className="relative">
+          {renderText()}
+          {!isComplete && (
+            <span className="ml-1 inline-block h-[0.9em] w-[3px] animate-pulse bg-primary/50 align-middle"></span>
+          )}
+        </span>
+      );
+    }
+
+    const headingRoot = document.getElementById("typewriter-headline");
+    if (headingRoot) {
+      ReactDOM.createRoot(headingRoot).render(<TypewriterHeading />);
+    }
+
     const rootElement = document.getElementById("pdpm-animation-root");
 
     if (rootElement) {
       ReactDOM.createRoot(rootElement).render(<DeclutterHeroAnimation />);
     }
   </script>
+  <script src="./js/navbar.js"></script>
 </body>
 
 </html>

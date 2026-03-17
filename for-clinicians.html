@@ -7,7 +7,7 @@
   <title>Foster Health | Workflow</title>
   <meta name="description"
     content="Learn how Foster reads the full chart, identifies PDPM drivers and query opportunities, and supports MDS coordinators, DONs, and reimbursement teams." />
-  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -18,26 +18,59 @@
     window.tailwind.config = { theme: { extend: { colors: { ink: "#112036", muted: "#516178", line: "#dce4ee", primary: "#0f6e95", "primary-dark": "#085a7a", accent: "#1fa27d", "accent-soft": "#e8f8f3", surface: "#ffffff" }, boxShadow: { soft: "0 16px 40px rgba(22, 40, 66, 0.1)", panel: "0 30px 70px rgba(10, 36, 60, 0.12)" }, fontFamily: { display: ["Space Grotesk", "sans-serif"], body: ["Source Sans 3", "sans-serif"] } } } };
   </script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="../css/styles.css" />
+  <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
 <body class="bg-transparent font-body text-ink">
   <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
     <header
       class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
-      <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="./index.html">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Foster Health
-      </a>
-      <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
-        <a class="site-nav-link font-semibold text-ink" href="./workflow.html">Workflow</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink"
-          href="./analytics.html">Analytics</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./pricing.html">Pricing</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./team.html">Team</a>
-        <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
-          href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request Demo</a>
-      </nav>
+      <div class="flex w-full items-center justify-between px-4 py-3 lg:px-6">
+        <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
+          <span class="brand-mark" aria-hidden="true"></span>
+          Foster Health
+        </a>
+
+        <!-- Hamburger Button -->
+        <button id="menu-toggle"
+          class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-white shadow-sm transition-all hover:bg-sand md:hidden"
+          aria-label="Toggle Menu" aria-expanded="false">
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+        </button>
+
+        <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+          <a class="site-nav-link font-semibold text-ink" href="/for-clinicians">For Clinicians</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-execs">For Execs</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/team">Team</a>
+          <!-- <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/blog">Blog</a> -->
+          <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request Demo</a>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu"
+        class="absolute left-0 right-0 top-full mt-2 hidden origin-top scale-95 flex-col gap-2 rounded-2xl border border-line bg-white p-4 opacity-0 shadow-panel transition-all duration-300 md:hidden">
+        <a class="rounded-xl px-4 py-3 font-semibold text-ink transition hover:bg-sand" href="/for-clinicians">For
+          Clinicians</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-execs">For Execs</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/pricing">Pricing</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/team">Team</a>
+        <!-- <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/blog">Blog</a> -->
+        <div class="mt-2 border-t border-line pt-2">
+          <a class="site-nav-cta font-display block rounded-xl bg-[#112036] px-4 py-4 text-center font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+            Request Demo
+          </a>
+        </div>
+      </div>
     </header>
 
     <main class="space-y-6 lg:space-y-8">
@@ -208,8 +241,8 @@
 
       <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
         <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">How It Works</p>
-        <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight">Give your MDS staff a copilot that fits
-          the reality of skilled nursing.</h2>
+        <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight">Clinical AI that supercharges how MDS
+          coordinators review charts</h2>
         <div class="mt-10 grid gap-6 xl:grid-cols-4">
           <!-- Step 1: Flat Start Arrow -->
           <article class="group relative rise-in" style="animation-delay: 0.1s;">
@@ -286,36 +319,33 @@
       </section>
 
       <section class="grid gap-4 lg:grid-cols-[0.95fr_1.05fr]">
-        <article class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft">
+        <article class="rise-in flex h-full flex-col rounded-[28px] border border-line bg-surface p-6 shadow-soft">
           <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Teams</p>
           <h2 class="font-display mt-2 text-3xl">Built for the people carrying MDS accuracy on their backs</h2>
           <p class="mt-4 text-lg leading-8 text-muted">Foster supports MDS coordinators, DONs, reimbursement leaders,
             and compliance teams with the same shared source of truth.</p>
-          <div class="mt-5 grid gap-3 sm:grid-cols-2">
-            <div class="rounded-2xl border border-line bg-[#f8fbfe] px-4 py-3 font-semibold text-[#334c68]">MDS
-              Coordinators</div>
-            <div class="rounded-2xl border border-line bg-[#f8fbfe] px-4 py-3 font-semibold text-[#334c68]">Directors of
-              Nursing</div>
-            <div class="rounded-2xl border border-line bg-[#f8fbfe] px-4 py-3 font-semibold text-[#334c68]">Clinical
-              Reimbursement Teams</div>
-            <div class="rounded-2xl border border-line bg-[#f8fbfe] px-4 py-3 font-semibold text-[#334c68]">Compliance
-              Leaders</div>
+          <div class="mt-6 rounded-2xl border border-[#d6ede5] bg-[#effaf5] p-4">
+            <p class="font-display text-lg font-bold">No workflow disruption</p>
+            <p class="mt-2 text-sm leading-6 text-[#33566a]">Support coordinators without forcing them into a brand
+              new review process.</p>
           </div>
         </article>
-        <article class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft">
+        <article class="rise-in flex h-full flex-col rounded-[28px] border border-line bg-surface p-6 shadow-soft">
           <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Systems</p>
           <h2 class="font-display mt-2 text-3xl">Works with the systems your team already uses</h2>
-          <div class="mt-5 flex flex-wrap justify-center gap-3">
-            <span class="font-display rounded-2xl border border-line bg-[#f4f7fb] px-4 py-2">PointClickCare</span>
-            <span class="font-display rounded-2xl border border-line bg-[#f4f7fb] px-4 py-2">MatrixCare</span>
-            <span class="font-display rounded-2xl border border-line bg-[#f4f7fb] px-4 py-2">Waystar</span>
-          </div>
-          <div class="mt-6 grid gap-3 sm:grid-cols-2">
-            <div class="rounded-2xl border border-[#d6ede5] bg-[#effaf5] p-4">
-              <p class="font-display text-lg font-bold">No workflow disruption</p>
-              <p class="mt-2 text-sm leading-6 text-[#33566a]">Support coordinators without forcing them into a brand
-                new review process.</p>
+          <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+            <div class="flex h-14 items-center justify-center rounded-2xl border border-line bg-[#f4f7fb] px-5">
+              <img class="h-6 w-auto object-contain" src="./img/Company Logos/pointclickcare.png"
+                alt="PointClickCare logo" />
             </div>
+            <div class="flex h-14 items-center justify-center rounded-2xl border border-line bg-[#f4f7fb] px-5">
+              <img class="h-7 w-auto object-contain" src="./img/Company Logos/matrixcare.svg" alt="MatrixCare logo" />
+            </div>
+            <div class="flex h-14 items-center justify-center rounded-2xl border border-line bg-[#f4f7fb] px-5">
+              <img class="h-5 w-auto object-contain" src="./img/Company Logos/waystar.png" alt="Waystar logo" />
+            </div>
+          </div>
+          <div class="mt-auto pt-6">
             <div class="rounded-2xl border border-line bg-[#f8fbfe] p-4">
               <p class="font-display text-lg font-bold">Audit-ready evidence trail</p>
               <p class="mt-2 text-sm leading-6 text-muted">Every recommendation points back to the documentation behind
@@ -342,9 +372,10 @@
     <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
         <div class="max-w-md">
-          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]"><span class="brand-mark"
-              aria-hidden="true"></span>Foster Health</div>
-          <p class="mt-3 text-sm leading-6 text-muted">AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and defensible reimbursement workflows.</p>
+          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]"><span
+              class="brand-mark" aria-hidden="true"></span>Foster Health</div>
+          <p class="mt-3 text-sm leading-6 text-muted">AI MDS copilot for skilled nursing facilities with chart-backed
+            recommendations, MDS analytics, and defensible reimbursement workflows.</p>
         </div>
         <div>
           <div>
@@ -360,6 +391,7 @@
       </div>
     </footer>
   </div>
+  <script src="./js/navbar.js"></script>
 </body>
 
 </html>

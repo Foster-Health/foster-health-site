@@ -25,19 +25,52 @@
   <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
     <header
       class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
-      <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
-        <span class="brand-mark" aria-hidden="true"></span>
-        Foster Health
-      </a>
-      <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/workflow">Workflow</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink"
-          href="/analytics">Analytics</a>
-        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
-        <a class="site-nav-link font-semibold text-ink" href="/team">Team</a>
-        <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
-          href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request Demo</a>
-      </nav>
+      <div class="flex w-full items-center justify-between px-4 py-3 lg:px-6">
+        <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
+          <span class="brand-mark" aria-hidden="true"></span>
+          Foster Health
+        </a>
+
+        <!-- Hamburger Button -->
+        <button id="menu-toggle"
+          class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-white shadow-sm transition-all hover:bg-sand md:hidden"
+          aria-label="Toggle Menu" aria-expanded="false">
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+        </button>
+
+        <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-clinicians">For
+            Clinicians</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-execs">For Execs</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
+          <a class="site-nav-link font-semibold text-ink" href="/team">Team</a>
+          <!-- <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/blog">Blog</a> -->
+          <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request Demo</a>
+        </nav>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu"
+        class="absolute left-0 right-0 top-full mt-2 hidden origin-top scale-95 flex-col gap-2 rounded-2xl border border-line bg-white p-4 opacity-0 shadow-panel transition-all duration-300 md:hidden">
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-clinicians">For Clinicians</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-execs">For Execs</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/pricing">Pricing</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-ink transition hover:bg-sand" href="/team">Team</a>
+        <!-- <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/blog">Blog</a> -->
+        <div class="mt-2 border-t border-line pt-2">
+          <a class="site-nav-cta font-display block rounded-xl bg-[#112036] px-4 py-4 text-center font-bold text-white transition hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+            Request Demo
+          </a>
+        </div>
+      </div>
     </header>
 
     <main class="space-y-6 lg:space-y-8">
@@ -60,21 +93,20 @@
                 src="./img/Pranav.png" alt="Pranav Garg" />
             </div>
             <div>
-              <h2 class="font-display text-3xl leading-tight text-[#143d88]">Pranav Garg (CEO)</h2>
-              <p class="mt-2 text-xl italic text-[#1f3651]">Sales &amp; Agent Deployment</p>
+              <h2 class="font-display text-3xl leading-tight text-[#143d88]">Pranav Garg</h2>
+              <p class="mt-2 text-xl italic text-[#1f3651]">Co-founder and CEO</p>
               <div class="mt-4 flex flex-wrap items-center gap-4">
                 <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/MD%20Clarity.png"
                   alt="MD Clarity logo" />
-                <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/LedgerUp.png" alt="LedgerUp logo" />
+                <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/Goldman_Sachs.png"
+                  alt="Goldman_Sachs logo" />
                 <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/Capital.png"
                   alt="Lead Edge Capital logo" />
               </div>
-              <ul class="mt-5 space-y-3 text-xl leading-8 text-[#1d2f45]">
-                <li class="flex gap-3"><span class="mt-2 text-2xl text-primary">•</span><span>Led operations at RCM vendor MD
-                    Clarity, and fin-ops platform LedgerUp</span></li>
-                <li class="flex gap-3"><span class="mt-2 text-2xl text-primary">•</span><span>Previously investor at Lead Edge
-                    Capital</span></li>
-              </ul>
+              <p class="mt-5 text-xl leading-8 text-[#1d2f45]">
+                Led operations at RCM vendor MD Clarity and leading healthcare AI companies, previously worked in
+                healthcare & software finance
+              </p>
             </div>
           </div>
         </article>
@@ -86,19 +118,16 @@
                 src="./img/Revanth.png" alt="Revanth Korrapolu" />
             </div>
             <div>
-              <h2 class="font-display text-3xl leading-tight text-[#143d88]">Revanth Korrapolu (CTO)</h2>
-              <p class="mt-2 text-xl italic text-[#1f3651]">Engineering &amp; Design</p>
+              <h2 class="font-display text-3xl leading-tight text-[#143d88]">Revanth Korrapolu</h2>
+              <p class="mt-2 text-xl italic text-[#1f3651]">Co-founder and CTO</p>
               <div class="mt-4 flex flex-wrap items-center gap-4">
                 <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/NextPatient.png"
                   alt="NextPatient logo" />
                 <img class="h-10 w-auto object-contain" src="./img/Company%20Logos/AWS.png" alt="AWS logo" />
               </div>
-              <ul class="mt-5 space-y-3 text-xl leading-8 text-[#1d2f45]">
-                <li class="flex gap-3"><span class="mt-2 text-2xl text-primary">•</span><span>Led launch of new products for
-                    NextPatient as product &amp; engineering lead</span></li>
-                <li class="flex gap-3"><span class="mt-2 text-2xl text-primary">•</span><span>Previously scaled AI language
-                    translation products at Amazon</span></li>
-              </ul>
+              <p class="mt-5 text-xl leading-8 text-[#1d2f45]">
+                Built large-scale AI language systems at Amazon before leading product and engineering at NextPatient
+              </p>
             </div>
           </div>
         </article>
@@ -126,7 +155,8 @@
             <div>
               <h2 class="font-display text-3xl leading-tight text-[#143d88]">Sarah (Barrero) Padua, RN</h2>
               <p class="mt-2 text-xl italic text-[#1f3651]">Clinical advisor</p>
-              <p class="mt-5 text-xl leading-8 text-[#1d2f45]">Senior MDS nurse at PACS</p>
+              <p class="mt-5 text-xl leading-8 text-[#1d2f45]">Senior MDS nurse with 10+ years optimizing PDPM
+                documentation across major SNF operators</p>
             </div>
           </div>
         </article>
@@ -137,7 +167,8 @@
         <div class="flex flex-col items-center gap-4 text-center">
           <div class="max-w-3xl">
             <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">Next Step</p>
-            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight text-[#112036]">Meet the team, then see the product
+            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight text-[#112036]">Meet the team, then
+              see the product
               in action.</h2>
           </div>
           <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
@@ -149,9 +180,10 @@
     <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
         <div class="max-w-md">
-          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]"><span class="brand-mark"
-              aria-hidden="true"></span>Foster Health</div>
-          <p class="mt-3 text-sm leading-6 text-muted">AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and defensible reimbursement workflows.</p>
+          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]"><span
+              class="brand-mark" aria-hidden="true"></span>Foster Health</div>
+          <p class="mt-3 text-sm leading-6 text-muted">AI MDS copilot for skilled nursing facilities with chart-backed
+            recommendations, MDS analytics, and defensible reimbursement workflows.</p>
         </div>
         <div>
           <div>
@@ -167,6 +199,7 @@
       </div>
     </footer>
   </div>
+  <script src="./js/navbar.js"></script>
 </body>
 
 </html>
