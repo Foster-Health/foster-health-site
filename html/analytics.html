@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foster Health | MDS Cross-Validation</title>
+  <meta name="description"
+    content="See how Foster's MDS Cross-Validation engine compares MDS entries against PointClickCare and source documentation before an assessment is submitted." />
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = { theme: { extend: { colors: { ink: "#112036", muted: "#516178", line: "#dce4ee", primary: "#0f6e95", "primary-dark": "#085a7a", accent: "#1fa27d", "accent-soft": "#e8f8f3", surface: "#ffffff", warm: "#fff8ef" }, boxShadow: { soft: "0 16px 40px rgba(22, 40, 66, 0.1)", panel: "0 30px 70px rgba(10, 36, 60, 0.12)" }, fontFamily: { display: ["Space Grotesk", "sans-serif"], body: ["Source Sans 3", "sans-serif"] } } } };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body class="bg-transparent font-body text-ink">
+  <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
+    <header
+      class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
+      <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="./index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Foster Health
+      </a>
+      <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./workflow.html">Workflow</a>
+        <a class="site-nav-link font-semibold text-ink" href="./analytics.html">Analytics</a>
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./pricing.html">Pricing</a>
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./team.html">Team</a>
+        <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+          href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request Demo</a>
+      </nav>
+    </header>
+
+    <main class="space-y-6 lg:space-y-8">
+      <section class="rise-in mt-6 rounded-[28px] border border-line bg-surface p-6 shadow-panel lg:p-8">
+        <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">MDS Cross-Validation</p>
+        <h1 class="font-display mt-2 max-w-4xl text-[clamp(2.3rem,4vw,4.2rem)] leading-[1.02]">
+          Ensure every MDS assessment stands up to scrutiny before it ever leaves your building.
+        </h1>
+        <p class="mt-4 max-w-4xl text-lg leading-8 text-muted">
+          Foster continuously compares your MDS entries against the underlying clinical documentation in
+          PointClickCare and other source systems. Instead of waiting for an audit or retrospective review, your team
+          gets a clear list of issues to fix while the assessment is still actionable.
+        </p>
+      </section>
+
+      <section class="rise-in relative">
+        <!-- Product UI Container -->
+        <div class="overflow-hidden rounded-[32px] border border-line bg-white shadow-panel">
+          <!-- Browser/App Header -->
+          <div class="flex items-center justify-between border-b border-line bg-[#f8fbfe] px-6 py-4">
+            <div class="flex items-center gap-2">
+              <div class="h-3 w-3 rounded-full bg-[#ff5f56]"></div>
+              <div class="h-3 w-3 rounded-full bg-[#ffbd2e]"></div>
+              <div class="h-3 w-3 rounded-full bg-[#27c93f]"></div>
+            </div>
+            <div class="rounded-lg border border-line bg-white px-4 py-1.5 text-xs font-medium text-muted">
+              app.fosterhealth.io/analytics
+            </div>
+            <div class="w-16"></div>
+          </div>
+
+          <div class="flex flex-col lg:flex-row lg:h-[640px]">
+            <!-- App Sidebar -->
+            <aside class="hidden w-64 border-r border-line bg-[#f8fbfe] p-6 lg:flex flex-col">
+              <div class="flex items-center gap-3 px-2 mb-8">
+                <div class="h-8 w-8 rounded-lg bg-ink"></div>
+                <span class="font-display font-bold">Foster</span>
+              </div>
+
+              <nav class="space-y-1">
+                <a href="#"
+                  class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-white hover:text-ink">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  </svg>
+                  Dashboard
+                </a>
+                <a href="#"
+                  class="flex items-center gap-3 rounded-xl bg-white px-4 py-2.5 text-sm font-bold text-ink shadow-sm">
+                  <svg class="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <path d="M3 3v18h18M7 16l4-4 4 4 5-5" />
+                  </svg>
+                  Analytics
+                </a>
+                <a href="#"
+                  class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-white hover:text-ink">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                  Patients
+                </a>
+                <a href="#"
+                  class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-semibold text-muted transition hover:bg-white hover:text-ink">
+                  <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect width="18" height="18" x="3" y="3" rx="2" />
+                    <path d="M3 9h18M9 21V9" />
+                  </svg>
+                  MDS Forms
+                </a>
+              </nav>
+
+              <div class="mt-auto pt-8">
+                <div class="rounded-2xl bg-primary/5 p-4 border border-primary/10">
+                  <p class="text-xs font-bold uppercase tracking-wider text-primary">Need help?</p>
+                  <p class="mt-2 text-xs leading-relaxed text-muted">Call us better understand your analytics.</p>
+                </div>
+              </div>
+            </aside>
+
+            <!-- App Main Content -->
+            <div class="flex-1 lg:overflow-y-auto bg-white p-6 lg:p-10">
+              <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div>
+                  <h2 class="font-display text-3xl font-bold text-ink">Analytics Overview</h2>
+                  <p class="mt-1 text-muted">Tracking reimbursement uplift and MDS accuracy.</p>
+                </div>
+                <div class="flex gap-2">
+                  <button
+                    class="rounded-xl bg-ink px-4 py-2 text-sm font-bold text-white transition hover:bg-black">Full
+                    Report</button>
+                  <button
+                    class="rounded-xl border border-line bg-white px-4 py-2 text-sm font-bold text-ink transition hover:bg-[#f8fbfe]">Export
+                    PDF</button>
+                </div>
+              </div>
+
+              <!-- Top Cards -->
+              <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                <!-- Card 1 -->
+                <article
+                  class="rounded-[24px] border border-line bg-[#f8fbfe]/50 p-6 transition hover:border-primary/30 hover:bg-white">
+                  <p class="text-xs font-bold uppercase tracking-wider text-muted">Residents</p>
+                  <p class="font-display mt-3 text-4xl font-bold leading-none text-ink">8</p>
+                  <p class="mt-3 text-xs font-medium text-muted">Total reviewed YTD</p>
+                </article>
+
+                <!-- Card 2 -->
+                <article
+                  class="rounded-[24px] border border-line bg-[#f8fbfe]/50 p-6 transition hover:border-primary/30 hover:bg-white">
+                  <p class="text-xs font-bold uppercase tracking-wider text-muted">Avg Revenue</p>
+                  <p class="font-display mt-3 text-4xl font-bold leading-none text-blue-600">$815</p>
+                  <p class="mt-3 text-xs font-medium text-muted">Per patient impact</p>
+                </article>
+
+                <!-- Card 3 -->
+                <article
+                  class="rounded-[24px] border border-line bg-[#f8fbfe]/50 p-6 transition hover:border-primary/30 hover:bg-white">
+                  <p class="text-xs font-bold uppercase tracking-wider text-muted">Daily Uplift</p>
+                  <p class="font-display mt-3 text-4xl font-bold leading-none text-[#16a34a]">$43</p>
+                  <p class="mt-3 text-xs font-medium text-muted">Per diem increase</p>
+                </article>
+
+                <!-- Card 4 -->
+                <article
+                  class="rounded-[24px] border border-line bg-[#f8fbfe]/50 p-6 transition hover:border-primary/30 hover:bg-white">
+                  <p class="text-xs font-bold uppercase tracking-wider text-muted">Total Gain</p>
+                  <p class="font-display mt-3 text-4xl font-bold leading-none text-[#16a34a]">$6.5k</p>
+                  <p class="mt-3 text-xs font-medium text-muted">Total YTD uplift</p>
+                </article>
+              </div>
+
+              <!-- Bottom Card -->
+              <div class="mt-10">
+                <div class="mb-5 flex items-center justify-between">
+                  <h3 class="font-display text-xl font-bold text-ink">Patient Deep Dives</h3>
+                  <a class="text-sm font-bold text-primary hover:underline">View all</a>
+                </div>
+
+                <div class="overflow-hidden rounded-[24px] border border-line bg-white shadow-sm">
+                  <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                      <thead
+                        class="bg-[#f8fbfe] text-[11px] font-bold uppercase tracking-wider text-muted border-b border-line">
+                        <tr>
+                          <th class="px-6 py-4">Patient & Room</th>
+                          <th class="px-6 py-4">Admit Date</th>
+                          <th class="px-6 py-4">Length of Stay</th>
+                          <th class="px-6 py-4">Assessments</th>
+                          <th class="px-6 py-4">Uplift</th>
+                          <th class="px-6 py-4"></th>
+                        </tr>
+                      </thead>
+                      <tbody class="divide-y divide-line">
+                        <!-- Dorothy Martinez -->
+                        <tr class="group transition hover:bg-[#f8fbfe]/50 cursor-pointer"
+                          onclick="toggleRow('dorothy-details', this)">
+                          <td class="px-6 py-5">
+                            <p class="font-bold text-ink">Dorothy Martinez</p>
+                            <p class="text-xs font-medium text-muted">Room 315B</p>
+                          </td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">Jan 05, 2026</td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">8 days</td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">1 assessment</td>
+                          <td class="px-6 py-5 font-bold text-[#16a34a]">+$680</td>
+                          <td class="px-6 py-5 text-muted">
+                            <svg class="h-5 w-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2">
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </td>
+                        </tr>
+                        <tr id="dorothy-details" class="hidden bg-[#fcfdfe]">
+                          <td colspan="6" class="px-8 py-10">
+                            <div class="space-y-6">
+                              <div>
+                                <h4 class="font-display text-lg font-bold text-ink">MDS Accuracy Edits</h4>
+                                <p class="text-sm text-muted">Specific changes made through Foster Health and associated
+                                  per diem uplift</p>
+                              </div>
+
+                              <div class="overflow-hidden rounded-2xl border border-line bg-white">
+                                <table class="w-full text-left text-sm">
+                                  <thead
+                                    class="bg-[#f8fbfe] text-[10px] font-bold uppercase tracking-wider text-muted border-b border-line">
+                                    <tr>
+                                      <th class="px-5 py-3">Edit Date</th>
+                                      <th class="px-5 py-3">Section</th>
+                                      <th class="px-5 py-3">Item Code</th>
+                                      <th class="px-5 py-3">Change Summary</th>
+                                      <th class="px-5 py-3 text-right">Per Diem Uplift</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="divide-y divide-line">
+                                    <tr>
+                                      <td class="px-5 py-4 text-muted">2026-01-10</td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-[#f1f5f9] px-2 py-1 text-[10px] font-bold text-muted">Section
+                                          I</span>
+                                      </td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600">I4200</span>
+                                      </td>
+                                      <td class="px-5 py-4 font-medium text-ink">
+                                        COPD unspecified <span class="mx-1 text-muted">→</span> COPD with acute
+                                        exacerbation (J44.1)
+                                      </td>
+                                      <td class="px-5 py-4 text-right font-bold text-[#16a34a]">+$85/day</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+
+                              <div
+                                class="flex items-center justify-between rounded-xl border border-accent-soft bg-accent-soft px-5 py-4">
+                                <p class="text-sm font-semibold text-accent"><span class="font-bold">Total revenue
+                                    uplift for Dorothy Martinez</span> (8 days × average per diem increase)</p>
+                                <p class="text-lg font-bold text-accent">$680</p>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <!-- James Wilson -->
+                        <tr class="group transition hover:bg-[#f8fbfe]/50 cursor-pointer"
+                          onclick="toggleRow('james-details', this)">
+                          <td class="px-6 py-5">
+                            <p class="font-bold text-ink">James Wilson</p>
+                            <p class="text-xs font-medium text-muted">Room 412A</p>
+                          </td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">Jan 12, 2026</td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">14 days</td>
+                          <td class="px-6 py-5 text-sm font-medium text-ink">2 assessments</td>
+                          <td class="px-6 py-5 font-bold text-[#16a34a]">+$1,240</td>
+                          <td class="px-6 py-5 text-muted">
+                            <svg class="h-5 w-5 transition-transform duration-300" viewBox="0 0 24 24" fill="none"
+                              stroke="currentColor" stroke-width="2">
+                              <path d="m9 18 6-6-6-6" />
+                            </svg>
+                          </td>
+                        </tr>
+                        <tr id="james-details" class="hidden bg-[#fcfdfe]">
+                          <td colspan="6" class="px-8 py-10">
+                            <div class="space-y-6">
+                              <div>
+                                <h4 class="font-display text-lg font-bold text-ink">MDS Accuracy Edits</h4>
+                                <p class="text-sm text-muted">Specific changes made through Foster Health and associated
+                                  per diem uplift</p>
+                              </div>
+
+                              <div class="overflow-hidden rounded-2xl border border-line bg-white">
+                                <table class="w-full text-left text-sm">
+                                  <thead
+                                    class="bg-[#f8fbfe] text-[10px] font-bold uppercase tracking-wider text-muted border-b border-line">
+                                    <tr>
+                                      <th class="px-5 py-3">Edit Date</th>
+                                      <th class="px-5 py-3">Section</th>
+                                      <th class="px-5 py-3">Item Code</th>
+                                      <th class="px-5 py-3">Change Summary</th>
+                                      <th class="px-5 py-3 text-right">Per Diem Uplift</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="divide-y divide-line">
+                                    <tr>
+                                      <td class="px-5 py-4 text-muted">2026-01-14</td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-[#f1f5f9] px-2 py-1 text-[10px] font-bold text-muted">Section
+                                          I</span>
+                                      </td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600">I2700</span>
+                                      </td>
+                                      <td class="px-5 py-4 font-medium text-ink">
+                                        CHF unspecified <span class="mx-1 text-muted">→</span> Acute on chronic systolic
+                                        heart failure
+                                      </td>
+                                      <td class="px-5 py-4 text-right font-bold text-[#16a34a]">+$45/day</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="px-5 py-4 text-muted">2026-01-18</td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-[#f1f5f9] px-2 py-1 text-[10px] font-bold text-muted">Section
+                                          GG</span>
+                                      </td>
+                                      <td class="px-5 py-4">
+                                        <span
+                                          class="rounded-md bg-blue-50 px-2 py-1 text-[10px] font-bold text-blue-600">GG0170C</span>
+                                      </td>
+                                      <td class="px-5 py-4 font-medium text-ink">
+                                        Walk 50ft: Substantial assist <span class="mx-1 text-muted">→</span>
+                                        Supervision/touching assist
+                                      </td>
+                                      <td class="px-5 py-4 text-right font-bold text-[#16a34a]">+$32/day</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+
+                              <div
+                                class="flex items-center justify-between rounded-xl border border-accent-soft bg-accent-soft px-5 py-4">
+                                <p class="text-sm font-semibold text-accent"><span class="font-bold">Total revenue
+                                    uplift for James Wilson</span> (14 days × average per diem increase)</p>
+                                <p class="text-lg font-bold text-accent">$1,240</p>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <script>
+                  function toggleRow(id, el) {
+                    const row = document.getElementById(id);
+                    const svg = el.querySelector('svg');
+                    const isHidden = row.classList.contains('hidden');
+
+                    // Toggle visibility
+                    row.classList.toggle('hidden');
+
+                    // Rotate arrow
+                    if (isHidden) {
+                      svg.classList.add('rotate-180');
+                    } else {
+                      svg.classList.remove('rotate-180');
+                    }
+                  }
+                </script>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Floating Element -->
+        <div
+          class="pointer-events-none absolute -right-6 -top-6 hidden h-32 w-32 items-center justify-center rounded-full bg-accent text-white shadow-panel lg:flex rotate-12">
+          <div class="text-center">
+            <p class="text-xs font-bold uppercase tracking-tighter">ROI</p>
+            <p class="font-display text-2xl font-bold">12x</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
+        <div class="grid gap-4 lg:grid-cols-3">
+          <article class="rounded-[24px] border border-line bg-[#f8fbfe] p-5">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Proactive</p>
+            <h2 class="font-display mt-3 text-2xl">Fix issues before surveyors or auditors find them</h2>
+            <p class="mt-3 text-muted">The goal is not to review history. It is to catch problems while there is still
+              time to act.</p>
+          </article>
+          <article class="rounded-[24px] border border-line bg-[#f8fbfe] p-5">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Defensible</p>
+            <h2 class="font-display mt-3 text-2xl">Tie every recommendation back to the chart</h2>
+            <p class="mt-3 text-muted">If your team is going to change an assessment, they need the evidence trail in
+              front of them.</p>
+          </article>
+          <article class="rounded-[24px] border border-line bg-[#f8fbfe] p-5">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Practical</p>
+            <h2 class="font-display mt-3 text-2xl">Support strong coordinators instead of replacing them</h2>
+            <p class="mt-3 text-muted">Great MDS nurses outperform software when they use judgment. Foster helps them
+              use that judgment faster.</p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="rise-in rounded-[28px] bg-gradient-to-br from-primary to-[#125474] px-6 py-8 text-[#112036] shadow-panel lg:px-8">
+        <div class="flex flex-col items-center gap-4 text-center">
+          <div class="max-w-3xl">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">Next Step</p>
+            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight text-[#112036]">See cross-validation
+              in a real MDS workflow.</h2>
+          </div>
+          <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
+            href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Book a Demo</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div class="max-w-md">
+          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]"><span class="brand-mark"
+              aria-hidden="true"></span>Foster Health</div>
+          <p class="mt-3 text-sm leading-6 text-muted">AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and defensible reimbursement workflows.</p>
+        </div>
+        <div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Contact</p>
+            <div class="mt-3 grid gap-2 text-sm text-muted"><a class="transition hover:text-ink"
+                href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Contact
+                Us</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-line pt-4 text-sm text-muted">
+        <span>&copy; 2026 Foster Health</span>
+      </div>
+    </footer>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,846 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foster Health | AI MDS Copilot for Skilled Nursing Facilities</title>
+  <meta name="description"
+    content="Foster Health is an AI MDS copilot for skilled nursing facilities with MDS cross-validation, evidence-backed recommendations, and defensible reimbursement workflows." />
+  <link rel="icon" type="image/svg+xml" href="../img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#112036",
+            muted: "#516178",
+            line: "#dce4ee",
+            primary: "#0f6e95",
+            "primary-dark": "#085a7a",
+            accent: "#1fa27d",
+            "accent-soft": "#e8f8f3",
+            surface: "#ffffff",
+            sand: "#f9fbfd",
+          },
+          boxShadow: {
+            soft: "0 16px 40px rgba(22, 40, 66, 0.1)",
+            panel: "0 30px 70px rgba(10, 36, 60, 0.12)",
+          },
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+            body: ["Source Sans 3", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../css/styles.css" />
+</head>
+
+<body class="bg-transparent font-body text-ink">
+  <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
+    <header
+      class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
+      <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="./index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        Foster Health
+      </a>
+      <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./workflow.html">Workflow</a>
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink"
+          href="./analytics.html">Analytics</a>
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./pricing.html">Pricing</a>
+        <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="./team.html">Team</a>
+        <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+          href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+          Request Demo
+        </a>
+      </nav>
+    </header>
+
+    <main class="space-y-6 lg:space-y-8">
+      <section
+        class="rise-in mt-6 grid gap-5 overflow-hidden rounded-[28px] border border-line/80 bg-surface p-6 shadow-panel lg:grid-cols-[1.1fr_0.9fr] lg:p-8">
+        <div class="space-y-6">
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="rounded-full border border-primary/15 bg-[#eaf6fb] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-primary">
+              AI MDS Copilot
+            </span>
+            <span
+              class="rounded-full border border-line bg-[#f2f6fa] px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
+              Built for Skilled Nursing
+            </span>
+          </div>
+
+          <div class="space-y-4">
+            <h1 class="font-display max-w-[12ch] text-[clamp(2.4rem,4vw,4.9rem)] leading-[0.98]">
+              AI MDS Copilot for Skilled Nursing Facilities
+            </h1>
+            <p class="max-w-[38rem] text-[1.35rem] leading-tight text-[#1f3651]">
+              Designed to think like the best MDS nurses.
+            </p>
+            <p class="max-w-[42rem] text-lg leading-8 text-muted">
+              Foster reads the full chart and turns clinical signals into physician queries, PDPM drivers, and
+              audit-ready evidence before the assessment closes.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 pt-1">
+            <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
+              href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+              Request Demo
+            </a>
+          </div>
+        </div>
+
+        <aside
+          class="relative overflow-hidden rounded-[24px] border border-[#d8e6f0] bg-[linear-gradient(180deg,#f8fcff_0%,#ffffff_52%,#f5fbf8_100%)] p-5"
+          aria-label="Animated preview of Foster decluttering clinical documentation into a calm MDS assistant workflow">
+          <div id="pdpm-animation-root"></div>
+        </aside>
+      </section>
+
+      <section class="grid gap-4 md:grid-cols-3" aria-label="Key outcomes">
+        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Revenue Impact</p>
+          <strong class="font-display mt-3 block text-3xl">Up to 10%</strong>
+          <p class="mt-2 text-muted">PDPM uplift identified through missed drivers, query opportunities, and cleaner
+            documentation.</p>
+        </article>
+        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Cross-Validation</p>
+          <strong class="font-display mt-3 block text-3xl">Evidence-backed</strong>
+          <p class="mt-2 text-muted">Every recommendation is paired with source documentation and a defensible next
+            step.</p>
+        </article>
+        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Efficiency</p>
+          <strong class="font-display mt-3 block text-3xl">Hours reduced</strong>
+          <p class="mt-2 text-muted">Less chart hunting, fewer retrospective reviews, and more time for judgment calls.
+          </p>
+        </article>
+      </section>
+
+      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
+        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+          <div class="max-w-3xl">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Platform Capabilities</p>
+            <h2 class="font-display mt-2 text-[clamp(2.1rem,3.2vw,3.2rem)] leading-tight">
+              Engineered for clinical precision and operational speed.
+            </h2>
+            <p class="mt-4 text-lg leading-8 text-muted">
+              Foster turns chart data into audit-ready workflows, ensuring your facility is always protected and
+              properly
+              reimbursed.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 grid gap-6 lg:grid-cols-2">
+          <!-- Card 1: MDS (Greenish) -->
+          <div
+            class="rise-in group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-line bg-[#f0f9f6] p-8">
+            <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-emerald-400/20 blur-3xl"></div>
+            <div class="relative z-10">
+              <span
+                class="inline-block rounded-full bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2d5a4c] shadow-sm">MDS</span>
+
+              <div
+                class="mt-8 overflow-hidden rounded-2xl border border-white/60 bg-white/40 shadow-panel backdrop-blur-sm">
+                <div class="border-b border-white/40 bg-white/50 px-4 py-2">
+                  <p class="text-[10px] font-bold uppercase text-muted/80">Section I: Active Diagnosis</p>
+                </div>
+                <div class="space-y-2 p-3">
+                  <!-- Row 1 -->
+                  <div
+                    class="solve-group-1 flex items-center justify-between rounded-xl border border-white/40 bg-white/40 p-3 opacity-50 text-xs">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="solve-check flex h-5 w-5 items-center justify-center rounded-md border border-line bg-white/50 text-transparent">
+                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                          </path>
+                        </svg>
+                      </div>
+                      <span class="solve-text font-semibold text-muted">I1700 Schizophrenia</span>
+                    </div>
+                    <span class="solve-link font-bold text-muted/60">View Evidence →</span>
+                  </div>
+                  <!-- Row 2 -->
+                  <div
+                    class="solve-group-2 flex items-center justify-between rounded-xl border border-white/40 bg-white/40 p-3 opacity-50 text-xs">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="solve-check flex h-5 w-5 items-center justify-center rounded-md border border-line bg-white/50 text-transparent">
+                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                          </path>
+                        </svg>
+                      </div>
+                      <span class="solve-text font-semibold text-muted">I2900 Dementia</span>
+                    </div>
+                    <span class="solve-link font-bold text-muted/60">View Evidence →</span>
+                  </div>
+                  <!-- Row 3 -->
+                  <div
+                    class="solve-group-3 flex items-center justify-between rounded-xl border border-white/40 bg-white/40 p-3 opacity-50 text-xs">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="solve-check flex h-5 w-5 items-center justify-center rounded-md border border-line bg-white/50 text-transparent">
+                        <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7">
+                          </path>
+                        </svg>
+                      </div>
+                      <span class="solve-text font-semibold text-muted">I4200 Pneumonia</span>
+                    </div>
+                    <span class="solve-link font-bold text-muted/60">View Evidence →</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between border-t border-white/40 bg-[#f0ebf8]/60 px-4 py-3">
+                  <div>
+                    <p class="text-[9px] font-bold uppercase text-[#634992]">PDPM Classification</p>
+                    <p class="text-[13px] font-bold text-[#4c3479]">Special Care High</p>
+                  </div>
+                  <button class="rounded-lg bg-[#4c3479] px-3 py-1.5 text-[11px] font-bold text-white shadow-sm">Open in
+                    PCC</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative z-10 mt-10">
+              <h3 class="font-display text-2xl font-bold text-ink">AI-assisted MDS coding</h3>
+              <p class="mt-1 text-muted">Surface clinical evidence for every MDS section and item</p>
+            </div>
+          </div>
+
+          <!-- Card 2: ADR (Red/Rose) -->
+          <div
+            class="rise-in group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-line bg-[#fff1f2] p-8">
+            <div class="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-red-400/15 blur-3xl"></div>
+            <div
+              class="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-rose-400/10 blur-[100px]">
+            </div>
+
+            <div class="relative z-10 text-center">
+              <div class="text-left">
+                <span
+                  class="inline-block rounded-full bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-red-800 shadow-sm">ADR</span>
+              </div>
+
+              <div class="mt-12 flex flex-col items-center justify-center space-y-3 pb-8">
+                <div
+                  class="flex h-16 w-16 items-center justify-center rounded-xl bg-white/80 text-red-500 shadow-soft backdrop-blur-sm">
+                  <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                    </path>
+                  </svg>
+                </div>
+                <div class="flex flex-col gap-1.5">
+                  <span
+                    class="rounded-full border border-red-50 bg-white/90 px-5 py-2 text-xs font-bold text-ink shadow-sm">
+                    • Admission Assessment</span>
+                  <span
+                    class="rounded-full border border-red-50 bg-white/90 px-5 py-2 text-xs font-bold text-ink shadow-sm">
+                    • Discharge Summary</span>
+                  <span
+                    class="rounded-full border border-red-50 bg-white/90 px-5 py-2 text-xs font-bold text-ink shadow-sm">
+                    • Physician Orders</span>
+                  <span
+                    class="rounded-full border border-red-50 bg-white/90 px-5 py-2 text-xs font-bold text-ink shadow-sm">
+                    • Nursing Notes</span>
+                </div>
+                <div class="pt-4">
+                  <button
+                    class="flex items-center gap-2 rounded-xl border border-white bg-white px-6 py-3 text-xs font-bold text-red-900 shadow-soft hover:bg-red-50 transition-colors">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                    </svg>
+                    Download ADR Package
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative z-10">
+              <h3 class="font-display text-2xl font-bold text-ink">Automated ADR preparation</h3>
+              <p class="mt-1 text-muted">Compile audit packages in minutes</p>
+            </div>
+          </div>
+
+          <!-- Card 3: Pulse (Light Teal/Blue) -->
+          <div
+            class="rise-in group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-line bg-[#f0f7f9] p-8">
+            <div class="absolute -left-20 -bottom-20 h-64 w-64 rounded-full bg-sky-400/20 blur-3xl"></div>
+            <div class="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-teal-400/10 blur-3xl"></div>
+
+            <div class="relative z-10 text-left">
+              <span
+                class="inline-block rounded-full bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">ALERTS</span>
+
+              <div class="mt-8 space-y-3">
+                <div
+                  class="flex items-center justify-between rounded-xl border border-white/60 bg-white/50 p-3 shadow-panel backdrop-blur-sm">
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></div>
+                    <span class="text-xs font-bold text-ink">IV Fluids Started</span>
+                  </div>
+                  <span class="text-[10px] font-bold text-muted/60">2h ago</span>
+                </div>
+                <div
+                  class="flex items-center justify-between rounded-xl border border-white/60 bg-white/50 p-3 shadow-panel backdrop-blur-sm">
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-orange-500 animate-pulse"></div>
+                    <span class="text-xs font-bold text-ink">Weight Change</span>
+                  </div>
+                  <span class="text-[10px] font-bold text-muted/60">6h ago</span>
+                </div>
+                <div
+                  class="flex items-center justify-between rounded-xl border border-white/60 bg-white/50 p-3 shadow-panel backdrop-blur-sm">
+                  <div class="flex items-center gap-3">
+                    <div class="h-2 w-2 rounded-full bg-emerald-500"></div>
+                    <span class="text-xs font-bold text-ink">O2 Stabilized</span>
+                  </div>
+                  <span class="text-[10px] font-bold text-muted/60">1d ago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative z-10 mt-12">
+              <h3 class="font-display text-2xl font-bold text-ink">Clinical monitoring</h3>
+              <p class="mt-1 text-muted">Never miss an IPA trigger</p>
+            </div>
+          </div>
+
+          <!-- Card 4: Forms (Yellow/Amber) -->
+          <div
+            class="rise-in group relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-line bg-[#fdfbe9] p-8">
+            <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-yellow-400/20 blur-3xl"></div>
+            <div class="absolute -left-10 bottom-0 h-40 w-40 rounded-full bg-amber-400/15 blur-3xl"></div>
+
+            <div class="relative z-10">
+              <span
+                class="inline-block rounded-full bg-white/80 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#854d0e] shadow-sm">ACTIONS</span>
+
+              <div class="mt-8 space-y-3">
+                <!-- Row 1: Completed -->
+                <div
+                  class="flex items-center justify-between rounded-xl border border-amber-100/50 bg-white p-3 shadow-panel">
+                  <div>
+                    <span class="block text-xs font-bold text-ink">Diagnosis Confirmation: Diabetes w/ Neuropathy</span>
+                    <span class="text-[10px] text-muted">Supported by nursing + MAR</span>
+                  </div>
+                  <div
+                    class="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                    <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Row 2: Action Required -->
+                <div
+                  class="flex items-center justify-between rounded-xl border border-amber-100/50 bg-white p-3 shadow-panel">
+                  <div>
+                    <span class="block text-xs font-bold text-ink">Physician Query: CHF Specificity</span>
+                    <span class="text-[10px] text-muted">Impacts PDPM classification</span>
+                  </div>
+                  <button
+                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm hover:bg-[#92400e] transition-colors">Review
+                    & Send</button>
+                </div>
+
+                <!-- Row 3: Action Required -->
+                <div
+                  class="flex items-center justify-between rounded-xl border border-amber-100/50 bg-white p-3 shadow-panel">
+                  <div>
+                    <span class="block text-xs font-bold text-ink">IPA Trigger: Functional Decline (Section GG)</span>
+                    <span class="text-[10px] text-muted">Detected from therapy + vitals</span>
+                  </div>
+                  <button
+                    class="ml-4 shrink-0 rounded-lg bg-[#b45309] px-3 py-1 text-[10px] font-bold text-white shadow-sm hover:bg-[#92400e] transition-colors">Initiate
+                    IPA</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative z-10 mt-12">
+              <h3 class="font-display text-2xl font-bold text-ink">Physician-backed validation</h3>
+              <p class="mt-1 text-muted">Streamlined electronic signatures</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="rise-in rounded-[28px] bg-gradient-to-br from-primary to-[#125474] px-6 py-8 text-[#112036] shadow-panel lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">See It In Action</p>
+            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3.2rem)] leading-tight text-[#112036]">
+              Supercharge your MDS staff with an AI copilot built for defensible reimbursement.
+            </h2>
+            <p class="mt-4 max-w-[40rem] text-lg leading-8 text-[#112036]/85">
+              Book time with Foster Health to see how cross-validation, query guidance, and PDPM driver detection fit
+              into your MDS workflow.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3 lg:justify-end">
+            <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
+              href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+              Ask for Demo
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div class="max-w-md">
+          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Foster Health
+          </div>
+          <p class="mt-3 text-sm leading-6 text-muted">
+            AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and
+            defensible reimbursement workflows.
+          </p>
+        </div>
+        <div>
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Contact</p>
+            <div class="mt-3 grid gap-2 text-sm text-muted">
+              <a class="transition hover:text-ink" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank"
+                rel="noreferrer">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-line pt-4 text-sm text-muted">
+        <span>&copy; 2026 Foster Health</span>
+      </div>
+    </footer>
+  </div>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel" data-presets="react">
+    const { useEffect, useRef, useState } = React;
+
+    const DOCUMENTS = [
+      {
+        id: "gg-draft",
+        type: "MDS",
+        title: "MDS Section GG",
+        snippet: ["GG0170C1 transfer entry incomplete", "Therapy note suggests higher assist level", "Coordinator review pending"],
+        time: "2h ago",
+        status: "Needs Review",
+        x: 22,
+        y: 22,
+        rotate: -7,
+        zIndex: 10,
+      },
+      {
+        id: "physician-query",
+        type: "Query",
+        title: "Physician Query",
+        snippet: ["CHF specificity not documented", "Draft query for acute vs chronic status", "Awaiting provider response"],
+        time: "Today 9:12 AM",
+        status: "Incomplete",
+        x: 49,
+        y: 18,
+        rotate: -3,
+        zIndex: 12,
+      },
+      {
+        id: "nursing-note",
+        type: "Nursing",
+        title: "Nursing Progress Note",
+        snippet: ["Resident reports numbness in both feet", "Blood sugars elevated overnight", "Skin intact, gait unsteady"],
+        time: "Yesterday 4:32 PM",
+        status: "Open",
+        x: 72,
+        y: 20,
+        rotate: 5,
+        zIndex: 9,
+      },
+      {
+        id: "therapy-summary",
+        type: "Therapy",
+        title: "Therapy Evaluation",
+        snippet: ["Sit-to-stand requires mod assist", "Section GG update recommended", "Functional decline noted"],
+        time: "1h ago",
+        status: "Updated",
+        x: 78,
+        y: 39,
+        rotate: 7,
+        zIndex: 11,
+      },
+      {
+        id: "mar-excerpt",
+        type: "MAR",
+        title: "MAR Excerpt",
+        snippet: ["Gabapentin 300mg BID active", "Insulin sliding scale documented", "Pain med review complete"],
+        time: "Today 6:40 AM",
+        status: "Supported",
+        x: 24,
+        y: 44,
+        rotate: -4,
+        zIndex: 8,
+      },
+      {
+        id: "diagnosis-list",
+        type: "ICD-10",
+        title: "Diagnosis List",
+        snippet: ["E11.42 Diabetes w/ polyneuropathy", "I50.9 Heart failure unspecified", "Review coding specificity"],
+        time: "Yesterday",
+        status: "Needs Review",
+        x: 50,
+        y: 48,
+        rotate: 2,
+        zIndex: 13,
+      },
+      {
+        id: "adl-sheet",
+        type: "ADL",
+        title: "ADL Flow Sheet",
+        snippet: ["Bed mobility requires setup assist", "Toilet hygiene increased support", "Mismatch with MDS draft"],
+        time: "3h ago",
+        status: "Flagged",
+        x: 72,
+        y: 55,
+        rotate: -2,
+        zIndex: 7,
+      },
+      {
+        id: "discharge-summary",
+        type: "Hospital",
+        title: "Discharge Summary",
+        snippet: ["Neuropathy history documented", "Recent CHF exacerbation mentioned", "Medication changes reconciled"],
+        time: "Yesterday 11:08 AM",
+        status: "Imported",
+        x: 33,
+        y: 65,
+        rotate: 6,
+        zIndex: 6,
+      },
+      {
+        id: "care-plan",
+        type: "Plan",
+        title: "Care Plan Addendum",
+        snippet: ["Fall risk increased after transfer", "Monitor weight and edema daily", "Nursing follow-up assigned"],
+        time: "Today",
+        status: "Open",
+        x: 58,
+        y: 70,
+        rotate: -6,
+        zIndex: 5,
+      },
+      {
+        id: "lab-results",
+        type: "Labs",
+        title: "Lab Results",
+        snippet: ["A1c elevated from prior baseline", "Glucose trend persists", "Clinical support available"],
+        time: "This morning",
+        status: "New",
+        x: 18,
+        y: 70,
+        rotate: 4,
+        zIndex: 4,
+      },
+      {
+        id: "query-draft",
+        type: "Draft",
+        title: "Coordinator Draft",
+        snippet: ["Follow-up needed for CHF specificity", "Section I update not submitted", "Review before ARD closes"],
+        time: "25m ago",
+        status: "Pending",
+        x: 84,
+        y: 69,
+        rotate: 3,
+        zIndex: 3,
+      },
+    ];
+
+    const CHAT_MESSAGES = [
+      {
+        id: "intro",
+        tone: "assistant",
+        text: "Hi! I reviewed Olena Rodriguez's chart.",
+      },
+      {
+        id: "dx",
+        tone: "support",
+        text: "Suggested diagnosis: Diabetes with peripheral neuropathy (supported by notes) 🔍",
+      },
+      {
+        id: "gg",
+        tone: "support",
+        text: "Section GG updated based on therapy documentation 🎯",
+      },
+      {
+        id: "query",
+        tone: "warning",
+        text: "Physician query drafted for CHF specificity ⏳",
+      },
+      {
+        id: "docs",
+        tone: "warning",
+        text: "Missing documentation flagged for review ⚠️",
+      },
+      {
+        id: "ready",
+        tone: "assistant",
+        text: "MDS ready for coordinator review ✅",
+      },
+    ];
+
+    function getCardTransform(doc, phase) {
+      const horizontalDirection = doc.x < 50 ? -1 : 1;
+      const verticalDirection = doc.y < 50 ? -1 : 1;
+      const xOffset = horizontalDirection * (28 + Math.abs(doc.x - 50) * 1.25);
+      const yOffset = verticalDirection * (18 + Math.abs(doc.y - 50) * 1.1);
+
+      if (phase === "clutter") {
+        return `translate(-50%, -50%) translate(0px, 0px) rotate(${doc.rotate}deg) scale(1)`;
+      }
+
+      if (phase === "clearing") {
+        return `translate(-50%, -50%) translate(${xOffset}px, ${yOffset}px) rotate(${doc.rotate + horizontalDirection * 3}deg) scale(0.92)`;
+      }
+
+      return `translate(-50%, -50%) translate(${xOffset + horizontalDirection * 18}px, ${yOffset + verticalDirection * 12}px) rotate(${doc.rotate + horizontalDirection * 4}deg) scale(0.84)`;
+    }
+
+    function getStatusTone(status) {
+      if (status === "Supported" || status === "Updated" || status === "Imported") {
+        return "bg-[#eaf7f2] text-[#21634d]";
+      }
+
+      if (status === "Needs Review" || status === "Flagged" || status === "Incomplete") {
+        return "bg-[#fff4e7] text-[#8a5a17]";
+      }
+
+      return "bg-[#eef4fa] text-[#4d637d]";
+    }
+
+    function DeclutterHeroAnimation() {
+      const containerRef = useRef(null);
+      const [phase, setPhase] = useState("clutter");
+      const [visibleMessages, setVisibleMessages] = useState(0);
+      const [reducedMotion, setReducedMotion] = useState(false);
+      const [hasStarted, setHasStarted] = useState(false);
+
+      useEffect(() => {
+        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+        const syncMotionPreference = () => setReducedMotion(mediaQuery.matches);
+
+        syncMotionPreference();
+
+        if (mediaQuery.addEventListener) {
+          mediaQuery.addEventListener("change", syncMotionPreference);
+          return () => mediaQuery.removeEventListener("change", syncMotionPreference);
+        }
+
+        mediaQuery.addListener(syncMotionPreference);
+        return () => mediaQuery.removeListener(syncMotionPreference);
+      }, []);
+
+      useEffect(() => {
+        const node = containerRef.current;
+
+        if (!node || hasStarted) {
+          return undefined;
+        }
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
+                setHasStarted(true);
+              }
+            });
+          },
+          {
+            threshold: [0.35, 0.6],
+          }
+        );
+
+        observer.observe(node);
+
+        return () => observer.disconnect();
+      }, [hasStarted]);
+
+      useEffect(() => {
+        if (!hasStarted) {
+          return undefined;
+        }
+
+        if (reducedMotion) {
+          setPhase("clean");
+          setVisibleMessages(CHAT_MESSAGES.length);
+          return undefined;
+        }
+
+        setPhase("clutter");
+        setVisibleMessages(0);
+
+        const clearingTimer = window.setTimeout(() => setPhase("clearing"), 3000);
+        const cleanTimer = window.setTimeout(() => setPhase("clean"), 4700);
+
+        return () => {
+          window.clearTimeout(clearingTimer);
+          window.clearTimeout(cleanTimer);
+        };
+      }, [hasStarted, reducedMotion]);
+
+      useEffect(() => {
+        if (!hasStarted || phase !== "clean") {
+          return undefined;
+        }
+
+        if (reducedMotion) {
+          setVisibleMessages(CHAT_MESSAGES.length);
+          return undefined;
+        }
+
+        setVisibleMessages(1);
+
+        const timers = CHAT_MESSAGES.slice(1).map((_, index) =>
+          window.setTimeout(() => {
+            setVisibleMessages(index + 2);
+          }, (index + 1) * 950)
+        );
+
+        return () => timers.forEach((timer) => window.clearTimeout(timer));
+      }, [hasStarted, phase, reducedMotion]);
+
+      return (
+        <>
+          <style>{`
+              @keyframes bubble-pop {
+                0% {
+                  opacity: 0;
+                  transform: translateY(14px) scale(0.985);
+                }
+                100% {
+                  opacity: 1;
+                  transform: translateY(0) scale(1);
+                }
+              }
+
+              .declutter-bubble {
+                animation: bubble-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+              }
+            `}</style>
+
+          <section
+            ref={containerRef}
+            aria-label="Animated preview of scattered clinical documents clearing into a calm MDS assistant chat experience"
+            className="relative min-h-[26rem] overflow-hidden rounded-[20px] border border-[#e3e6e9] bg-[#f4f1ed] shadow-[inset_0_1px_0_rgba(255,255,255,0.85),_0_20px_40px_rgba(17,32,54,0.06)] sm:min-h-[30rem]"
+          >
+            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.85),transparent_42%)]" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/60 to-transparent" />
+
+            {DOCUMENTS.map((doc, index) => (
+              <article
+                key={doc.id}
+                className="absolute w-[10.5rem] rounded-2xl border border-[#5a6b7d]/22 bg-[#fffefd] p-3 shadow-[0_14px_28px_rgba(17,32,54,0.08)] transition-all duration-700 ease-out sm:w-[11.5rem] md:w-[12.5rem]"
+                style={{
+                  left: `${doc.x}%`,
+                  top: `${doc.y}%`,
+                  zIndex: doc.zIndex,
+                  opacity: phase === "clutter" ? 1 : 0,
+                  transform: getCardTransform(doc, phase),
+                  transitionDelay: reducedMotion ? "0ms" : `${index * 85}ms`,
+                }}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-[#3b7d96]">{doc.type}</p>
+                    <h3 className="mt-1 font-display text-sm leading-tight text-[#1d3551]">{doc.title}</h3>
+                  </div>
+                  <span className={`rounded-full px-2 py-1 text-[0.58rem] font-bold uppercase tracking-[0.08em] ${getStatusTone(doc.status)}`}>
+                    {doc.status}
+                  </span>
+                </div>
+
+                <div className="mt-3 space-y-1.5">
+                  {doc.snippet.map((line, lineIndex) => (
+                    <p key={`${doc.id}-${lineIndex}`} className="text-[0.68rem] leading-4 text-[#5a6b7d]">
+                      {line}
+                    </p>
+                  ))}
+                </div>
+
+                <p className="mt-3 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#8b98a7]">{doc.time}</p>
+              </article>
+            ))}
+
+            <div
+              className={`absolute bottom-3 left-1/2 w-[calc(100%-1.5rem)] max-w-[31rem] -translate-x-1/2 transition-all duration-700 ease-out sm:max-w-[34rem] ${phase === "clean" ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
+                }`}
+            >
+              <div className="overflow-hidden rounded-[22px] border border-[#d9e4df] bg-white/95 shadow-[0_18px_36px_rgba(17,32,54,0.1)] backdrop-blur">
+                <div className="flex items-center justify-between border-b border-[#ebf0f4] px-4 py-3">
+                  <div className="flex items-center gap-2">
+                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f6ef] text-sm text-[#1f8a62]">
+                      ✓
+                    </span>
+                    <div>
+                      <p className="font-display text-sm font-bold text-[#1d3551]">Foster Assistant</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#738399]">Coordinator-ready</p>
+                    </div>
+                  </div>
+                  <span className="rounded-full bg-[#eef5fa] px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.08em] text-[#5a748f]">
+                    MDS Review
+                  </span>
+                </div>
+
+                <div className="flex flex-col items-center space-y-2 px-4 py-4">
+                  {CHAT_MESSAGES.slice(0, visibleMessages).map((message) => {
+                    const bubbleTone =
+                      message.tone === "support"
+                        ? "bg-[#eef8f3] text-[#205a47]"
+                        : message.tone === "warning"
+                          ? "bg-[#fff5ea] text-[#7a5620]"
+                          : "bg-[#eef4fa] text-[#1f3651]";
+
+                    return (
+                      <div
+                        key={message.id}
+                        className={`declutter-bubble w-full max-w-[25rem] rounded-2xl border border-[#5a6b7d]/22 px-3.5 py-3 text-sm leading-6 shadow-[0_8px_16px_rgba(17,32,54,0.06)] ${bubbleTone}`}
+                      >
+                        {message.text}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      );
+    }
+
+    const rootElement = document.getElementById("pdpm-animation-root");
+
+    if (rootElement) {
+      ReactDOM.createRoot(rootElement).render(<DeclutterHeroAnimation />);
+    }
+  </script>
+</body>
+
+</html>

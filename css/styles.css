@@ -1,0 +1,181 @@
+:root {
+  --bg: #f5f8fb;
+  --ink: #112036;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at 0% 0%, #e7f8ff 0, transparent 45%),
+    radial-gradient(circle at 100% 20%, #eef8f3 0, transparent 35%),
+    var(--bg);
+  color: var(--ink);
+}
+
+input,
+button {
+  font: inherit;
+}
+
+.site-header {
+  padding: 0.875rem 1.125rem;
+}
+
+.site-brand {
+  font-size: 1.125rem;
+  line-height: 1.2;
+}
+
+.site-nav {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.site-nav-link {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.site-nav-cta {
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 0.625rem 1rem;
+}
+
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(140deg, #0f6e95 0%, #25b19d 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-mark::before,
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+}
+
+.brand-mark::before {
+  width: 16px;
+  height: 5px;
+  left: 6px;
+  top: 7px;
+}
+
+.brand-mark::after {
+  width: 12px;
+  height: 5px;
+  left: 6px;
+  top: 15px;
+}
+
+.rise-in {
+  animation: rise 0.55s ease-out both;
+}
+
+.roi-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 10px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #d7ecf6 0%, #0f6e95 100%);
+  outline: none;
+}
+
+.roi-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  background: #112036;
+  box-shadow: 0 6px 18px rgba(17, 32, 54, 0.2);
+  cursor: pointer;
+}
+
+.roi-range::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border: 3px solid #ffffff;
+  border-radius: 999px;
+  background: #112036;
+  box-shadow: 0 6px 18px rgba(17, 32, 54, 0.2);
+  cursor: pointer;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes solve-row-1 {
+  0%, 15% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+  17% { transform: scale(0.97); }
+  20% { transform: scale(1.02); border-color: rgba(16, 185, 129, 0.4); background-color: rgba(236, 253, 245, 0.9); opacity: 1; }
+  25%, 85% { border-color: rgba(209, 250, 229, 0.5); background-color: rgba(236, 253, 245, 0.8); opacity: 1; transform: scale(1); }
+  90%, 100% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+}
+
+@keyframes solve-row-2 {
+  0%, 35% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+  37% { transform: scale(0.97); }
+  40% { transform: scale(1.02); border-color: rgba(16, 185, 129, 0.4); background-color: rgba(236, 253, 245, 0.9); opacity: 1; }
+  45%, 85% { border-color: rgba(209, 250, 229, 0.5); background-color: rgba(236, 253, 245, 0.8); opacity: 1; transform: scale(1); }
+  90%, 100% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+}
+
+@keyframes solve-row-3 {
+  0%, 55% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+  57% { transform: scale(0.97); }
+  60% { transform: scale(1.02); border-color: rgba(16, 185, 129, 0.4); background-color: rgba(236, 253, 245, 0.9); opacity: 1; }
+  65%, 85% { border-color: rgba(209, 250, 229, 0.5); background-color: rgba(236, 253, 245, 0.8); opacity: 1; transform: scale(1); }
+  90%, 100% { border-color: rgba(255, 255, 255, 0.4); background-color: rgba(255, 255, 255, 0.4); opacity: 0.5; transform: scale(1); }
+}
+
+@keyframes solve-text-1 { 0%, 20% { color: #516178; } 25%, 85% { color: #064e3b; } 90%, 100% { color: #516178; } }
+@keyframes solve-text-2 { 0%, 40% { color: #516178; } 45%, 85% { color: #064e3b; } 90%, 100% { color: #516178; } }
+@keyframes solve-text-3 { 0%, 60% { color: #516178; } 65%, 85% { color: #064e3b; } 90%, 100% { color: #516178; } }
+
+@keyframes solve-check-1 { 
+  0%, 20% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+  25%, 85% { background-color: rgba(16, 185, 129, 0.1); border-color: #a7f3d0; color: #059669; }
+  90%, 100% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+}
+@keyframes solve-check-2 { 
+  0%, 40% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+  45%, 85% { background-color: rgba(16, 185, 129, 0.1); border-color: #a7f3d0; color: #059669; }
+  90%, 100% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+}
+@keyframes solve-check-3 { 
+  0%, 60% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+  65%, 85% { background-color: rgba(16, 185, 129, 0.1); border-color: #a7f3d0; color: #059669; }
+  90%, 100% { background-color: rgba(255, 255, 255, 0.5); border-color: #dce4ee; color: transparent; }
+}
+
+.solve-group-1 { animation: solve-row-1 8s infinite linear; }
+.solve-group-1 .solve-text { animation: solve-text-1 8s infinite linear; }
+.solve-group-1 .solve-check { animation: solve-check-1 8s infinite linear; }
+
+.solve-group-2 { animation: solve-row-2 8s infinite linear; }
+.solve-group-2 .solve-text { animation: solve-text-2 8s infinite linear; }
+.solve-group-2 .solve-check { animation: solve-check-2 8s infinite linear; }
+
+.solve-group-3 { animation: solve-row-3 8s infinite linear; }
+.solve-group-3 .solve-text { animation: solve-text-3 8s infinite linear; }
+.solve-group-3 .solve-check { animation: solve-check-3 8s infinite linear; }
