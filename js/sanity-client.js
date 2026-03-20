@@ -28,13 +28,33 @@
       );
     }
 
-    const response = await fetch(buildQueryUrl(query, params), {
-      headers: {
-        Accept: "application/json",
-      },
-    });
+    let response;
+
+    try {
+      response = await fetch(buildQueryUrl(query, params), {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+    } catch (error) {
+      throw new Error(
+        "Browser request to Sanity failed. Check Sanity CORS origins for this site URL and make sure the dataset is publicly readable."
+      );
+    }
 
     if (!response.ok) {
+      if (response.status === 401 || response.status === 403) {
+        throw new Error(
+          "Sanity blocked the request. Make sure the dataset is publicly readable and this site origin is allowed in Sanity API CORS settings."
+        );
+      }
+
+      if (response.status === 404) {
+        throw new Error(
+          "Sanity project or dataset was not found. Recheck projectId and dataset in /js/sanity-site-config.js."
+        );
+      }
+
       throw new Error(`Sanity request failed with ${response.status}.`);
     }
 
@@ -121,6 +141,43 @@
     }
 
     blocks.forEach((block) => {
+      if (block._type === "table" && Array.isArray(block.rows)) {
+        flushList();
+
+        const rows = block.rows.filter(
+          (row) => row && Array.isArray(row.cells) && row.cells.length > 0
+        );
+
+        if (rows.length === 0) {
+          return;
+        }
+
+        const [headerRow, ...bodyRows] = rows;
+        const headerHtml = headerRow.cells
+          .map((cell) => `<th>${escapeHtml(cell)}</th>`)
+          .join("");
+        const bodyHtml = bodyRows
+          .map(
+            (row) =>
+              `<tr>${row.cells
+                .map((cell) => `<td>${escapeHtml(cell)}</td>`)
+                .join("")}</tr>`
+          )
+          .join("");
+
+        html.push(`
+          <div class="blog-table-wrap">
+            <table class="blog-table">
+              <thead>
+                <tr>${headerHtml}</tr>
+              </thead>
+              <tbody>${bodyHtml}</tbody>
+            </table>
+          </div>
+        `);
+        return;
+      }
+
       if (block._type === "image" && block.url) {
         flushList();
         html.push(

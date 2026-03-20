@@ -16,11 +16,14 @@ This is the simplest path for your current stack because the site does not use N
 2. Create a project.
 3. Use the `production` dataset.
 4. In project settings, make sure the dataset can be read publicly by the website.
-5. Add CORS origins for your website domain and local development if Sanity prompts for them.
+5. In `API` settings, add CORS origins for:
+   - your production website domain
+   - `http://localhost:4173`
+   - `http://127.0.0.1:4173`
 
 ## 2. Connect the website
 
-Update [js/sanity-site-config.js](/Users/revanth/Desktop/Dev/Foster Health/Website/js/sanity-site-config.js) with your real Sanity values:
+Update [js/sanity-site-config.js](js/sanity-site-config.js) with your real Sanity values:
 
 ```js
 window.FOSTER_SANITY_CONFIG = {
@@ -31,6 +34,11 @@ window.FOSTER_SANITY_CONFIG = {
 ```
 
 The website only reads published content, so `projectId` and `dataset` are safe to expose publicly.
+
+If the blog page shows `Could not load posts` with `Failed to fetch`, that usually means Sanity is blocking the browser request because:
+
+- the dataset is not publicly readable, or
+- the current site origin is missing from Sanity CORS settings.
 
 ## 3. Run the Sanity Studio locally
 

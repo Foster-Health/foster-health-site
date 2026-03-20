@@ -112,6 +112,58 @@ button {
   cursor: pointer;
 }
 
+.faq-item {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.faq-item[open] {
+  border-color: rgba(15, 110, 149, 0.25);
+  box-shadow: 0 18px 40px rgba(17, 32, 54, 0.08);
+}
+
+.faq-summary {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  list-style: none;
+  padding-right: 2.5rem;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-summary::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: #0f6e95;
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] .faq-summary::after {
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.demo-calendly {
+  display: block;
+  width: 100%;
+  min-height: 760px;
+  border: 0;
+  background: #ffffff;
+}
+
+@media (max-width: 767px) {
+  .demo-calendly {
+    min-height: 680px;
+  }
+}
+
 @keyframes rise {
   from {
     opacity: 0;
@@ -294,6 +346,48 @@ button {
   border-radius: 0 18px 18px 0;
   background: #f4fbff;
   color: #173957;
+}
+
+.blog-table-wrap {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px solid #dce4ee;
+  border-radius: 24px;
+  background: #ffffff;
+}
+
+.blog-table {
+  width: 100%;
+  min-width: 520px;
+  border-collapse: collapse;
+}
+
+.blog-table thead {
+  background: #f5f9fc;
+}
+
+.blog-table th,
+.blog-table td {
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid #dce4ee;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.blog-table th {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 0.95rem;
+  color: #112036;
+}
+
+.blog-table td {
+  font-size: 1rem;
+  color: #21364f;
+}
+
+.blog-table tbody tr:last-child td {
+  border-bottom: 0;
 }
 
 .blog-body img {

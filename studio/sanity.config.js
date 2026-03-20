@@ -1,8 +1,10 @@
 import { defineConfig, defineField, defineType } from "sanity";
 import { structureTool } from "sanity/structure";
+import { table } from "@sanity/table";
 
-const projectId = process.env.SANITY_STUDIO_PROJECT_ID || "your_project_id";
-const dataset = process.env.SANITY_STUDIO_DATASET || "production";
+const projectId =
+  process.env.SANITY_STUDIO_PROJECT_ID?.trim() || "your_project_id";
+const dataset = process.env.SANITY_STUDIO_DATASET?.trim() || "production";
 
 const authorType = defineType({
   name: "author",
@@ -198,6 +200,9 @@ const postType = defineType({
             }),
           ],
         },
+        {
+          type: "table",
+        },
       ],
       validation: (rule) => rule.required(),
     }),
@@ -216,7 +221,7 @@ export default defineConfig({
   title: "Foster Health CMS",
   projectId,
   dataset,
-  plugins: [structureTool()],
+  plugins: [structureTool(), table()],
   schema: {
     types: [postType, authorType, categoryType],
   },

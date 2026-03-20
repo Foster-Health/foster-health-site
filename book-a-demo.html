@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foster Health | Book an MDS Demo</title>
+  <meta name="description"
+    content="Book a Foster Health demo to see how MDS teams uncover missed PDPM drivers, tighten documentation, and review evidence-backed recommendations before submission." />
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <script>
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#112036",
+            muted: "#516178",
+            line: "#dce4ee",
+            primary: "#0f6e95",
+            "primary-dark": "#085a7a",
+            accent: "#1fa27d",
+            "accent-soft": "#e8f8f3",
+            surface: "#ffffff",
+            sand: "#f9fbfd",
+          },
+          boxShadow: {
+            soft: "0 16px 40px rgba(22, 40, 66, 0.1)",
+            panel: "0 30px 70px rgba(10, 36, 60, 0.12)",
+          },
+          fontFamily: {
+            display: ["Space Grotesk", "sans-serif"],
+            body: ["Source Sans 3", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+
+<body class="bg-transparent font-body text-ink">
+  <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
+    <header
+      class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
+      <div class="flex w-full items-center justify-between px-4 py-3 lg:px-6">
+        <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
+          <span class="brand-mark" aria-hidden="true"></span>
+          Foster Health
+        </a>
+
+        <button id="menu-toggle"
+          class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-white shadow-sm transition-all hover:bg-sand md:hidden"
+          aria-label="Toggle Menu" aria-expanded="false">
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
+        </button>
+
+        <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-clinicians">For
+            Clinicians</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-execs">For Execs</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/team">Team</a>
+          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/blog">Blog</a>
+          <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
+            href="#book-demo-form">
+            Book a Demo
+          </a>
+        </nav>
+      </div>
+
+      <div id="mobile-menu"
+        class="absolute left-0 right-0 top-full mt-2 hidden origin-top scale-95 flex-col gap-2 rounded-2xl border border-line bg-white p-4 opacity-0 shadow-panel transition-all duration-300 md:hidden">
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-clinicians">For Clinicians</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/for-execs">For Execs</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/pricing">Pricing</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/team">Team</a>
+        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
+          href="/blog">Blog</a>
+        <div class="mt-2 border-t border-line pt-2">
+          <a class="site-nav-cta font-display block rounded-xl bg-[#112036] px-4 py-4 text-center font-bold text-white transition hover:bg-[#081727]"
+            href="#book-demo-form">
+            Book a Demo
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="space-y-6 lg:space-y-8">
+      <section
+        class="rise-in mt-6 overflow-hidden rounded-[32px] border border-line bg-surface shadow-panel lg:grid lg:grid-cols-[0.95fr_1.05fr]">
+        <div class="p-6 lg:p-10">
+          <div class="flex flex-wrap gap-2">
+            <span
+              class="rounded-full border border-primary/15 bg-[#eaf6fb] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-primary">
+              Book a Demo
+            </span>
+            <span
+              class="rounded-full border border-line bg-[#f2f6fa] px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
+              MDS-Specific Walkthrough
+            </span>
+          </div>
+
+          <div class="mt-6 max-w-3xl">
+            <h1 class="font-display text-[clamp(2.6rem,4.5vw,5rem)] leading-[0.95]">
+              See how Foster catches missed MDS reimbursement before the assessment closes.
+            </h1>
+            <p class="mt-5 max-w-[40rem] text-[1.28rem] leading-8 text-[#1f3651]">
+              Book a personalized walkthrough of Foster’s MDS copilot. We’ll show how your team can surface missed
+              PDPM drivers, tighten diagnosis support, and move into submission with chart-backed confidence.
+            </p>
+          </div>
+
+          <div class="mt-8 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+            <article class="rounded-[24px] border border-line bg-white p-4 shadow-soft">
+              <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Revenue Impact</p>
+              <strong class="font-display mt-3 block text-3xl">~$500K+</strong>
+              <p class="mt-2 text-sm leading-6 text-muted">Modeled annual reimbursement lift per facility from missed
+                drivers and documentation gaps.</p>
+            </article>
+            <article class="rounded-[24px] border border-line bg-white p-4 shadow-soft">
+              <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Evidence Trail</p>
+              <strong class="font-display mt-3 block text-3xl">100%</strong>
+              <p class="mt-2 text-sm leading-6 text-muted">Every recommendation is paired with source chart context so
+                teams can verify before acting.</p>
+            </article>
+            <article class="rounded-[24px] border border-line bg-white p-4 shadow-soft">
+              <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Time Savings</p>
+              <strong class="font-display mt-3 block text-3xl">10–20 hrs</strong>
+              <p class="mt-2 text-sm leading-6 text-muted">Potential weekly time returned from less chart hunting and
+                fewer retrospective reviews.</p>
+            </article>
+          </div>
+
+          <div
+            class="mt-8 rounded-[28px] border border-[#dbe7f1] bg-[linear-gradient(145deg,#f8fcff_0%,#eef7fb_55%,#f5fbf8_100%)] p-6">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">What To Expect</p>
+            <h2 class="font-display mt-2 text-[clamp(1.8rem,2.6vw,2.6rem)] leading-tight">
+              A working session focused on your real MDS bottlenecks.
+            </h2>
+            <div class="mt-5 grid gap-4 md:grid-cols-3">
+              <div class="rounded-[22px] border border-white/80 bg-white/80 p-4 shadow-soft">
+                <p class="text-sm font-bold text-ink">Workflow review</p>
+                <p class="mt-2 text-sm leading-6 text-muted">We map where missed diagnoses, Section GG mismatches, and
+                  documentation gaps show up in your current process.</p>
+              </div>
+              <div class="rounded-[22px] border border-white/80 bg-white/80 p-4 shadow-soft">
+                <p class="text-sm font-bold text-ink">Live product view</p>
+                <p class="mt-2 text-sm leading-6 text-muted">You’ll see how Foster surfaces evidence, drafts follow-up
+                  actions, and organizes recommendations before submission.</p>
+              </div>
+              <div class="rounded-[22px] border border-white/80 bg-white/80 p-4 shadow-soft">
+                <p class="text-sm font-bold text-ink">Rollout fit</p>
+                <p class="mt-2 text-sm leading-6 text-muted">We leave time to talk through building size, staffing, and
+                  what an implementation path could look like for your team.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="border-t border-line bg-[linear-gradient(180deg,#f8fcff_0%,#f5fbf8_100%)] p-6 lg:border-l lg:border-t-0 lg:p-8">
+          <div id="book-demo-form"
+            class="rounded-[28px] border border-[#d7e5ef] bg-white p-5 shadow-panel lg:sticky lg:top-24 lg:p-6">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Schedule</p>
+                <h2 class="font-display mt-2 text-[clamp(1.8rem,2.4vw,2.4rem)] leading-tight">
+                  Book your MDS walkthrough.
+                </h2>
+              </div>
+              <span
+                class="rounded-full border border-[#d7e5ef] bg-[#f7fbfe] px-3 py-1 text-xs font-semibold text-muted">
+                30 minutes
+              </span>
+            </div>
+
+            <p class="mt-4 text-base leading-7 text-muted">
+              Pick a time that works for your team. We’ll tailor the conversation to missed reimbursement
+              opportunities, MDS workflow friction, and the documentation quality questions you want answered.
+            </p>
+
+            <div class="mt-5 rounded-[24px] border border-line bg-[#f8fbfe] p-2">
+              <iframe class="demo-calendly" title="Schedule a Foster Health demo"
+                src="https://calendly.com/pranav-fosterhealth/30min?hide_gdpr_banner=1" loading="lazy"></iframe>
+            </div>
+
+            <div
+              class="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-[22px] border border-line bg-[#f8fbfe] px-4 py-3">
+              <p class="text-sm leading-6 text-muted">Need a direct link for internal forwarding or a separate tab?</p>
+              <a class="font-display rounded-full bg-[#112036] px-4 py-2 text-sm font-bold text-white transition hover:bg-[#081727]"
+                href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+                Open Scheduler
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">What You’ll See</p>
+          <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight">
+            The walkthrough is built around the moments where MDS teams lose confidence or revenue.
+          </h2>
+          <p class="mt-4 text-lg leading-8 text-muted">
+            Instead of a generic product tour, we focus on the review scenarios that matter most when an assessment is
+            close to submission.
+          </p>
+        </div>
+
+        <div class="mt-8 grid gap-5 lg:grid-cols-3">
+          <article class="rounded-[28px] border border-line bg-[#f0f9f6] p-6 shadow-soft">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#2d5a4c]">Missed PDPM Drivers</p>
+            <h3 class="font-display mt-3 text-2xl font-bold text-ink">Diagnosis support and classification lift</h3>
+            <ul class="mt-4 space-y-3 text-sm leading-6 text-muted">
+              <li>Trace diagnoses back to supporting clinical documentation.</li>
+              <li>Spot specificity gaps before they suppress reimbursement.</li>
+              <li>See which missed drivers deserve coordinator review first.</li>
+            </ul>
+          </article>
+
+          <article class="rounded-[28px] border border-line bg-[#fff6ea] p-6 shadow-soft">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#8a5a14]">Assessment Accuracy</p>
+            <h3 class="font-display mt-3 text-2xl font-bold text-ink">Section-by-section MDS review support</h3>
+            <ul class="mt-4 space-y-3 text-sm leading-6 text-muted">
+              <li>Review Sections like GG and diagnoses alongside relevant notes.</li>
+              <li>Surface contradictions between chart documentation and coded entries.</li>
+              <li>Reduce last-minute fixes and retrospective clean-up work.</li>
+            </ul>
+          </article>
+
+          <article class="rounded-[28px] border border-line bg-[#f1f7fd] p-6 shadow-soft">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#235a80]">Audit Defense</p>
+            <h3 class="font-display mt-3 text-2xl font-bold text-ink">Evidence-backed actions and follow-up</h3>
+            <ul class="mt-4 space-y-3 text-sm leading-6 text-muted">
+              <li>Understand exactly why Foster recommends a change or query.</li>
+              <li>Turn chart findings into coordinator and physician follow-up actions.</li>
+              <li>Leave the call knowing what a defensible workflow could look like.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
+        <div class="grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Why Foster</p>
+            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight">
+              Built around real MDS review habits, not generic clinical automation.
+            </h2>
+            <div class="mt-6 grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[24px] border border-line bg-white p-5 shadow-soft">
+                <p class="font-display text-xl font-bold text-ink">Chart-backed recommendations</p>
+                <p class="mt-2 text-sm leading-6 text-muted">Recommendations are grounded in source documentation so
+                  teams can validate changes quickly.</p>
+              </div>
+              <div class="rounded-[24px] border border-line bg-white p-5 shadow-soft">
+                <p class="font-display text-xl font-bold text-ink">Physician query readiness</p>
+                <p class="mt-2 text-sm leading-6 text-muted">See where additional specificity or confirmation could
+                  change the financial outcome of an assessment.</p>
+              </div>
+              <div class="rounded-[24px] border border-line bg-white p-5 shadow-soft">
+                <p class="font-display text-xl font-bold text-ink">Less chart hunting</p>
+                <p class="mt-2 text-sm leading-6 text-muted">Bring the most important evidence and open questions into a
+                  tighter review workflow.</p>
+              </div>
+              <div class="rounded-[24px] border border-line bg-white p-5 shadow-soft">
+                <p class="font-display text-xl font-bold text-ink">Facility-specific rollout</p>
+                <p class="mt-2 text-sm leading-6 text-muted">The implementation conversation is shaped around your
+                  census, staffing model, and documentation patterns.</p>
+              </div>
+            </div>
+          </div>
+
+          <aside
+            class="overflow-hidden rounded-[30px] border border-line bg-[linear-gradient(150deg,#112036_0%,#0f6e95_58%,#1fa27d_100%)] p-6 text-white shadow-panel lg:p-7">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/75">Modeled Opportunity</p>
+            <h3 class="font-display mt-2 text-[clamp(1.8rem,2.8vw,2.7rem)] leading-tight">
+              The conversation stays grounded in operational and reimbursement reality.
+            </h3>
+            <p class="mt-4 max-w-xl text-base leading-7 text-white/85">
+              We use the same core themes already on the Foster site when framing the walkthrough: missed revenue,
+              evidence-backed review, and time returned to the team.
+            </p>
+
+            <div class="mt-6 grid gap-3 sm:grid-cols-2">
+              <div class="rounded-[22px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/70">Reimbursement Lift</p>
+                <p class="font-display mt-2 text-3xl">~$500K+</p>
+                <p class="mt-2 text-sm leading-6 text-white/80">Potential annual opportunity per facility from cleaner
+                  coding and stronger documentation support.</p>
+              </div>
+              <div class="rounded-[22px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/70">Review Speed</p>
+                <p class="font-display mt-2 text-3xl">10–20 hrs</p>
+                <p class="mt-2 text-sm leading-6 text-white/80">Weekly time savings potential when evidence is easier to
+                  find and follow-up is clearer.</p>
+              </div>
+              <div class="rounded-[22px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/70">Confidence</p>
+                <p class="font-display mt-2 text-3xl">100%</p>
+                <p class="mt-2 text-sm leading-6 text-white/80">Evidence-backed recommendation posture for faster
+                  review and stronger audit defense.</p>
+              </div>
+              <div class="rounded-[22px] border border-white/15 bg-white/10 p-4 backdrop-blur-sm">
+                <p class="text-xs font-bold uppercase tracking-[0.08em] text-white/70">Implementation</p>
+                <p class="font-display mt-2 text-3xl">Practical</p>
+                <p class="mt-2 text-sm leading-6 text-white/80">Built to fit the way skilled nursing teams already
+                  review documentation and submit assessments.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8"
+        aria-labelledby="faq-heading">
+        <div class="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+          <div class="max-w-xl">
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Frequently Asked Questions</p>
+            <h2 id="faq-heading" class="font-display mt-2 text-[clamp(2rem,3vw,3rem)] leading-tight">
+              Everything you need to know before booking.
+            </h2>
+            <p class="mt-4 text-lg leading-8 text-muted">
+              The demo is meant to answer operational questions, not create more of them. These are the topics teams
+              usually want covered before they put time on the calendar.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <details class="faq-item rounded-[24px] border border-line bg-white p-5 shadow-soft">
+              <summary class="faq-summary font-display text-xl font-bold text-ink">
+                What does the demo include?
+              </summary>
+              <p class="mt-3 pr-8 text-base leading-7 text-muted">
+                You’ll get a personalized walkthrough of how Foster supports MDS review, from missed PDPM drivers and
+                diagnosis support to evidence-backed follow-up. We focus on real workflow pressure points instead of a
+                generic feature tour.
+              </p>
+            </details>
+
+            <details class="faq-item rounded-[24px] border border-line bg-white p-5 shadow-soft">
+              <summary class="faq-summary font-display text-xl font-bold text-ink">
+                How quickly can Foster be deployed?
+              </summary>
+              <p class="mt-3 pr-8 text-base leading-7 text-muted">
+                Deployment scope depends on your building and workflows, but the call is designed to show what rollout
+                could realistically look like for your team before any commitment is made.
+              </p>
+            </details>
+
+            <details class="faq-item rounded-[24px] border border-line bg-white p-5 shadow-soft">
+              <summary class="faq-summary font-display text-xl font-bold text-ink">
+                Does Foster work with PointClickCare-based workflows?
+              </summary>
+              <p class="mt-3 pr-8 text-base leading-7 text-muted">
+                Yes. Foster is built for the documentation and review environment skilled nursing teams already work in,
+                including the chart evidence and workflow patterns common to PointClickCare-centered operations.
+              </p>
+            </details>
+
+            <details class="faq-item rounded-[24px] border border-line bg-white p-5 shadow-soft">
+              <summary class="faq-summary font-display text-xl font-bold text-ink">
+                Does Foster replace the MDS coordinator?
+              </summary>
+              <p class="mt-3 pr-8 text-base leading-7 text-muted">
+                No. Foster is designed to strengthen coordinator judgment by bringing relevant documentation, missed
+                opportunities, and follow-up actions into view faster.
+              </p>
+            </details>
+
+            <details class="faq-item rounded-[24px] border border-line bg-white p-5 shadow-soft">
+              <summary class="faq-summary font-display text-xl font-bold text-ink">
+                Can your team show the evidence behind each recommendation?
+              </summary>
+              <p class="mt-3 pr-8 text-base leading-7 text-muted">
+                Yes. Evidence-backed recommendations are core to the workflow, so the review process is faster to
+                validate internally and easier to defend externally.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="rise-in rounded-[28px] bg-gradient-to-br from-primary to-[#125474] px-6 py-8 text-[#112036] shadow-panel lg:px-8">
+        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div>
+            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">Still Evaluating?</p>
+            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3.2rem)] leading-tight text-[#112036]">
+              Review pricing and bring internal stakeholders back when you are ready.
+            </h2>
+            <p class="mt-4 max-w-[40rem] text-lg leading-8 text-[#112036]/85">
+              If you need to align on ROI or rollout timing before booking, the pricing page gives you a directional
+              view of modeled impact.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-3 lg:justify-end">
+            <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
+              href="/pricing">
+              Review Pricing
+            </a>
+            <a class="font-display rounded-2xl border border-[#112036]/15 bg-white/90 px-6 py-3.5 font-bold text-[#112036] transition hover:-translate-y-0.5 hover:bg-white"
+              href="#book-demo-form">
+              Back to Scheduler
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
+      <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+        <div class="max-w-md">
+          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]">
+            <span class="brand-mark" aria-hidden="true"></span>
+            Foster Health
+          </div>
+          <p class="mt-3 text-sm leading-6 text-muted">
+            AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and
+            defensible reimbursement workflows.
+          </p>
+        </div>
+        <div>
+          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Contact</p>
+          <div class="mt-3 grid gap-2 text-sm text-muted">
+            <a class="transition hover:text-ink" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank"
+              rel="noreferrer">Open Scheduler</a>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6 border-t border-line pt-4 text-sm text-muted">
+        <span>&copy; 2026 Foster Health</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/js/navbar.js"></script>
+</body>
+
+</html>

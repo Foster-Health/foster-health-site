@@ -1,5 +1,5 @@
 window.FOSTER_SANITY_CONFIG = {
-  projectId: "REPLACE_WITH_PROJECT_ID",
+  projectId: "5igvstyu",
   dataset: "production",
   apiVersion: "2026-03-17",
 };
