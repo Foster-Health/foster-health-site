@@ -15,7 +15,12 @@
     searchParams.set("perspective", "published");
 
     Object.entries(params || {}).forEach(([key, value]) => {
-      searchParams.set(`$${key}`, value);
+      if (value === undefined) {
+        return;
+      }
+
+      // Sanity expects query parameters as GROQ literals, so strings must be quoted.
+      searchParams.set(`$${key}`, JSON.stringify(value));
     });
 
     return `https://${config.projectId}.apicdn.sanity.io/v${config.apiVersion}/data/query/${config.dataset}?${searchParams.toString()}`;
