@@ -754,6 +754,189 @@
     function FlowOfIntelligence() {
       const containerRef = React.useRef(null);
       const [isVisible, setIsVisible] = React.useState(false);
+      const [currentSlide, setCurrentSlide] = React.useState(0);
+
+      const slides = [
+        {
+          id: "mds-coding",
+          eyebrow: "Preventative",
+          title: "AI-assisted MDS coding",
+          description: "Clinical notes, orders, and medication signals are synthesized into coding recommendations before the assessment closes.",
+          gradient: "from-[#f8faf9] via-[#f0f4f5] to-[#f7f5ed]",
+          glowLeft: "bg-emerald-400/5",
+          glowCenter: "bg-teal-500/10",
+          glowRight: "bg-amber-400/5",
+          mobileGlow: "bg-teal-500/10",
+          leftLabel: "Inputs",
+          rightLabel: "Outputs",
+          leftCardsOffsetClassName: "",
+          leftCards: [
+            { title: "Nursing Notes", dot: "bg-blue-400", width: "w-[180px]", offset: "-ml-2", animation: "animate-float-1" },
+            { title: "Physician Orders", dot: "bg-purple-400", width: "w-[190px]", offset: "ml-10", animation: "animate-float-2" },
+            { title: "Vitals / MAR", dot: "bg-orange-400", width: "w-[160px]", offset: "ml-2", animation: "animate-float-3" },
+            { title: "Admission Assessment", dot: "bg-rose-400", width: "w-[200px]", offset: "ml-6", animation: "animate-float-4" },
+          ],
+          centerBadge: "AI Co-Pilot",
+          centerIconBg: "bg-teal-100",
+          centerIconColor: "text-teal-600",
+          centerPanels: [
+            {
+              eyebrow: "Missing diagnosis detected",
+              body: (
+                <div className="flex items-start gap-2">
+                  <div className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"></div>
+                  <p className="text-xs font-semibold text-ink leading-snug">Diabetes w/ Neuropathy</p>
+                </div>
+              ),
+              className: "bg-white/60 border border-white/60",
+            },
+            {
+              eyebrow: "PDPM Impact",
+              body: (
+                <div className="flex justify-between items-center">
+                  <p className="text-sm font-bold text-[#4c3479]">+0.18 CMI</p>
+                  <span className="text-[10px] font-bold text-[#634992]">Potential</span>
+                </div>
+              ),
+              className: "bg-[#f0ebf8]/60 border border-[#e6dced]",
+              eyebrowClassName: "text-[#634992]/80",
+            },
+            {
+              eyebrow: "Evidence",
+              body: (
+                <div className="flex gap-2 text-[11px] font-semibold text-muted">
+                  <span className="bg-white/90 border border-emerald-200 px-2 py-0.5 rounded-md shadow-sm">Nursing</span>
+                  <span className="bg-white/90 border border-emerald-200 px-2 py-0.5 rounded-md shadow-sm">+ MAR</span>
+                </div>
+              ),
+              className: "bg-emerald-100 border border-emerald-200",
+              eyebrowClassName: "text-emerald-600/80",
+            },
+          ],
+          rightCards: [
+            { title: "MDS Coding Updated", bg: "bg-emerald-100", iconColor: "text-emerald-600", icon: "check" },
+            { title: "Actions: Review & Send Physician Queries / Orders", bg: "bg-amber-100", iconColor: "text-amber-600", icon: "bell", borderClassName: "border-amber-200/50" },
+            { title: "PDPM Impact Calculated", bg: "bg-violet-100", iconColor: "text-violet-600", icon: "graph" },
+          ],
+        },
+        {
+          id: "adr-package",
+          eyebrow: "Defensive",
+          title: "ADR package assembly",
+          description: "The platform gathers source documentation from across the chart and compiles an audit-ready defense package in minutes.",
+          gradient: "from-[#f8fbff] via-[#eef4ff] to-[#f8f4fb]",
+          glowLeft: "bg-sky-400/10",
+          glowCenter: "bg-fuchsia-300/10",
+          glowRight: "bg-cyan-400/10",
+          mobileGlow: "bg-sky-500/10",
+          leftLabel: "Evidence collected",
+          rightLabel: "Package delivered",
+          leftCardsOffsetClassName: "pt-12 lg:pt-8",
+          leftCards: [
+            { title: "Admission Assessment", dot: "bg-slate-500", width: "w-[230px]", offset: "-ml-1", animation: "animate-float-1" },
+            { title: "Discharge Summary", dot: "bg-cyan-500", width: "w-[210px]", offset: "ml-8", animation: "animate-float-2" },
+            { title: "Physician Orders", dot: "bg-indigo-400", width: "w-[180px]", offset: "ml-2", animation: "animate-float-3" },
+            { title: "Nursing Notes", dot: "bg-emerald-400", width: "w-[170px]", offset: "ml-10", animation: "animate-float-4" },
+            { title: "MDS Assessment", dot: "bg-rose-400", width: "w-[200px]", offset: "ml-4", animation: "animate-float-1" },
+          ],
+          centerBadge: "ADR Builder",
+          centerIconBg: "bg-indigo-100",
+          centerIconColor: "text-indigo-600",
+          centerPanels: [
+            {
+              eyebrow: "Audit request received",
+              body: <p className="text-xs font-semibold text-ink leading-snug">Requested dates of service and supporting chart notes are identified automatically.</p>,
+              className: "bg-white/70 border border-white/70",
+            },
+            {
+              eyebrow: "Cross-chart evidence map",
+              body: (
+                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Assessment</span>
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Orders</span>
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Nursing</span>
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Discharge</span>
+                </div>
+              ),
+              className: "bg-[#eef2ff]/70 border border-[#dbe3ff]",
+              eyebrowClassName: "text-indigo-700/80",
+            },
+            {
+              eyebrow: "Compiling Defense Package",
+              body: (
+                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Notify nurse manager</span>
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Update note</span>
+                </div>
+              ),
+              className: "bg-[#fff7ed]/80 border border-[#fde7c6]",
+              eyebrowClassName: "text-amber-700/80",
+            },
+          ],
+          rightCards: [
+            { title: "5 supporting sources reconciled", bg: "bg-sky-100", iconColor: "text-sky-600", icon: "check" },
+            { title: "Timeline and source index attached", bg: "bg-indigo-100", iconColor: "text-indigo-600", icon: "doc" },
+            { title: "Downloadable defense package ready", bg: "bg-violet-100", iconColor: "text-violet-600", icon: "download" },
+          ],
+        },
+        {
+          id: "pulse-check",
+          eyebrow: "Dynamic",
+          title: "Real-time patient pulse checks",
+          description: "As patient status changes, Foster flags the documentation risk in real time so staff can close gaps while care is still active.",
+          gradient: "from-[#f7fbf7] via-[#edf7f6] to-[#f5f7ff]",
+          glowLeft: "bg-emerald-400/10",
+          glowCenter: "bg-cyan-400/10",
+          glowRight: "bg-rose-300/10",
+          mobileGlow: "bg-emerald-500/10",
+          leftLabel: "Patient signals",
+          rightLabel: "Staff actions",
+          leftCardsOffsetClassName: "",
+          leftCards: [
+            { title: "O2 sat trending down", dot: "bg-rose-400", width: "w-[185px]", offset: "-ml-2", animation: "animate-float-1" },
+            { title: "New IV antibiotic order", dot: "bg-cyan-500", width: "w-[200px]", offset: "ml-9", animation: "animate-float-2" },
+            { title: "Weight + edema change", dot: "bg-amber-400", width: "w-[190px]", offset: "ml-3", animation: "animate-float-3" },
+            { title: "Nurse note added", dot: "bg-emerald-400", width: "w-[170px]", offset: "ml-7", animation: "animate-float-4" },
+          ],
+          centerBadge: "Live Monitor",
+          centerIconBg: "bg-emerald-100",
+          centerIconColor: "text-emerald-600",
+          centerPanels: [
+            {
+              eyebrow: "Condition shift detected",
+              body: (
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-bold text-[#155e63]">Respiratory decline risk</p>
+                  <span className="rounded-full bg-rose-100 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-rose-600">High</span>
+                </div>
+              ),
+              className: "bg-[#effcf8]/80 border border-[#d0f4eb]",
+              eyebrowClassName: "text-emerald-700/80",
+            },
+            {
+              eyebrow: "Documentation gap",
+              body: <p className="text-xs font-semibold text-ink leading-snug">Progress note does not yet reflect oxygen escalation and monitoring frequency.</p>,
+              className: "bg-white/70 border border-white/70",
+            },
+            {
+              eyebrow: "Suggested next step",
+              body: (
+                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Notify nurse manager</span>
+                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Update note</span>
+                </div>
+              ),
+              className: "bg-[#fff7ed]/80 border border-[#fde7c6]",
+              eyebrowClassName: "text-amber-700/80",
+            },
+          ],
+          rightCards: [
+            { title: "Alert sent to assigned staff", bg: "bg-rose-100", iconColor: "text-rose-600", icon: "bell" },
+            { title: "Documentation task created", bg: "bg-amber-100", iconColor: "text-amber-600", icon: "doc" },
+            { title: "Identify IPA triggers", bg: "bg-emerald-100", iconColor: "text-emerald-600", icon: "magnify" },
+          ],
+        },
+      ];
 
       React.useEffect(() => {
         const observer = new IntersectionObserver(
@@ -769,13 +952,72 @@
         return () => observer.disconnect();
       }, []);
 
-      return (
-        <div ref={containerRef} className="relative w-full rounded-[32px] border border-line bg-gradient-to-br from-[#f8faf9] via-[#f0f4f5] to-[#f7f5ed] p-8 lg:p-12 overflow-hidden shadow-soft">
-          {/* Background soft glows */}
-          <div className="absolute top-0 left-0 h-full w-1/3 bg-emerald-400/5 blur-[100px] pointer-events-none"></div>
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-64 w-64 bg-teal-500/10 blur-[100px] pointer-events-none"></div>
-          <div className="absolute bottom-0 right-0 h-full w-1/3 bg-amber-400/5 blur-[100px] pointer-events-none"></div>
+      React.useEffect(() => {
+        if (!isVisible) return undefined;
 
+        const interval = window.setInterval(() => {
+          setCurrentSlide((prev) => (prev + 1) % slides.length);
+        }, 8200);
+
+        return () => window.clearInterval(interval);
+      }, [isVisible, slides.length]);
+
+      const renderIcon = (type) => {
+        if (type === "check") {
+          return (
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
+            </svg>
+          );
+        }
+
+        if (type === "bell") {
+          return (
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+            </svg>
+          );
+        }
+
+        if (type === "download") {
+          return (
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14"></path>
+            </svg>
+          );
+        }
+
+        if (type === "graph") {
+          return (
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M4 19h16"></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M7 16l3-4 3 2 4-6"></path>
+              <circle cx="7" cy="16" r="1.35" fill="currentColor" stroke="none"></circle>
+              <circle cx="10" cy="12" r="1.35" fill="currentColor" stroke="none"></circle>
+              <circle cx="13" cy="14" r="1.35" fill="currentColor" stroke="none"></circle>
+              <circle cx="17" cy="8" r="1.35" fill="currentColor" stroke="none"></circle>
+            </svg>
+          );
+        }
+
+        if (type === "magnify") {
+          return (
+            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="5.5" strokeWidth="2.2"></circle>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M15.5 15.5L20 20"></path>
+            </svg>
+          );
+        }
+
+        return (
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        );
+      };
+
+      return (
+        <div ref={containerRef} className="relative w-full overflow-hidden rounded-[32px] border border-line shadow-soft">
           <style>{`
             @keyframes float-slow {
               0%, 100% { transform: translateY(0); }
@@ -793,13 +1035,29 @@
               0% { stroke-dashoffset: 100; }
               100% { stroke-dashoffset: -100; }
             }
+            @keyframes flow-line-reverse {
+              0% { stroke-dashoffset: -100; }
+              100% { stroke-dashoffset: 100; }
+            }
             @keyframes line-pulse {
-              0%, 100% { opacity: 0.3; }
-              50% { opacity: 0.8; }
+              0%, 100% { opacity: 0.48; }
+              50% { opacity: 0.95; }
+            }
+            @keyframes scene-pulse {
+              0%, 100% { transform: scale(1); opacity: 0.82; }
+              50% { transform: scale(1.04); opacity: 1; }
+            }
+            @keyframes badge-glow {
+              0%, 100% { box-shadow: 0 12px 32px rgba(255, 255, 255, 0.14); }
+              50% { box-shadow: 0 18px 40px rgba(255, 255, 255, 0.28); }
             }
             .flow-path {
               stroke-dasharray: 8 6;
               animation: flow-line 20s linear infinite, line-pulse 4s ease-in-out infinite;
+            }
+            .flow-path-reverse {
+              stroke-dasharray: 8 6;
+              animation: flow-line-reverse 20s linear infinite, line-pulse 4s ease-in-out infinite;
             }
             .glass-card {
               background: rgba(255, 255, 255, 0.6);
@@ -819,143 +1077,144 @@
             .animate-float-3 { animation: float-slow 4.5s ease-in-out infinite backwards; }
             .animate-float-4 { animation: float-slower 5.5s ease-in-out infinite alternate; }
             .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
+            .scene-dot-active { animation: scene-pulse 2.4s ease-in-out infinite; }
+            .scene-badge-active { animation: badge-glow 2.8s ease-in-out infinite; }
           `}</style>
 
-          {/* Connection Lines (SVG) behind cards */}
-          <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden mix-blend-multiply opacity-60">
-            {isVisible && (
-              <>
-                {/* Desktop horizontal flow */}
-                <svg className="hidden lg:block w-full h-full text-zinc-300" preserveAspectRatio="none" viewBox="0 0 1000 300">
-                  <path d="M 150 150 C 350 130, 400 150, 500 150" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" />
-                  <path d="M 500 150 C 600 150, 650 170, 850 150" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" style={{ animationDelay: '-2s' }} />
-                  <path d="M 120 70 C 250 90, 300 145, 500 150" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.5" className="flow-path text-zinc-300" style={{ animationDelay: '-1s' }} />
-                  <path d="M 140 230 C 250 210, 300 155, 500 150" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.5" className="flow-path text-zinc-300" style={{ animationDelay: '-3s' }} />
-                </svg>
-                {/* Mobile vertical flow */}
-                <svg className="block lg:hidden w-full h-full text-zinc-300" preserveAspectRatio="none" viewBox="0 0 300 1000">
-                  <path d="M 150 150 C 130 350, 150 400, 150 500" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" />
-                  <path d="M 150 500 C 150 600, 170 650, 150 850" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" style={{ animationDelay: '-2s' }} />
-                  <path d="M 70 120 C 90 250, 145 300, 150 500" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.5" className="flow-path text-zinc-300" style={{ animationDelay: '-1s' }} />
-                  <path d="M 230 140 C 210 250, 155 300, 150 500" fill="none" stroke="currentColor" strokeWidth="1" opacity="0.5" className="flow-path text-zinc-300" style={{ animationDelay: '-3s' }} />
-                </svg>
-              </>
-            )}
-          </div>
+          <div className="relative min-h-[700px] bg-[#f7faf9] lg:min-h-[660px]">
+            {slides.map((slide, slideIndex) => {
+              const isActive = currentSlide === slideIndex;
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 min-h-[400px]">
-            {/* LEFT: INPUTS */}
-            <div className={`w-full lg:w-1/3 flex flex-col items-center lg:items-start relative h-[280px] lg:h-[320px] transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="absolute inset-0 flex flex-col justify-center gap-4 pl-4 lg:pl-0">
-                <div className="glass-card animate-float-1 rounded-2xl p-3 shadow-sm w-[180px] -ml-2">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-blue-400"></div>
-                    <span className="text-xs font-semibold text-ink">Nursing Notes</span>
-                  </div>
-                </div>
-                <div className="glass-card animate-float-2 rounded-2xl p-3 shadow-sm w-[190px] ml-10">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-purple-400"></div>
-                    <span className="text-xs font-semibold text-ink">Physician Orders</span>
-                  </div>
-                </div>
-                <div className="glass-card animate-float-3 rounded-2xl p-3 shadow-sm w-[160px] ml-2">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-orange-400"></div>
-                    <span className="text-xs font-semibold text-ink">Vitals / MAR</span>
-                  </div>
-                </div>
-                <div className="glass-card animate-float-4 rounded-2xl p-3 shadow-sm w-[200px] ml-6">
-                  <div className="flex items-center gap-2">
-                    <div className="h-2 w-2 rounded-full bg-rose-400"></div>
-                    <span className="text-xs font-semibold text-ink">Admission Assessment</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+              return (
+                <div
+                  key={slide.id}
+                  className={`absolute inset-0 bg-gradient-to-br ${slide.gradient} p-8 transition-all duration-700 ease-out lg:p-12 ${isActive ? "opacity-100 translate-x-0" : "pointer-events-none opacity-0 translate-x-6"}`}
+                  aria-hidden={!isActive}
+                >
+                  <div className={`absolute top-0 left-0 h-full w-1/3 ${slide.glowLeft} blur-[100px] pointer-events-none`}></div>
+                  <div className={`absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 ${slide.glowCenter} blur-[100px] pointer-events-none`}></div>
+                  <div className={`absolute bottom-0 right-0 h-full w-1/3 ${slide.glowRight} blur-[100px] pointer-events-none`}></div>
+                  <div className={`absolute inset-x-6 top-16 h-40 ${slide.mobileGlow} blur-[90px] pointer-events-none lg:hidden`}></div>
 
-            {/* CENTER: AI COPILOT */}
-            <div className={`w-full lg:w-1/3 flex justify-center z-20 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="glass-card animate-pulse-glow rounded-[28px] p-6 shadow-lg w-full max-w-[320px] relative">
-                <div className="absolute -top-4 -right-2 h-12 w-12 rounded-full bg-teal-100 flex items-center justify-center shadow-sm">
-                  <svg className="w-6 h-6 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
+                  <div className="relative z-20 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+                    <div className={`max-w-2xl transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#1d3551]/65">{slide.eyebrow}</p>
+                      <h3 className="font-display mt-3 text-[clamp(1.8rem,3vw,2.8rem)] leading-tight text-[#112036]">{slide.title}</h3>
+                      <p className="mt-3 max-w-[44rem] text-base leading-7 text-[#365069]">{slide.description}</p>
+                    </div>
 
-                <div className="mb-4 text-left">
-                  <span className="inline-block rounded-full bg-white/80 border border-teal-100/50 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">AI Co-Pilot</span>
-                </div>
-
-                <div className="space-y-3 text-left">
-                  <div className="rounded-xl bg-white/60 border border-white/60 p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-                    <p className="text-[10px] uppercase font-bold text-muted/80 mb-1">Missing diagnosis detected</p>
-                    <div className="flex items-start gap-2">
-                      <div className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"></div>
-                      <p className="text-xs font-semibold text-ink leading-snug">Diabetes w/ Neuropathy</p>
+                    <div className={`flex items-center gap-2 self-start rounded-full border border-white/70 bg-white/55 px-3 py-2 shadow-sm backdrop-blur-md transition-all duration-700 ${isActive ? "scene-badge-active" : ""}`}>
+                      {slides.map((_, dotIndex) => (
+                        <button
+                          key={`flow-slide-${dotIndex}`}
+                          type="button"
+                          onClick={() => setCurrentSlide(dotIndex)}
+                          aria-label={`Show slide ${dotIndex + 1}`}
+                          className={`h-2.5 rounded-full transition-all duration-500 ${dotIndex === currentSlide ? "scene-dot-active w-8 bg-[#112036]" : "w-2.5 bg-[#112036]/25 hover:bg-[#112036]/40"}`}
+                        ></button>
+                      ))}
                     </div>
                   </div>
 
-                  <div className="rounded-xl bg-[#f0ebf8]/60 border border-[#e6dced] p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-                    <p className="text-[10px] uppercase font-bold text-[#634992]/80 mb-1">PDPM Impact</p>
-                    <div className="flex justify-between items-center">
-                      <p className="text-sm font-bold text-[#4c3479]">+0.18 CMI</p>
-                      <span className="text-[10px] font-bold text-[#634992]">Potential</span>
+                  <div className="relative z-10 mt-10 lg:mt-12">
+                    <div className="relative mx-auto w-full max-w-[1160px]">
+                      <div className="absolute inset-0 pointer-events-none z-0 hidden overflow-hidden mix-blend-multiply opacity-60 lg:block">
+                        {isVisible && (
+                          <svg className="h-full w-full text-slate-400" preserveAspectRatio="none" viewBox="0 0 1000 430">
+                            <path d="M 155 195 C 305 195, 390 195, 500 195" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" />
+                            <path d="M 500 195 C 605 195, 680 195, 790 195" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" style={{ animationDelay: "-2s" }} />
+                            <path d="M 160 110 C 315 118, 390 152, 500 178" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-1s" }} />
+                            <path d="M 160 280 C 315 272, 390 238, 500 212" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-3s" }} />
+                            <path d="M 500 178 C 605 152, 680 118, 785 110" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-4s" }} />
+                            <path d="M 500 212 C 605 238, 680 272, 785 280" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-5s" }} />
+                          </svg>
+                        )}
+                      </div>
+
+                      <div className="relative hidden min-h-[430px] items-center justify-between gap-8 px-0 pb-14 lg:flex">
+                        <div className={`w-full lg:w-1/3 flex flex-col items-center lg:items-start relative h-[280px] lg:h-[320px] transition-all duration-1000 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                          <div className={`absolute inset-0 flex flex-col justify-center gap-4 pl-4 lg:pl-0 ${slide.leftCardsOffsetClassName || ""}`}>
+                            {slide.leftCards.map((card, cardIndex) => (
+                              <div key={`${slide.id}-card-${cardIndex}`} className={`glass-card ${card.animation} rounded-2xl p-3 shadow-sm ${card.width} ${card.offset}`}>
+                                <div className="flex items-center gap-2">
+                                  <div className={`h-2 w-2 rounded-full ${card.dot}`}></div>
+                                  <span className="text-xs font-semibold text-ink">{card.title}</span>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className={`w-full lg:w-1/3 flex justify-center z-20 transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                          <div className="glass-card animate-pulse-glow relative w-full max-w-[340px] rounded-[28px] p-6 shadow-lg">
+                            <div className={`absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 ${slide.centerIconBg} shadow-sm`}>
+                              <svg className={`h-5 w-5 ${slide.centerIconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+
+                            <div className="mb-4 pr-14 text-left">
+                              <span className="inline-block rounded-full bg-white/80 border border-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">{slide.centerBadge}</span>
+                            </div>
+
+                            <div className="space-y-3 text-left">
+                              {slide.centerPanels.map((panel, panelIndex) => (
+                                <div key={`${slide.id}-panel-${panelIndex}`} className={`rounded-xl p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] ${panel.className}`}>
+                                  <p className={`mb-1 text-[10px] font-bold uppercase ${panel.eyebrowClassName || "text-muted/80"}`}>{panel.eyebrow}</p>
+                                  {panel.body}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className={`w-full lg:w-1/3 flex justify-center lg:justify-end transition-all duration-1000 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                          <div className="w-full max-w-[280px] space-y-4 lg:mr-4">
+                            {slide.rightCards.map((output, outputIndex) => (
+                              <div key={`${slide.id}-output-${outputIndex}`} className={`glass-card flex items-center gap-3 rounded-2xl p-4 shadow-sm ${output.borderClassName || ""}`}>
+                                <div className={`flex h-8 w-8 items-center justify-center rounded-full ${output.bg} ${output.iconColor}`}>
+                                  {renderIcon(output.icon)}
+                                </div>
+                                <span className="text-xs font-bold leading-5 text-ink">{output.title}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className={`relative mx-auto flex min-h-[300px] w-full items-start justify-center pb-1 lg:hidden transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+                        <div className="glass-card animate-pulse-glow relative w-full max-w-[340px] rounded-[28px] p-5 pb-6 shadow-lg">
+                          <div className="mb-4 flex items-start justify-between gap-3 text-left">
+                            <span className="inline-block rounded-full bg-white/80 border border-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">{slide.centerBadge}</span>
+                            <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/70 ${slide.centerIconBg} shadow-sm`}>
+                              <svg className={`h-5 w-5 ${slide.centerIconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                              </svg>
+                            </div>
+                          </div>
+
+                          <div className="space-y-3 text-left">
+                            {slide.centerPanels.map((panel, panelIndex) => (
+                              <div key={`${slide.id}-mobile-panel-${panelIndex}`} className={`rounded-xl p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] ${panel.className}`}>
+                                <p className={`mb-1 text-[10px] font-bold uppercase ${panel.eyebrowClassName || "text-muted/80"}`}>{panel.eyebrow}</p>
+                                {panel.body}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="rounded-xl bg-white/60 border border-white/60 p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)]">
-                    <p className="text-[10px] uppercase font-bold text-muted/80 mb-1">Evidence</p>
-                    <div className="flex gap-2 text-[11px] font-semibold text-muted">
-                      <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Nursing</span>
-                      <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">+ MAR</span>
-                    </div>
+                  <div className="absolute bottom-6 left-8 z-10 hidden opacity-60 lg:block">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">{slide.leftLabel}</p>
+                  </div>
+                  <div className="absolute bottom-6 right-8 z-10 hidden opacity-60 lg:block">
+                    <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">{slide.rightLabel}</p>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* RIGHT: OUTPUTS */}
-            <div className={`w-full lg:w-1/3 flex justify-center lg:justify-end transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="space-y-4 w-full max-w-[260px] lg:mr-4">
-                <div className="glass-card rounded-2xl p-4 shadow-sm flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                  </div>
-                  <span className="text-xs font-bold text-ink whitespace-nowrap">MDS Coding Updated</span>
-                </div>
-
-                <div className="glass-card rounded-2xl p-4 shadow-sm flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-rose-100 text-rose-600">
-                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
-                  </div>
-                  <span className="text-xs font-bold text-ink whitespace-nowrap">ADR Defense Package Ready</span>
-                </div>
-
-                <div className="glass-card rounded-2xl p-4 shadow-sm flex items-center justify-between border-amber-200/50">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-amber-100 text-amber-600">
-                      <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                      </svg>
-                    </div>
-                    <span className="text-xs font-bold text-ink">Actions: Review & Send Physician Queries / Orders</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* BOTTOM COPY */}
-          <div className="absolute bottom-6 left-8 z-10 hidden lg:block opacity-60">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">AI-powered MDS accuracy</p>
-          </div>
-          <div className="absolute bottom-6 right-8 z-10 hidden lg:block opacity-60">
-            <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">Automated audit readiness</p>
+              );
+            })}
           </div>
         </div>
       );
