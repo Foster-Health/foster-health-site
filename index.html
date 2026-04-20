@@ -108,6 +108,58 @@ nav {
 
 .nav-cta:hover { background: var(--green-light); }
 
+.nav-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav-menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  background: rgba(248,247,244,0.04);
+  color: var(--white);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.nav-menu-toggle:hover {
+  background: rgba(248,247,244,0.08);
+  border-color: var(--white-faint);
+}
+
+.nav-menu-toggle-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.nav-menu-toggle span {
+  display: block;
+  width: 16px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+nav.menu-open .nav-menu-toggle span:nth-child(1) {
+  transform: translateY(5.5px) rotate(45deg);
+}
+
+nav.menu-open .nav-menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+nav.menu-open .nav-menu-toggle span:nth-child(3) {
+  transform: translateY(-5.5px) rotate(-45deg);
+}
+
 /* ─── HERO ────────────────────────────────── */
 .hero {
   min-height: 100vh;
@@ -235,7 +287,6 @@ nav {
 .hero-stat {
   padding: 0 36px 0 0;
 }
-.hero-stat:first-child { padding-left: 0; }
 .hero-stat-num {
   font-family: var(--serif);
   font-size: 44px;
@@ -519,6 +570,7 @@ nav {
   transition: max-height .35s ease, opacity .3s ease;
   opacity: 0;
 }
+.hf-step-desc-mobile { display: none; }
 .hf-step.active .hf-step-desc { max-height: 200px; opacity: 1; }
 
 /* PANEL (right col) */
@@ -1276,30 +1328,51 @@ footer {
   /* NAV */
   nav {
     padding: 12px 20px;
+    height: 56px;
     min-height: 56px;
-    height: auto;
-    flex-wrap: wrap;
-    gap: 14px;
+    flex-wrap: nowrap;
+    gap: 12px;
+    align-items: center;
   }
   .nav-logo { font-size: 18px; }
-  .nav-links {
-    display: flex;
-    gap: 16px;
-    width: 100%;
-    order: 3;
-    overflow-x: auto;
-    padding-bottom: 2px;
-    scrollbar-width: none;
-  }
-  .nav-links::-webkit-scrollbar { display: none; }
-  .nav-links a {
-    white-space: nowrap;
-    font-size: 13px;
-  }
-  .nav-cta {
+  .nav-actions {
     margin-left: auto;
-    padding: 8px 14px;
-    font-size: 13px;
+    gap: 8px;
+  }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 20px;
+    width: min(240px, calc(100vw - 40px));
+    padding: 12px;
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    background: rgba(19,30,51,0.97);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.28);
+    flex-direction: column;
+    gap: 4px;
+    z-index: 110;
+  }
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    white-space: normal;
+    font-size: 14px;
+    text-align: left;
+  }
+  .nav-links a:hover { background: rgba(248,247,244,0.06); }
+  nav.menu-open .nav-links { display: flex; }
+  .nav-cta {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  .nav-menu-toggle {
+    display: inline-flex;
+    flex-shrink: 0;
   }
 
   /* HERO */
@@ -1340,13 +1413,18 @@ footer {
     min-height: 52px;
     justify-content: center;
   }
-  .hero-stat-num span { font-size: 18px; }
+  .hero-stat-num span {
+    font-size: 18px;
+  }
   .hero-stat-label {
-    max-width: none;
+    width: 100%;
+    max-width: 190px;
     font-size: 11px;
     line-height: 1.45;
     min-height: 32px;
     text-align: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero-stat-divider { display: none; }
   .trust-row { flex-direction: column; gap: 10px; }
@@ -1366,9 +1444,25 @@ footer {
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .hf-panel-wrap { min-height: 400px; }
+  .hf-panel-wrap {
+    min-height: auto;
+    margin: 12px 0 16px;
+    overflow: hidden;
+    will-change: height;
+    transition: height .32s ease;
+  }
+  .hf-step-desc { transition: opacity .2s ease; }
+  .hf-step-desc-desktop { display: none; }
+  .hf-step-desc-mobile { display: inline; }
   .hf-panel-body { padding: 16px; }
   .hf-step { padding: 16px; }
+  .hf-step.active::after { display: none; }
+  .hf-panel {
+    transform: none;
+    transition: opacity .35s ease;
+  }
+  .hf-panel.active { transform: none; }
+  #hfPanel1 .hf-rec-body { display: none; }
 
   /* EXEC SECTION */
   .exec-section { padding: 60px 24px; }
@@ -1439,14 +1533,23 @@ footer {
 
 <!-- NAV -->
 <nav>
-  <a class="nav-logo" href="index.html">Foster<span>.</span></a>
+  <a class="nav-logo" href="/">Foster<span>.</span></a>
   <ul class="nav-links">
     <li><a href="#mds">How it works</a></li>
     <li><a href="#execs">For operators</a></li>
-    <li><a href="#faq">Common questions</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="roi.html" style="color:var(--green-light);">ROI calculator</a></li>
   </ul>
-  <a class="nav-cta" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Book a 30-minute call</a>
+  <div class="nav-actions">
+    <a class="nav-cta" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Book a 30-minute call</a>
+    <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-label="Open navigation menu">
+      <div class="nav-menu-toggle-inner" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -1529,7 +1632,7 @@ footer {
           <div class="hf-step-num">02</div>
           <div class="hf-step-body">
             <div class="hf-step-title">Recommend</div>
-            <div class="hf-step-desc">Foster reads every document continuously — admission records, progress notes, therapy logs, hospital records — and flags what's billable with the evidence already attached. It detects IPA triggers, handles physician querying end to end, reviews the MDS for coding errors, and surfaces inaccurate assessments before the ARD closes.</div>
+            <div class="hf-step-desc"><span class="hf-step-desc-desktop">Foster reads every document continuously — admission records, progress notes, therapy logs, hospital records — and flags what's billable with the evidence already attached. It detects IPA triggers, handles physician querying end to end, reviews the MDS for coding errors, and surfaces inaccurate assessments before the ARD closes.</span><span class="hf-step-desc-mobile">Foster scans the chart, flags billable items with proof attached, catches IPA triggers and MDS errors, and surfaces issues before the ARD closes.</span></div>
           </div>
         </div>
         <div class="hf-step" data-step="2" onclick="hfSetStep(2)">
@@ -1851,7 +1954,7 @@ footer {
 <!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="faq-inner">
-    <div class="section-label">Common questions</div>
+    <div class="section-label">FAQ</div>
     <h2 class="section-h2">Things operators<br><em>always ask us.</em></h2>
     <div class="faq-list">
       <div class="faq-item">
@@ -1902,20 +2005,166 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <a class="footer-logo" href="index.html">Foster<span>.</span></a>
+  <a class="footer-logo" href="/">Foster<span>.</span></a>
   <ul class="footer-links">
     <li><a href="#mds">How it works</a></li>
     <li><a href="#execs">For operators</a></li>
-    <li><a href="#faq">Common questions</a></li>
+    <li><a href="#faq">FAQ</a></li>
     <li><a href="roi.html">ROI calculator</a></li>
   </ul>
   <div class="footer-copy">© 2026 Foster Health</div>
 </footer>
 
 <script>
+const navElement = document.querySelector('nav');
+const navMenuToggle = document.querySelector('.nav-menu-toggle');
+const navLinks = document.querySelector('.nav-links');
+const navMobileQuery = window.matchMedia('(max-width: 768px)');
+const hfMobileQuery = window.matchMedia('(max-width: 900px)');
+const hfPanelWrap = document.querySelector('.hf-panel-wrap');
+const hfPanelDesktopParent = hfPanelWrap?.parentElement || null;
+let hfPanelHeightRafA = null;
+let hfPanelHeightRafB = null;
+let hfPanelHeightTimeout = null;
+let hfPanelHeightTransitionHandler = null;
+
+function closeMobileNav() {
+  if (!navElement || !navMenuToggle) return;
+  navElement.classList.remove('menu-open');
+  navMenuToggle.setAttribute('aria-expanded', 'false');
+}
+
+if (navElement && navMenuToggle && navLinks) {
+  navMenuToggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    const willOpen = !navElement.classList.contains('menu-open');
+    navElement.classList.toggle('menu-open', willOpen);
+    navMenuToggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navMobileQuery.matches) return;
+    if (!navElement.contains(event.target)) {
+      closeMobileNav();
+    }
+  });
+
+  navLinks.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMobileNav();
+    });
+  });
+
+  navMobileQuery.addEventListener('change', (event) => {
+    if (!event.matches) {
+      closeMobileNav();
+    }
+  });
+}
+
+function hfClearPanelHeightAnimation() {
+  if (!hfPanelWrap) return;
+  if (hfPanelHeightRafA) cancelAnimationFrame(hfPanelHeightRafA);
+  if (hfPanelHeightRafB) cancelAnimationFrame(hfPanelHeightRafB);
+  if (hfPanelHeightTimeout) clearTimeout(hfPanelHeightTimeout);
+  if (hfPanelHeightTransitionHandler) {
+    hfPanelWrap.removeEventListener('transitionend', hfPanelHeightTransitionHandler);
+  }
+  hfPanelHeightRafA = null;
+  hfPanelHeightRafB = null;
+  hfPanelHeightTimeout = null;
+  hfPanelHeightTransitionHandler = null;
+}
+
+function hfFinishPanelHeightAnimation() {
+  if (!hfPanelWrap) return;
+  hfClearPanelHeightAnimation();
+  hfPanelWrap.style.transition = '';
+  hfPanelWrap.style.height = 'auto';
+}
+
+function hfCollapsePanelWrapForSwitch() {
+  if (!hfPanelWrap || !hfMobileQuery.matches) return;
+  hfClearPanelHeightAnimation();
+  hfPanelWrap.style.transition = 'none';
+  hfPanelWrap.style.height = '0px';
+}
+
+function hfAnimatePanelOpen() {
+  if (!hfPanelWrap || !hfMobileQuery.matches) return;
+
+  const activePanel = document.querySelector('.hf-panel.active');
+  if (!activePanel) return;
+
+  hfClearPanelHeightAnimation();
+
+  const targetHeight = activePanel.getBoundingClientRect().height;
+
+  if (!targetHeight) {
+    hfPanelWrap.style.transition = '';
+    hfPanelWrap.style.height = 'auto';
+    return;
+  }
+
+  hfPanelHeightRafA = window.requestAnimationFrame(() => {
+    hfPanelHeightRafB = window.requestAnimationFrame(() => {
+      hfPanelWrap.style.transition = '';
+      hfPanelHeightTransitionHandler = (event) => {
+        if (event.target !== hfPanelWrap || event.propertyName !== 'height') return;
+        hfFinishPanelHeightAnimation();
+      };
+      hfPanelWrap.addEventListener('transitionend', hfPanelHeightTransitionHandler);
+      hfPanelHeightTimeout = window.setTimeout(hfFinishPanelHeightAnimation, 420);
+      hfPanelWrap.style.height = `${targetHeight}px`;
+    });
+  });
+}
+
+function hfSyncPanelPlacement() {
+  if (!hfPanelWrap || !hfPanelDesktopParent) return;
+
+  if (hfMobileQuery.matches) {
+    const activeStep = document.querySelector('.hf-step.active');
+    if (activeStep && activeStep.nextElementSibling !== hfPanelWrap) {
+      activeStep.insertAdjacentElement('afterend', hfPanelWrap);
+    }
+    return;
+  }
+
+  if (hfPanelWrap.parentElement !== hfPanelDesktopParent) {
+    hfPanelDesktopParent.appendChild(hfPanelWrap);
+  }
+  hfClearPanelHeightAnimation();
+  hfPanelWrap.style.height = 'auto';
+  hfPanelWrap.style.transition = '';
+}
+
 function hfSetStep(idx) {
-  document.querySelectorAll('.hf-step').forEach((s,i) => s.classList.toggle('active', i===idx));
+  const steps = Array.from(document.querySelectorAll('.hf-step'));
+  const nextStep = steps[idx];
+  if (!nextStep || nextStep.classList.contains('active')) return;
+
+  const shouldAnimateHeight = hfMobileQuery.matches;
+
+  if (shouldAnimateHeight && hfPanelWrap) {
+    hfCollapsePanelWrapForSwitch();
+  }
+
+  steps.forEach((s,i) => s.classList.toggle('active', i===idx));
   document.querySelectorAll('.hf-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+  hfSyncPanelPlacement();
+
+  if (shouldAnimateHeight && hfPanelWrap) {
+    hfAnimatePanelOpen();
+  }
+}
+
+hfSyncPanelPlacement();
+
+if (typeof hfMobileQuery.addEventListener === 'function') {
+  hfMobileQuery.addEventListener('change', hfSyncPanelPlacement);
+} else if (typeof hfMobileQuery.addListener === 'function') {
+  hfMobileQuery.addListener(hfSyncPanelPlacement);
 }
 
 // Before/After silhouette animation
