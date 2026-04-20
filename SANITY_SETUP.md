@@ -42,7 +42,7 @@ If the blog page shows `Could not load posts` with `Failed to fetch`, that usual
 
 ## 3. Run the Sanity Studio locally
 
-1. `cd /Users/revanth/Desktop/Dev/Foster Health/Website/studio`
+1. From the repo root, run `cd studio`
 2. `cp .env.example .env`
 3. Fill in:
    - `SANITY_STUDIO_PROJECT_ID`
