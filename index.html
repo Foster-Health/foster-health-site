@@ -1,1231 +1,1968 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Foster Health | AI MDS Copilot for Skilled Nursing Facilities</title>
-  <meta name="description"
-    content="Foster Health is an AI MDS copilot for skilled nursing facilities with MDS cross-validation, evidence-backed recommendations, and defensible reimbursement workflows." />
-  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=Dancing+Script:wght@400..700&family=Great+Vibes&display=swap"
-    rel="stylesheet" />
-  <script>
-    window.tailwind = window.tailwind || {};
-    window.tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            ink: "#112036",
-            muted: "#516178",
-            line: "#dce4ee",
-            primary: "#0f6e95",
-            "primary-dark": "#085a7a",
-            accent: "#1fa27d",
-            "accent-soft": "#e8f8f3",
-            surface: "#ffffff",
-            sand: "#f9fbfd",
-          },
-          boxShadow: {
-            soft: "0 16px 40px rgba(22, 40, 66, 0.1)",
-            panel: "0 30px 70px rgba(10, 36, 60, 0.12)",
-          },
-          fontFamily: {
-            display: ["Space Grotesk", "sans-serif"],
-            body: ["Source Sans 3", "sans-serif"],
-            cursive: ["Great Vibes", "cursive"],
-          },
-        },
-      },
-    };
-  </script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="./css/styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foster Health — Reimbursement Capture and Recovery for Skilled Nursing</title>
+<link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0B1220;
+  --navy-mid: #131E33;
+  --navy-light: #1C2B44;
+  --green: #2A7A52;
+  --green-light: #35A06B;
+  --green-muted: #1D5238;
+  --green-pale: #D4EDE2;
+  --white: #F8F7F4;
+  --white-dim: rgba(248,247,244,0.72);
+  --white-faint: rgba(248,247,244,0.36);
+  --white-ghost: rgba(248,247,244,0.10);
+  --border: rgba(248,247,244,0.10);
+  --border-strong: rgba(248,247,244,0.18);
+  --gold: #C8A96E;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--navy);
+  color: var(--white);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── NAV ─────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  height: 64px;
+  background: rgba(11,18,32,0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  color: var(--white);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-logo span {
+  color: var(--green-light);
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--white-dim);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--white); }
+
+.nav-cta {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  padding: 9px 20px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.2s;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-cta:hover { background: var(--green-light); }
+
+/* ─── HERO ────────────────────────────────── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(42,122,82,0.18) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(42,122,82,0.08) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.hero-eyebrow {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--green-light);
+}
+
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 92px);
+  font-weight: 300;
+  line-height: 1.06;
+  letter-spacing: -2px;
+  max-width: 1100px;
+  margin-bottom: 36px;
+}
+
+.hero-h1 em {
+  font-style: italic;
+  color: var(--white-dim);
+}
+
+.hero-sub {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--white-dim);
+  max-width: 580px;
+  margin-bottom: 44px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-primary:hover { background: var(--green-light); transform: translateY(-1px); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--white-dim);
+  border: 1px solid var(--border-strong);
+  padding: 14px 28px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: color 0.2s, border-color 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-ghost:hover { color: var(--white); border-color: var(--white-faint); }
+
+.hero-stats {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 32px;
+}
+.hero-stat {
+  padding: 0 36px 0 0;
+}
+.hero-stat:first-child { padding-left: 0; }
+.hero-stat-num {
+  font-family: var(--serif);
+  font-size: 44px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 44px;
+}
+.hero-stat-num span {
+  font-size: 22px;
+  color: var(--green-light);
+  font-family: var(--sans);
+  font-weight: 500;
+  line-height: 1;
+  padding-bottom: 4px;
+}
+.hero-stat-label {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--white-faint);
+  line-height: 1.4;
+  max-width: 160px;
+}
+.hero-stat-divider {
+  width: 1px;
+  height: 44px;
+  background: var(--border);
+  margin-right: 36px;
+  flex-shrink: 0;
+}
+
+.trust-row {
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--white-faint);
+  font-weight: 400;
+}
+
+.trust-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--green-light);
+  flex-shrink: 0;
+}
+
+/* ─── PROBLEM BAND ─────────────────────────── */
+.problem-band {
+  background: var(--navy-mid);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 48px;
+}
+
+.problem-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.problem-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.problem-h2 {
+  font-family: var(--serif);
+  font-size: 38px;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  margin-bottom: 20px;
+}
+
+.problem-body {
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--white-dim);
+}
+
+.problem-body strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.problem-stat-block {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.stat-big {
+  font-family: var(--serif);
+  font-size: 80px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -3px;
+  color: var(--white);
+}
+
+.stat-big span { color: var(--green-light); }
+
+.stat-sub {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--white-dim);
+  max-width: 280px;
+  line-height: 1.6;
+  margin-top: 16px;
+}
+
+.stat-note {
+  font-size: 12px;
+  color: var(--white-faint);
+  margin-top: 12px;
+}
+
+.example-callout {
+  margin-top: 28px;
+  padding: 16px 20px;
+  border-left: 2px solid var(--green);
+  background: rgba(42,122,82,0.08);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--white-dim);
+  line-height: 1.65;
+}
+
+.example-callout strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.example-label {
+  display: inline-block;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  font-weight: 500;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* ─── SECTIONS SHARED ──────────────────────── */
+.section {
+  padding: 100px 48px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-full {
+  padding: 100px 48px;
+}
+
+.section-label {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--green-light);
+  margin-bottom: 16px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '';
+  display: inline-block;
+  width: 18px;
+  height: 1px;
+  background: var(--green-light);
+}
+
+.section-h2 {
+  font-family: var(--serif);
+  font-size: clamp(32px, 3.5vw, 50px);
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  margin-bottom: 16px;
+}
+
+.section-h2 em {
+  font-style: italic;
+  color: var(--white-dim);
+}
+
+.section-sub {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--white-dim);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 60px;
+}
+
+/* ─── HOW FOSTER WORKS ───────────────────────── */
+.how-foster-section {
+  background: var(--navy);
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+.how-foster-inner { max-width: 1200px; margin: 0 auto; }
+
+.how-foster-layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 64px;
+  align-items: start;
+  margin-top: 0;
+}
+
+/* STEPS (left col) */
+.hf-steps { display: flex; flex-direction: column; gap: 0; }
+
+.hf-step {
+  display: flex; gap: 20px; align-items: flex-start;
+  padding: 24px 20px; border-radius: 12px;
+  cursor: pointer; border: 1px solid transparent;
+  transition: background .2s, border-color .2s;
+  position: relative;
+}
+.hf-step::after {
+  content: '';
+  position: absolute; left: 30px; bottom: -1px;
+  width: 1px; height: calc(100% - 56px);
+  background: var(--border);
+  top: 56px;
+  display: none;
+}
+.hf-step:not(:last-child)::after { display: block; }
+.hf-step:hover { background: rgba(248,247,244,0.03); }
+.hf-step.active {
+  background: rgba(42,122,82,0.07);
+  border-color: rgba(42,122,82,0.25);
+}
+
+.hf-step-num {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  color: rgba(248,247,244,0.25); letter-spacing: .05em;
+  min-width: 24px; margin-top: 2px;
+  transition: color .2s;
+}
+.hf-step.active .hf-step-num { color: #35A06B; }
+
+.hf-step-title {
+  font-size: 18px; font-weight: 500; color: rgba(248,247,244,0.5);
+  margin-bottom: 8px; letter-spacing: -.2px;
+  transition: color .2s;
+}
+.hf-step.active .hf-step-title { color: var(--white); }
+
+.hf-step-desc {
+  font-size: 14px; font-weight: 300;
+  color: rgba(248,247,244,0.35); line-height: 1.7;
+  max-height: 0; overflow: hidden;
+  transition: max-height .35s ease, opacity .3s ease;
+  opacity: 0;
+}
+.hf-step.active .hf-step-desc { max-height: 200px; opacity: 1; }
+
+/* PANEL (right col) */
+.hf-panel-wrap { position: relative; min-height: 520px; }
+
+.hf-panel {
+  position: absolute; top: 0; left: 0; right: 0;
+  background: #0E1726;
+  border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden;
+  opacity: 0; pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.hf-panel.active {
+  opacity: 1; pointer-events: all; transform: translateY(0);
+  position: relative;
+}
+
+.hf-panel-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 13px 20px;
+  background: #0B1220; border-bottom: 1px solid var(--border);
+}
+.hf-dots { display: flex; gap: 6px; }
+.hf-dots span {
+  width: 10px; height: 10px; border-radius: 50%;
+}
+.hf-dots span:nth-child(1){background:rgba(255,95,86,.5)}
+.hf-dots span:nth-child(2){background:rgba(255,189,46,.5)}
+.hf-dots span:nth-child(3){background:rgba(53,160,107,.5)}
+.hf-panel-title {
+  flex: 1; font-size: 12px; font-weight: 400;
+  color: rgba(248,247,244,.3); text-align: center;
+  font-family: 'DM Sans', monospace;
+}
+.hf-live {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: #35A06B; font-weight: 500;
+}
+.hf-pulse {
+  width: 6px; height: 6px; border-radius: 50%; background: #35A06B;
+  animation: hfPulse 1.8s ease-in-out infinite;
+}
+.hf-pulse.warn { background: #C8A96E; }
+.hf-pulse.ok { background: #35A06B; }
+@keyframes hfPulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+
+.hf-panel-body { padding: 24px 24px 20px; }
+
+/* CONNECT panel */
+.hf-connect-body { display: flex; flex-direction: column; justify-content: center; }
+.hf-connect-sources { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.hf-source-row {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  background: #131E33; border: 1px solid rgba(248,247,244,0.07);
+  border-radius: 10px; cursor: default;
+  transition: border-color .2s;
+}
+.hf-source-row:hover { border-color: rgba(42,122,82,0.3); }
+.hf-source-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: rgba(42,122,82,.12); border: 1px solid rgba(42,122,82,.2);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.hf-source-icon svg { width: 16px; height: 16px; }
+.hf-source-name { flex: 1; font-size: 15px; font-weight: 500; color: var(--white); }
+.hf-source-sub { display: block; font-size: 11px; font-weight: 300; color: rgba(248,247,244,.38); margin-top: 2px; }
+.hf-source-chevron { color: rgba(248,247,244,.22); font-size: 20px; font-weight: 300; line-height: 1; }
+
+.hf-engine-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 14px 20px;
+  background: rgba(42,122,82,.08);
+  border: 1px solid rgba(42,122,82,.35);
+  border-radius: 10px;
+  font-size: 14px; font-weight: 500; color: #35A06B;
+  letter-spacing: .01em; margin-bottom: 12px;
+}
+.hf-engine-dot-inline {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #35A06B; flex-shrink: 0;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.hf-chrome-badge {
+  display: flex; align-items: center; justify-content: center; gap: 7px;
+  font-size: 11px; font-weight: 400;
+  color: rgba(248,247,244,.3);
+}
+.hf-chrome-badge svg { flex-shrink: 0; stroke: rgba(248,247,244,.3); }
+
+.hf-query-loop {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: rgba(248,247,244,0.03);
+  border: 1px solid rgba(248,247,244,0.06);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.hf-query-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+.hf-query-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+.hf-query-dot.done { background: #35A06B; }
+.hf-query-dot.pending { background: rgba(248,247,244,0.2); border: 1px solid rgba(248,247,244,0.25); }
+.hf-query-text {
+  font-size: 11px; font-weight: 400;
+  color: rgba(248,247,244,0.5);
+  line-height: 1.5;
+}
+.hf-query-text.hf-query-green { color: #35A06B; }
+.hf-query-dim { color: rgba(248,247,244,0.3); }
+
+/* RECOMMEND panel */
+.hf-rec-header {
+  font-size: 12px; font-weight: 400; color: rgba(248,247,244,.4);
+  margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.hf-rec-header strong { color: rgba(248,247,244,.7); font-weight: 500; }
+.hf-rec-item {
+  padding: 14px 16px; background: #131E33;
+  border: 1px solid var(--border); border-radius: 8px;
+  margin-bottom: 10px;
+}
+.hf-rec-badge {
+  display: inline-block; font-size: 10px; font-weight: 500;
+  letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px; margin-bottom: 8px;
+}
+.hf-rec-badge.query { background: rgba(200,169,110,.12); color: #C8A96E; border: 1px solid rgba(200,169,110,.25); }
+.hf-rec-badge.ipa   { background: rgba(53,160,107,.12); color: #35A06B; border: 1px solid rgba(53,160,107,.25); }
+.hf-rec-badge.mismatch { background: rgba(226,75,74,.1); color: #E24B4A; border: 1px solid rgba(226,75,74,.25); }
+.hf-rec-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 5px; line-height: 1.35; }
+.hf-rec-body { font-size: 12px; font-weight: 300; color: rgba(248,247,244,.45); line-height: 1.6; margin-bottom: 10px; }
+.hf-rec-footer { display: flex; justify-content: space-between; align-items: center; }
+.hf-rec-impact { font-size: 12px; font-weight: 500; color: #35A06B; }
+.hf-rec-link { font-size: 11px; color: rgba(248,247,244,.3); cursor: pointer; }
+.hf-rec-link:hover { color: rgba(248,247,244,.6); }
+
+/* VERIFY panel */
+.hf-check-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.hf-check-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 14px; border-radius: 7px;
+}
+.hf-check-row.pass { background: rgba(248,247,244,.03); }
+.hf-check-row.flag { background: rgba(226,75,74,.06); border: 1px solid rgba(226,75,74,.2); }
+.hf-check-icon { font-size: 13px; color: #35A06B; font-weight: 600; width: 18px; flex-shrink: 0; margin-top: 1px; }
+.hf-check-icon.warn { color: #E24B4A; }
+.hf-check-name { flex: 1; font-size: 13px; font-weight: 400; color: rgba(248,247,244,.7); }
+.hf-check-sub { font-size: 11px; font-weight: 300; color: rgba(248,247,244,.35); margin-top: 3px; }
+.hf-check-result { font-size: 12px; font-weight: 500; }
+.hf-check-result.pass { color: #35A06B; }
+.hf-check-result.flag { color: #E24B4A; }
+.hf-check-footer {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; border-radius: 8px; margin-top: 4px;
+}
+.hf-check-footer.flag-footer { background: rgba(226,75,74,.07); border: 1px solid rgba(226,75,74,.2); }
+.hf-check-footer-label { font-size: 13px; font-weight: 400; color: rgba(248,247,244,.6); }
+.hf-check-footer-btn {
+  font-size: 12px; font-weight: 500; color: #35A06B; cursor: pointer;
+  padding: 6px 14px; border: 1px solid rgba(42,122,82,.3);
+  border-radius: 6px; background: rgba(42,122,82,.08);
+}
+
+/* APPEAL panel */
+.hf-adr-flow {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; padding: 18px;
+  background: #131E33; border: 1px solid var(--border); border-radius: 10px;
+}
+.hf-adr-step { flex: 1; text-align: center; }
+.hf-adr-step-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  background: rgba(42,122,82,0.13);
+  border: 1px solid rgba(42,122,82,0.22);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 10px;
+}
+.hf-adr-step-icon svg { width: 20px; height: 20px; stroke: #35A06B; }
+.hf-adr-step-label { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 3px; }
+.hf-adr-step-sub { font-size: 11px; font-weight: 300; color: #35A06B; }
+.hf-adr-arrow { font-size: 20px; color: rgba(53,160,107,.5); flex-shrink: 0; }
+
+.hf-evidence-block {
+  margin-bottom: 16px; padding: 16px;
+  background: #131E33; border: 1px solid var(--border); border-radius: 10px;
+}
+.hf-evidence-label {
+  font-size: 11px; text-transform: uppercase; letter-spacing: .09em;
+  color: rgba(248,247,244,.3); font-weight: 500; margin-bottom: 12px;
+}
+.hf-evidence-item {
+  font-size: 12px; font-weight: 300; line-height: 1.5;
+  padding: 8px 12px; border-radius: 6px; margin-bottom: 6px;
+  border-left: 2px solid;
+}
+.hf-evidence-item.green { border-color: #35A06B; background: rgba(42,122,82,.08); color: rgba(248,247,244,.7); }
+.hf-evidence-item.amber { border-color: #C8A96E; background: rgba(200,169,110,.07); color: rgba(248,247,244,.7); }
+.hf-evidence-item.blue  { border-color: #378ADD; background: rgba(55,138,221,.07); color: rgba(248,247,244,.7); }
+
+.hf-adr-ready {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px; border-radius: 8px;
+  background: rgba(42,122,82,.1); border: 1px solid rgba(42,122,82,.25);
+  font-size: 13px; font-weight: 500; color: #35A06B;
+}
+
+/* ─── EXEC SECTION ──────────────────────────── */
+.exec-section {
+  background: var(--navy-mid);
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.exec-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.exec-card {
+  background: var(--navy-mid);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  min-height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.exec-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+  border-radius: 14px;
+}
+
+.exec-card:nth-child(1)::before { background: radial-gradient(ellipse at 70% 20%, rgba(42,122,82,0.55) 0%, transparent 65%); }
+.exec-card:nth-child(2)::before { background: radial-gradient(ellipse at 70% 20%, rgba(29,82,120,0.6) 0%, transparent 65%); }
+.exec-card:nth-child(3)::before { background: radial-gradient(ellipse at 70% 20%, rgba(100,60,160,0.55) 0%, transparent 65%); }
+.exec-card:nth-child(4)::before { background: radial-gradient(ellipse at 70% 20%, rgba(42,122,82,0.45) 0%, transparent 65%); }
+
+.exec-card-icon {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(248,247,244,0.2);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: auto;
+  position: relative; z-index: 1;
+  transition: border-color 0.3s;
+}
+.exec-card-icon svg { width: 18px; height: 18px; stroke: rgba(248,247,244,0.6); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+.exec-card-bottom { position: relative; z-index: 1; padding-top: 48px; }
+
+.exec-card-title {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+
+.exec-card-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(248,247,244,0.55);
+  line-height: 1.7;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.4s ease, opacity 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .exec-card:hover { border-color: rgba(248,247,244,0.2); transform: translateY(-2px); }
+  .exec-card:hover::before { opacity: 1; }
+  .exec-card:hover .exec-card-icon { border-color: rgba(248,247,244,0.5); }
+  .exec-card:hover .exec-card-icon svg { stroke: var(--white); }
+  .exec-card:hover .exec-card-body {
+    max-height: 200px;
+    opacity: 1;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .exec-card {
+    min-height: 0;
+  }
+
+  .exec-card::before {
+    opacity: 0.9;
+  }
+
+  .exec-card-icon {
+    border-color: rgba(248,247,244,0.38);
+  }
+
+  .exec-card-icon svg {
+    stroke: var(--white);
+  }
+
+  .exec-card-bottom {
+    padding-top: 28px;
+  }
+
+  .exec-card-body {
+    max-height: none;
+    opacity: 1;
+    color: rgba(248,247,244,0.66);
+  }
+}
+
+.exec-featured-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+}
+.exec-featured-card {
+  background: var(--navy-mid);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 36px 32px;
+  transition: border-color 0.2s;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.exec-featured-card:hover { border-color: var(--border-strong); }
+.exec-featured-title {
+  font-family: var(--serif);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: -0.4px;
+  margin: 12px 0 14px;
+  line-height: 1.25;
+  color: var(--white);
+}
+.exec-featured-body {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--white-dim);
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+.exec-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green-light);
+  cursor: pointer;
+  transition: gap 0.2s;
+}
+.exec-card-cta:hover { gap: 12px; }
+
+.exec-denials-card {
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items: center;
+}
+
+.exec-denials-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 260px;
+}
+
+.denial-stat {
+  border-left: 2px solid var(--green-muted);
+  padding-left: 16px;
+}
+
+.denial-stat-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white-faint);
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.denial-stat-val {
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--white-dim);
+}
+
+.denial-stat-val span {
+  color: var(--green-light);
+  font-weight: 500;
+}
+
+.exec-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.exec-stat {
+  background: var(--navy);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.exec-stat-num {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  letter-spacing: -1px;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+
+.exec-stat-num span { color: var(--green-light); }
+
+.exec-stat-label {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--white-faint);
+  line-height: 1.5;
+}
+
+/* ─── HOW IT WORKS ──────────────────────────── */
+.how-section {
+  background: var(--navy);
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+
+.how-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.how-step {
+  padding: 32px 24px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--navy-mid);
+  position: relative;
+}
+
+.how-step-num {
+  font-family: var(--serif);
+  font-size: 48px;
+  font-weight: 300;
+  color: var(--white-ghost);
+  line-height: 1;
+  margin-bottom: 20px;
+  letter-spacing: -2px;
+}
+
+.how-step-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  letter-spacing: -0.2px;
+}
+
+.how-step-body {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--white-dim);
+  line-height: 1.7;
+}
+
+/* ─── CTA BAND ──────────────────────────────── */
+.cta-band {
+  background: var(--green-muted);
+  border-top: 1px solid rgba(42,122,82,0.4);
+  padding: 80px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-band::before {
+  content: '';
+  position: absolute;
+  top: -150px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(53,160,107,0.25) 0%, transparent 70%);
+}
+
+.cta-band-inner {
+  position: relative;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.cta-band h2 {
+  font-family: var(--serif);
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 300;
+  letter-spacing: -1px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.cta-band p {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(248,247,244,0.75);
+  margin-bottom: 36px;
+  line-height: 1.65;
+}
+
+.cta-band-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--navy);
+  border: none;
+  padding: 14px 28px;
+  border-radius: 7px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: opacity 0.2s;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-white:hover { opacity: 0.9; }
+
+/* ─── FOOTER ────────────────────────────────── */
+footer {
+  background: var(--navy);
+  border-top: 1px solid var(--border);
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.footer-logo {
+  font-family: var(--serif);
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--white-dim);
+  text-decoration: none;
+}
+
+.footer-logo span { color: var(--green-light); }
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--white-faint);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--white-dim); }
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--white-faint);
+}
+
+/* ─── DIVIDER LINE ──────────────────────────── */
+.divider {
+  max-width: 1100px;
+  margin: 0 auto;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ─── FAQ ───────────────────────────────────── */
+.faq-section {
+  background: var(--navy-mid);
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+
+.faq-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.faq-inner .section-h2 {
+  margin-bottom: 56px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-item {
+  border-top: 1px solid var(--border);
+}
+
+.faq-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+
+.faq-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 28px 0 0;
+  cursor: default;
+}
+
+.faq-q-text {
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: rgba(248,247,244,0.55);
+  letter-spacing: -0.3px;
+  line-height: 1.3;
+  transition: color 0.25s ease;
+}
+
+.faq-chevron {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  stroke: var(--white-faint);
+  fill: none;
+  stroke-width: 1.5;
+  transition: transform 0.3s ease, stroke 0.25s ease;
+  margin-top: 4px;
+}
+
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4,0,0.2,1),
+              padding 0.35s ease;
+  padding-bottom: 0;
+}
+
+.faq-a-inner {
+  overflow: hidden;
+}
+
+.faq-a-inner p {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--white-dim);
+  line-height: 1.8;
+  padding-top: 14px;
+  padding-bottom: 28px;
+}
+
+/* hover state — pure CSS */
+.faq-item:hover .faq-q-text {
+  color: var(--white);
+}
+
+.faq-item:hover .faq-chevron {
+  transform: rotate(180deg);
+  stroke: var(--green-light);
+}
+
+.faq-item:hover .faq-a {
+  grid-template-rows: 1fr;
+}
+
+/* ─── REVENUE IMPACT — BEFORE / AFTER ────────── */
+/* ─── REVENUE IMPACT — WATER JUG ─────────────── */
+.revenue-section{background:var(--navy);padding:100px 48px 80px;border-top:1px solid var(--border)}
+.revenue-inner{max-width:860px;margin:0 auto;text-align:center}
+.revenue-label{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-light);font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:16px}
+.revenue-label::before,.revenue-label::after{content:"";display:inline-block;width:16px;height:1px;background:var(--green-light)}
+.revenue-context{font-size:13px;font-weight:300;color:var(--white-faint);margin-bottom:14px}
+.revenue-range{font-family:var(--serif);font-size:clamp(48px,6.5vw,84px);font-weight:300;letter-spacing:-2.5px;line-height:1;margin-bottom:10px;display:flex;align-items:baseline;justify-content:center}
+.range-low{color:rgba(248,247,244,0.28)}.range-sep{color:rgba(248,247,244,0.18);font-size:.55em;margin:0 6px}.range-high{color:var(--green-light)}
+.revenue-sublabel{font-size:13px;font-weight:300;color:var(--white-faint);margin-bottom:52px;line-height:1.6}
+
+/* JUG LAYOUT */
+.cup-section-inner{max-width:860px;margin:0 auto;text-align:center}
+.cup-layout{display:flex;align-items:flex-end;justify-content:center;gap:40px;margin-bottom:0}
+.cup-col{display:flex;flex-direction:column;align-items:center}
+.cup-amount-above{font-family:var(--serif);font-size:clamp(36px,5vw,64px);font-weight:300;letter-spacing:-2px;line-height:1;margin-bottom:16px;color:rgba(248,247,244,0.22)}
+.cup-amount-above.green{color:var(--green-light)}
+.cup-wrap{position:relative}
+.cup-label-title{font-size:14px;font-weight:500;color:var(--white);margin-top:20px;margin-bottom:3px}
+.cup-label-sub{font-size:12px;font-weight:300;color:var(--white-faint)}
+@media(max-width:768px){.cup-layout{flex-direction:column;align-items:center;gap:48px}}
+
+/* ─── ANIMATIONS ────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.hero-eyebrow { animation: fadeUp 0.6s ease both; }
+.hero-h1      { animation: fadeUp 0.7s 0.1s ease both; }
+.hero-sub     { animation: fadeUp 0.7s 0.2s ease both; }
+.hero-actions { animation: fadeUp 0.7s 0.3s ease both; }
+.trust-row    { animation: fadeUp 0.7s 0.4s ease both; }
+
+/* ─── MOBILE ─────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* NAV */
+  nav {
+    padding: 12px 20px;
+    min-height: 56px;
+    height: auto;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .nav-logo { font-size: 18px; }
+  .nav-links {
+    display: flex;
+    gap: 16px;
+    width: 100%;
+    order: 3;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    white-space: nowrap;
+    font-size: 13px;
+  }
+  .nav-cta {
+    margin-left: auto;
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 90px 24px 60px;
+  }
+  .hero-h1 {
+    font-size: clamp(38px, 10vw, 56px);
+    letter-spacing: -1px;
+  }
+  .hero-sub { font-size: 16px; }
+  .hero-actions { flex-direction: column; gap: 10px; }
+  .btn-primary, .btn-ghost { width: 100%; text-align: center; }
+  .hero-stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    align-items: stretch;
+    margin-bottom: 24px;
+  }
+  .hero-stat {
+    padding: 16px 14px;
+    margin-bottom: 0;
+    min-height: 128px;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    background: linear-gradient(180deg, rgba(19,30,51,0.92) 0%, rgba(11,18,32,0.92) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+  }
+  .hero-stat-num {
+    font-size: clamp(34px, 7.5vw, 42px);
+    margin-bottom: 0;
+    min-height: 52px;
+    justify-content: center;
+  }
+  .hero-stat-num span { font-size: 18px; }
+  .hero-stat-label {
+    max-width: none;
+    font-size: 11px;
+    line-height: 1.45;
+    min-height: 32px;
+    text-align: center;
+  }
+  .hero-stat-divider { display: none; }
+  .trust-row { flex-direction: column; gap: 10px; }
+
+  /* PROBLEM BAND */
+  .problem-band { padding: 60px 24px; }
+  .problem-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .stat-big { font-size: 56px; }
+
+  /* HOW FOSTER WORKS */
+  .how-foster-section { padding: 60px 24px; }
+  .how-foster-inner .section-sub { margin-bottom: 36px; }
+  .how-foster-layout {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .hf-panel-wrap { min-height: 400px; }
+  .hf-panel-body { padding: 16px; }
+  .hf-step { padding: 16px; }
+
+  /* EXEC SECTION */
+  .exec-section { padding: 60px 24px; }
+  .exec-grid { grid-template-columns: 1fr 1fr; }
+  .exec-featured-row { grid-template-columns: 1fr; }
+  .exec-denials-card {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px;
+  }
+  .exec-row { grid-template-columns: 1fr; }
+
+  /* SECTIONS SHARED */
+  .section { padding: 60px 24px; }
+  .section-full { padding: 60px 24px; }
+  .section-h2 { font-size: clamp(28px, 8vw, 40px); }
+
+  /* EXEC STATS */
+  .exec-stat-num { font-size: 28px; }
+
+  /* FAQ */
+  .faq-section { padding: 60px 24px; }
+  .faq-q-text { font-size: 17px; }
+
+  /* CTA BAND */
+  .cta-band { padding: 60px 24px; }
+  .cta-band-actions { flex-direction: column; align-items: center; }
+  .btn-white, .cta-band .btn-ghost { width: 100%; text-align: center; }
+
+  /* FOOTER */
+  footer {
+    flex-direction: column;
+    gap: 20px;
+    padding: 36px 24px;
+    text-align: center;
+  }
+  .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 34px; }
+  .problem-h2 { font-size: 26px; }
+  .hf-connect-sources .hf-source-row { padding: 12px 14px; }
+  .hf-source-name { font-size: 13px; }
+  .hero-stats { gap: 10px; }
+  .hero-stat {
+    min-height: 118px;
+    padding: 14px 12px;
+  }
+  .hero-stat-num {
+    font-size: 30px;
+    min-height: 44px;
+    gap: 3px;
+  }
+  .hero-stat-num span {
+    font-size: 15px;
+    padding-bottom: 3px;
+  }
+  .hero-stat-label {
+    font-size: 10px;
+    min-height: 30px;
+  }
+  .exec-grid { grid-template-columns: 1fr; }
+}
+</style>
 </head>
+<body>
 
-<body class="bg-transparent font-body text-ink">
-  <div class="mx-auto w-full max-w-screen-2xl px-5 py-5 lg:px-8">
-    <header
-      class="site-header sticky top-3 z-20 flex items-center justify-between rounded-2xl border border-white/70 bg-white/90 shadow-soft backdrop-blur">
-      <div class="flex w-full items-center justify-between px-4 py-3 lg:px-6">
-        <a class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]" href="/">
-          <span class="brand-mark" aria-hidden="true"></span>
-          Foster Health
-        </a>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">Foster<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#mds">How it works</a></li>
+    <li><a href="#execs">For operators</a></li>
+    <li><a href="#faq">Common questions</a></li>
+    <li><a href="roi.html" style="color:var(--green-light);">ROI calculator</a></li>
+  </ul>
+  <a class="nav-cta" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Book a 30-minute call</a>
+</nav>
 
-        <!-- Hamburger Button -->
-        <button id="menu-toggle"
-          class="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-white shadow-sm transition-all hover:bg-sand md:hidden"
-          aria-label="Toggle Menu" aria-expanded="false">
-          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
-          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
-          <span class="h-0.5 w-5 rounded-full bg-black transition-all duration-300"></span>
-        </button>
-
-        <nav class="site-nav hidden items-center gap-6 md:flex" aria-label="Primary">
-          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-clinicians">For
-            Clinicians</a>
-          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/for-execs">For Execs</a>
-          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/pricing">Pricing</a>
-          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/team">Team</a>
-          <a class="site-nav-link font-semibold text-muted transition hover:text-ink" href="/blog">Blog</a>
-          <a class="site-nav-cta font-display rounded-full bg-[#112036] font-bold text-white transition hover:bg-[#081727]"
-            href="/book-a-demo">
-            Request Demo
-          </a>
-        </nav>
-      </div>
-
-      <!-- Mobile Menu -->
-      <div id="mobile-menu"
-        class="absolute left-0 right-0 top-full mt-2 hidden origin-top scale-95 flex-col gap-2 rounded-2xl border border-line bg-white p-4 opacity-0 shadow-panel transition-all duration-300 md:hidden">
-        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
-          href="/for-clinicians">For Clinicians</a>
-        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
-          href="/for-execs">For Execs</a>
-        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
-          href="/pricing">Pricing</a>
-        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
-          href="/team">Team</a>
-        <a class="rounded-xl px-4 py-3 font-semibold text-muted transition hover:bg-sand hover:text-ink"
-          href="/blog">Blog</a>
-        <div class="mt-2 border-t border-line pt-2">
-          <a class="site-nav-cta font-display block rounded-xl bg-[#112036] px-4 py-4 text-center font-bold text-white transition hover:bg-[#081727]"
-            href="/book-a-demo">
-            Request Demo
-          </a>
-        </div>
-      </div>
-    </header>
-
-    <main class="space-y-6 lg:space-y-8">
-      <section
-        class="rise-in mt-6 grid gap-5 overflow-hidden rounded-[28px] border border-line/80 bg-surface p-6 shadow-panel lg:gap-3 lg:grid-cols-[1fr_1.02fr] lg:p-8">
-        <div class="space-y-6">
-          <div class="flex flex-wrap gap-2">
-            <span
-              class="rounded-full border border-primary/15 bg-[#eaf6fb] px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-primary">
-              AI MDS Copilot
-            </span>
-            <span
-              class="rounded-full border border-line bg-[#f2f6fa] px-3 py-1 text-xs font-semibold uppercase tracking-[0.08em] text-muted">
-              Built for Skilled Nursing
-            </span>
-          </div>
-
-          <div class="space-y-4">
-            <h1
-              class="font-display max-w-none text-[clamp(2.4rem,4vw,4.9rem)] leading-[0.98] lg:min-h-[4em] lg:max-w-[15ch]">
-              <span id="typewriter-headline">Capture the Reimbursement You've Already Earned</span>
-            </h1>
-            <p class="max-w-none text-[1.35rem] leading-tight text-[#1f3651] lg:max-w-[38rem]">
-              Clinical AI designed to think like the best MDS coordinators — reading the full chart to surface missed
-              PDPM drivers, documentation gaps, and physician query opportunities before the MDS closes.
-            </p>
-          </div>
-
-          <div class="flex flex-wrap items-center gap-3 pt-1">
-            <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
-              href="/book-a-demo">
-              Request Demo
-            </a>
-          </div>
-        </div>
-
-        <aside
-          class="relative overflow-hidden rounded-[24px] border border-[#d8e6f0] bg-[linear-gradient(180deg,#f8fcff_0%,#ffffff_52%,#f5fbf8_100%)] p-5"
-          aria-label="Animated preview of Foster decluttering clinical documentation into a calm MDS assistant workflow">
-          <div id="pdpm-animation-root"></div>
-        </aside>
-      </section>
-
-      <section class="grid gap-4 md:grid-cols-3" aria-label="Key outcomes">
-        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Revenue Impact</p>
-          <strong class="font-display mt-3 block text-3xl">~$500K+ per facility</strong>
-          <p class="mt-2 text-muted">Average annual PDPM revenue leakage identified through missed drivers, query
-            opportunities, and documentation gaps.</p>
-        </article>
-        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Cross-Validation</p>
-          <strong class="font-display mt-3 block text-3xl">100% evidence-backed</strong>
-          <p class="mt-2 text-muted">Every recommendation includes source chart documentation and a defensible query or
-            correction path.</p>
-        </article>
-        <article class="rise-in rounded-[24px] border border-line bg-surface p-5 shadow-soft">
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Efficiency</p>
-          <strong class="font-display mt-3 block text-3xl">10–20 hours saved weekly</strong>
-          <p class="mt-2 text-muted">Less chart hunting, fewer retrospective reviews, and more time for judgment calls.
-          </p>
-        </article>
-      </section>
-
-      <section class="rise-in rounded-[28px] border border-line bg-surface p-6 shadow-soft lg:p-8">
-        <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-          <div class="max-w-3xl">
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Platform Capabilities</p>
-            <h2 class="font-display mt-2 text-[clamp(2.1rem,3.2vw,3.2rem)] leading-tight">
-              Engineered for clinical precision and operational speed.
-            </h2>
-            <p class="mt-4 text-lg leading-8 text-muted">
-              Foster turns chart data into audit-ready workflows, ensuring your facility is always protected and
-              properly
-              reimbursed.
-            </p>
-          </div>
-        </div>
-
-        <div id="flow-of-intelligence-root" class="mt-10 w-full"></div>
-      </section>
-
-      <section
-        class="rise-in rounded-[28px] bg-gradient-to-br from-primary to-[#125474] px-6 py-8 text-[#112036] shadow-panel lg:px-8">
-        <div class="grid gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-[#112036]/80">See It In Action</p>
-            <h2 class="font-display mt-2 text-[clamp(2rem,3vw,3.2rem)] leading-tight text-[#112036]">
-              Free Documentation Diagnostic
-            </h2>
-            <p class="mt-4 max-w-[40rem] text-lg leading-8 text-[#112036]/85">
-              We review one facility’s documentation and MDS workflow to identify missed PDPM drivers, query
-              opportunities, and abstraction gaps. You get a concrete report with evidence-backed findings and estimated
-              reimbursement impact.
-            </p>
-          </div>
-          <div class="flex flex-wrap gap-3 lg:justify-end">
-            <a class="font-display rounded-2xl bg-[#112036] px-6 py-3.5 font-bold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-[#081727]"
-              href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
-              Request a free diagnostic
-            </a>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="mt-8 rounded-[28px] border border-line bg-white px-6 py-6 shadow-soft">
-      <div class="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-        <div class="max-w-md">
-          <div class="site-brand font-display flex items-center gap-3 font-bold tracking-[0.01em]">
-            <span class="brand-mark" aria-hidden="true"></span>
-            Foster Health
-          </div>
-          <p class="mt-3 text-sm leading-6 text-muted">
-            AI MDS copilot for skilled nursing facilities with chart-backed recommendations, MDS analytics, and
-            defensible reimbursement workflows.
-          </p>
-        </div>
-        <div>
-          <div>
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Contact</p>
-            <div class="mt-3 grid gap-2 text-sm text-muted">
-              <a class="transition hover:text-ink" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank"
-                rel="noreferrer">Contact Us</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="mt-6 border-t border-line pt-4 text-sm text-muted">
-        <span>&copy; 2026 Foster Health</span>
-      </div>
-    </footer>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">AI-powered reimbursement capture and recovery for skilled nursing</div>
+  <h1 class="hero-h1">
+    You took care of the patient.<br>
+    <em>We make sure you get paid for it.</em>
+  </h1>
+  <p class="hero-sub">
+    Foster continuously reads the patient chart to surface missed reimbursement before the ARD closes, catch claim errors before submission, and prepare denial evidence automatically.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request your free audit</a>
+    <button class="btn-ghost" onclick="document.getElementById('mds').scrollIntoView({behavior:'smooth'})">How it works</button>
   </div>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script type="text/babel" data-presets="react">
-    const { useEffect, useRef, useState } = React;
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">20<span>hrs</span></div>
+      <div class="hero-stat-label">saved per MDS team per building per week</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">85<span>%</span></div>
+      <div class="hero-stat-label">faster ADR turnaround</div>
+    </div>
+    <div class="hero-stat-divider"></div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">3–8<span>×</span></div>
+      <div class="hero-stat-label">ROI within 6 months</div>
+    </div>
+  </div>
+  <div class="trust-row">
+    <div class="trust-item"><div class="trust-dot"></div>Read-only setup</div>
+    <div class="trust-item"><div class="trust-dot"></div>No workflow changes</div>
+    <div class="trust-item"><div class="trust-dot"></div>Evidence-backed recommendations</div>
+  </div>
+</section>
 
-    const DOCUMENTS = [
-      {
-        id: "gg-draft",
-        type: "MDS",
-        title: "MDS Section GG",
-        snippet: ["GG0170C1 transfer entry incomplete", "Therapy note suggests higher assist level", "Coordinator review pending"],
-        time: "2h ago",
-        status: "Needs Review",
-        x: 22,
-        y: 22,
-        rotate: -7,
-        zIndex: 10,
-      },
-      {
-        id: "physician-query",
-        type: "Query",
-        title: "Physician Query",
-        snippet: ["CHF specificity not documented", "Draft query for acute vs chronic status", "Awaiting provider response"],
-        time: "Today 9:12 AM",
-        status: "Incomplete",
-        x: 49,
-        y: 18,
-        rotate: -3,
-        zIndex: 12,
-      },
-      {
-        id: "nursing-note",
-        type: "Nursing",
-        title: "Nursing Progress Note",
-        snippet: ["Resident reports numbness in both feet", "Blood sugars elevated overnight", "Skin intact, gait unsteady"],
-        time: "Yesterday 4:32 PM",
-        status: "Open",
-        x: 72,
-        y: 20,
-        rotate: 5,
-        zIndex: 9,
-      },
-      {
-        id: "therapy-summary",
-        type: "Therapy",
-        title: "Therapy Evaluation",
-        snippet: ["Sit-to-stand requires mod assist", "Section GG update recommended", "Functional decline noted"],
-        time: "1h ago",
-        status: "Updated",
-        x: 78,
-        y: 39,
-        rotate: 7,
-        zIndex: 11,
-      },
-      {
-        id: "mar-excerpt",
-        type: "MAR",
-        title: "MAR Excerpt",
-        snippet: ["Gabapentin 300mg BID active", "Insulin sliding scale documented", "Pain med review complete"],
-        time: "Today 6:40 AM",
-        status: "Supported",
-        x: 24,
-        y: 44,
-        rotate: -4,
-        zIndex: 8,
-      },
-      {
-        id: "diagnosis-list",
-        type: "ICD-10",
-        title: "Diagnosis List",
-        snippet: ["E11.42 Diabetes w/ polyneuropathy", "I50.9 Heart failure unspecified", "Review coding specificity"],
-        time: "Yesterday",
-        status: "Needs Review",
-        x: 50,
-        y: 48,
-        rotate: 2,
-        zIndex: 13,
-      },
-      {
-        id: "adl-sheet",
-        type: "ADL",
-        title: "ADL Flow Sheet",
-        snippet: ["Bed mobility requires setup assist", "Toilet hygiene increased support", "Mismatch with MDS draft"],
-        time: "3h ago",
-        status: "Flagged",
-        x: 72,
-        y: 55,
-        rotate: -2,
-        zIndex: 7,
-      },
-      {
-        id: "discharge-summary",
-        type: "Hospital",
-        title: "Discharge Summary",
-        snippet: ["Neuropathy history documented", "Recent CHF exacerbation mentioned", "Medication changes reconciled"],
-        time: "Yesterday 11:08 AM",
-        status: "Imported",
-        x: 33,
-        y: 65,
-        rotate: 6,
-        zIndex: 6,
-      },
-      {
-        id: "care-plan",
-        type: "Plan",
-        title: "Care Plan Addendum",
-        snippet: ["Fall risk increased after transfer", "Monitor weight and edema daily", "Nursing follow-up assigned"],
-        time: "Today",
-        status: "Open",
-        x: 58,
-        y: 70,
-        rotate: -6,
-        zIndex: 5,
-      },
-      {
-        id: "lab-results",
-        type: "Labs",
-        title: "Lab Results",
-        snippet: ["A1c elevated from prior baseline", "Glucose trend persists", "Clinical support available"],
-        time: "This morning",
-        status: "New",
-        x: 18,
-        y: 70,
-        rotate: 4,
-        zIndex: 4,
-      },
-      {
-        id: "query-draft",
-        type: "Draft",
-        title: "Coordinator Draft",
-        snippet: ["Follow-up needed for CHF specificity", "Section I update not submitted", "Review before ARD closes"],
-        time: "25m ago",
-        status: "Pending",
-        x: 84,
-        y: 69,
-        rotate: 3,
-        zIndex: 3,
-      },
-    ];
+<!-- PROBLEM BAND -->
+<div class="problem-band">
+  <div class="problem-inner">
+    <div>
+      <div class="problem-label">The problem</div>
+      <h2 class="problem-h2">The money is already there. It just isn't being collected.</h2>
+      <p class="problem-body">
+        A patient's chart has the diagnosis, wound care, therapy, and documentation to support the right reimbursement. But no one has time to catch every driver before the MDS closes or the claim goes out. So the facility gets paid less than it earned.<br><br>
+        Many SNFs lose $400K+ a year this way. Not from bad care. Not from fraud. From a reimbursement process complex enough to leak revenue at every step.
+      </p>
+      <div class="example-callout">
+        <span class="example-label">Example</span>
+        Medicare paid <strong>$380/day</strong>. The correct rate was <strong>$520/day</strong>. The documentation was in the chart. The window just closed before anyone caught it.
+      </div>
+    </div>
+    <div class="problem-stat-block">
+      <div class="stat-big"><span>$400</span>K<span>+</span></div>
+      <div class="stat-sub">average annual reimbursement leakage identified per SNF — from missed drivers, coding gaps, and unchallenged denials.</div>
+      <div class="stat-note">Identified by Foster's AI across retrospective Medicare diagnostics.</div>
+    </div>
+  </div>
+</div>
 
-    const CHAT_MESSAGES = [
-      {
-        id: "intro",
-        tone: "assistant",
-        text: "Hi! I reviewed Olena Rodriguez's chart.",
-      },
-      {
-        id: "dx",
-        tone: "support",
-        text: "Suggested diagnosis: Diabetes with peripheral neuropathy (supported by notes) 🔍",
-      },
-      {
-        id: "gg",
-        tone: "support",
-        text: "Section GG updated based on therapy documentation 🎯",
-      },
-      {
-        id: "query",
-        tone: "warning",
-        text: "Physician query drafted for CHF specificity ⏳",
-      },
-      {
-        id: "docs",
-        tone: "warning",
-        text: "Missing documentation flagged for review ⚠️",
-      },
-      {
-        id: "ready",
-        tone: "assistant",
-        text: "MDS ready for coordinator review ✅",
-      },
-    ];
+<!-- HOW FOSTER WORKS -->
+<section class="how-foster-section" id="mds">
+  <div class="how-foster-inner">
+    <div class="section-label">How Foster works</div>
+    <h2 class="section-h2">Clinical AI that works the full revenue cycle.<br><em>From the first chart read to the last appeal.</em></h2>
 
-    function getCardTransform(doc, phase) {
-      const horizontalDirection = doc.x < 50 ? -1 : 1;
-      const verticalDirection = doc.y < 50 ? -1 : 1;
-      const xOffset = horizontalDirection * (28 + Math.abs(doc.x - 50) * 1.25);
-      const yOffset = verticalDirection * (18 + Math.abs(doc.y - 50) * 1.1);
+    <div class="how-foster-layout">
 
-      if (phase === "clutter") {
-        return `translate(-50%, -50%) translate(0px, 0px) rotate(${doc.rotate}deg) scale(1)`;
-      }
+      <div class="hf-steps">
+        <div class="hf-step active" data-step="0" onclick="hfSetStep(0)">
+          <div class="hf-step-num">01</div>
+          <div class="hf-step-body">
+            <div class="hf-step-title">Connect</div>
+            <div class="hf-step-desc">Foster sits directly on top of your existing EHR as a Chrome extension — no new system for your team to learn, no workflow changes, no IT project. Connect PointClickCare, MatrixCare, or NetHealth in minutes with read-only access.</div>
+          </div>
+        </div>
+        <div class="hf-step" data-step="1" onclick="hfSetStep(1)">
+          <div class="hf-step-num">02</div>
+          <div class="hf-step-body">
+            <div class="hf-step-title">Recommend</div>
+            <div class="hf-step-desc">Foster reads every document continuously — admission records, progress notes, therapy logs, hospital records — and flags what's billable with the evidence already attached. It detects IPA triggers, handles physician querying end to end, reviews the MDS for coding errors, and surfaces inaccurate assessments before the ARD closes.</div>
+          </div>
+        </div>
+        <div class="hf-step" data-step="2" onclick="hfSetStep(2)">
+          <div class="hf-step-num">03</div>
+          <div class="hf-step-body">
+            <div class="hf-step-title">Prevent denials</div>
+            <div class="hf-step-desc">Before every claim goes out, Foster runs an automated UB-04 triple-check — validating HIPPS codes, ARD timing, diagnosis codes, PDPM categories, and billing fields. Errors caught pre-submission, not post-denial.</div>
+          </div>
+        </div>
+        <div class="hf-step" data-step="3" onclick="hfSetStep(3)">
+          <div class="hf-step-num">04</div>
+          <div class="hf-step-body">
+            <div class="hf-step-title">Appeal & recover</div>
+            <div class="hf-step-desc">When a denial or ADR lands, Foster assembles the complete response packet automatically — denial letter analysis, AI-matched clinical evidence, and a defensible appeal narrative. Weeks of prep compressed to hours.</div>
+          </div>
+        </div>
+      </div>
 
-      if (phase === "clearing") {
-        return `translate(-50%, -50%) translate(${xOffset}px, ${yOffset}px) rotate(${doc.rotate + horizontalDirection * 3}deg) scale(0.92)`;
-      }
+      <div class="hf-panel-wrap">
 
-      return `translate(-50%, -50%) translate(${xOffset + horizontalDirection * 18}px, ${yOffset + verticalDirection * 12}px) rotate(${doc.rotate + horizontalDirection * 4}deg) scale(0.84)`;
-    }
-
-    function getStatusTone(status) {
-      if (status === "Supported" || status === "Updated" || status === "Imported") {
-        return "bg-[#eaf7f2] text-[#21634d]";
-      }
-
-      if (status === "Needs Review" || status === "Flagged" || status === "Incomplete") {
-        return "bg-[#fff4e7] text-[#8a5a17]";
-      }
-
-      return "bg-[#eef4fa] text-[#4d637d]";
-    }
-
-    function DeclutterHeroAnimation() {
-      const containerRef = useRef(null);
-      const [phase, setPhase] = useState("clutter");
-      const [visibleMessages, setVisibleMessages] = useState(0);
-      const [reducedMotion, setReducedMotion] = useState(false);
-      const [hasStarted, setHasStarted] = useState(false);
-
-      useEffect(() => {
-        const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-        const syncMotionPreference = () => setReducedMotion(mediaQuery.matches);
-
-        syncMotionPreference();
-
-        if (mediaQuery.addEventListener) {
-          mediaQuery.addEventListener("change", syncMotionPreference);
-          return () => mediaQuery.removeEventListener("change", syncMotionPreference);
-        }
-
-        mediaQuery.addListener(syncMotionPreference);
-        return () => mediaQuery.removeListener(syncMotionPreference);
-      }, []);
-
-      useEffect(() => {
-        const node = containerRef.current;
-
-        if (!node || hasStarted) {
-          return undefined;
-        }
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting && entry.intersectionRatio >= 0.35) {
-                setHasStarted(true);
-              }
-            });
-          },
-          {
-            threshold: [0.35, 0.6],
-          }
-        );
-
-        observer.observe(node);
-
-        return () => observer.disconnect();
-      }, [hasStarted]);
-
-      useEffect(() => {
-        if (!hasStarted) {
-          return undefined;
-        }
-
-        if (reducedMotion) {
-          setPhase("clean");
-          setVisibleMessages(CHAT_MESSAGES.length);
-          return undefined;
-        }
-
-        setPhase("clutter");
-        setVisibleMessages(0);
-
-        const clearingTimer = window.setTimeout(() => setPhase("clearing"), 3000);
-        const cleanTimer = window.setTimeout(() => setPhase("clean"), 4700);
-
-        return () => {
-          window.clearTimeout(clearingTimer);
-          window.clearTimeout(cleanTimer);
-        };
-      }, [hasStarted, reducedMotion]);
-
-      useEffect(() => {
-        if (!hasStarted || phase !== "clean") {
-          return undefined;
-        }
-
-        if (reducedMotion) {
-          setVisibleMessages(CHAT_MESSAGES.length);
-          return undefined;
-        }
-
-        setVisibleMessages(1);
-
-        const timers = CHAT_MESSAGES.slice(1).map((_, index) =>
-          window.setTimeout(() => {
-            setVisibleMessages(index + 2);
-          }, (index + 1) * 950)
-        );
-
-        return () => timers.forEach((timer) => window.clearTimeout(timer));
-      }, [hasStarted, phase, reducedMotion]);
-
-      return (
-        <>
-          <style>{`
-              @keyframes bubble-pop {
-                0% {
-                  opacity: 0;
-                  transform: translateY(14px) scale(0.985);
-                }
-                100% {
-                  opacity: 1;
-                  transform: translateY(0) scale(1);
-                }
-              }
-
-              .declutter-bubble {
-                animation: bubble-pop 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
-              }
-            `}</style>
-
-          <section
-            ref={containerRef}
-            aria-label="Animated preview of scattered clinical documents clearing into a calm MDS assistant chat experience"
-            className="relative min-h-[26rem] overflow-hidden rounded-[20px] border border-[#e3e6e9] bg-[#f4f1ed] shadow-[inset_0_1px_0_rgba(255,255,255,0.85),_0_20px_40px_rgba(17,32,54,0.06)] sm:min-h-[30rem]"
-          >
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.85),transparent_42%)]" />
-            <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/60 to-transparent" />
-
-            {DOCUMENTS.map((doc, index) => (
-              <article
-                key={doc.id}
-                className="absolute w-[10.5rem] rounded-2xl border border-[#5a6b7d]/22 bg-[#fffefd] p-3 shadow-[0_14px_28px_rgba(17,32,54,0.08)] transition-all duration-700 ease-out sm:w-[11.5rem] md:w-[12.5rem]"
-                style={{
-                  left: `${doc.x}%`,
-                  top: `${doc.y}%`,
-                  zIndex: doc.zIndex,
-                  opacity: phase === "clutter" ? 1 : 0,
-                  transform: getCardTransform(doc, phase),
-                  transitionDelay: reducedMotion ? "0ms" : `${index * 85}ms`,
-                }}
-              >
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <p className="text-[0.6rem] font-bold uppercase tracking-[0.12em] text-[#3b7d96]">{doc.type}</p>
-                    <h3 className="mt-1 font-display text-sm leading-tight text-[#1d3551]">{doc.title}</h3>
-                  </div>
-                  <span className={`rounded-full px-2 py-1 text-[0.58rem] font-bold uppercase tracking-[0.08em] ${getStatusTone(doc.status)}`}>
-                    {doc.status}
-                  </span>
-                </div>
-
-                <div className="mt-3 space-y-1.5">
-                  {doc.snippet.map((line, lineIndex) => (
-                    <p key={`${doc.id}-${lineIndex}`} className="text-[0.68rem] leading-4 text-[#5a6b7d]">
-                      {line}
-                    </p>
-                  ))}
-                </div>
-
-                <p className="mt-3 text-[0.62rem] font-semibold uppercase tracking-[0.08em] text-[#8b98a7]">{doc.time}</p>
-              </article>
-            ))}
-
-            <div
-              className={`absolute bottom-3 left-1/2 w-[calc(100%-1.5rem)] max-w-[31rem] -translate-x-1/2 transition-all duration-700 ease-out sm:max-w-[34rem] ${phase === "clean" ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"
-                }`}
-            >
-              <div className="overflow-hidden rounded-[22px] border border-[#d9e4df] bg-white/95 shadow-[0_18px_36px_rgba(17,32,54,0.1)] backdrop-blur">
-                <div className="flex items-center justify-between border-b border-[#ebf0f4] px-4 py-3">
-                  <div className="flex items-center gap-2">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8f6ef] text-sm text-[#1f8a62]">
-                      ✓
-                    </span>
-                    <div>
-                      <p className="font-display text-sm font-bold text-[#1d3551]">Foster Assistant</p>
-                      <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#738399]">Coordinator-ready</p>
-                    </div>
-                  </div>
-                  <span className="rounded-full bg-[#eef5fa] px-2.5 py-1 text-[0.62rem] font-bold uppercase tracking-[0.08em] text-[#5a748f]">
-                    MDS Review
-                  </span>
-                </div>
-
-                <div className="flex flex-col items-center space-y-2 px-4 py-4">
-                  {CHAT_MESSAGES.slice(0, visibleMessages).map((message) => {
-                    const bubbleTone =
-                      message.tone === "support"
-                        ? "bg-[#eef8f3] text-[#205a47]"
-                        : message.tone === "warning"
-                          ? "bg-[#fff5ea] text-[#7a5620]"
-                          : "bg-[#eef4fa] text-[#1f3651]";
-
-                    return (
-                      <div
-                        key={message.id}
-                        className={`declutter-bubble w-full max-w-[25rem] rounded-2xl border border-[#5a6b7d]/22 px-3.5 py-3 text-sm leading-6 shadow-[0_8px_16px_rgba(17,32,54,0.06)] ${bubbleTone}`}
-                      >
-                        {message.text}
-                      </div>
-                    );
-                  })}
-                </div>
+        <div class="hf-panel active" id="hfPanel0">
+          <div class="hf-panel-bar">
+            <div class="hf-dots"><span></span><span></span><span></span></div>
+            <div class="hf-panel-title">Foster Clinical AI Engine · Data ingestion</div>
+            <div class="hf-live"><div class="hf-pulse"></div>Connecting</div>
+          </div>
+          <div class="hf-panel-body hf-connect-body">
+            <div class="hf-connect-sources">
+              <div class="hf-source-row">
+                <div class="hf-source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#35A06B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+                <div class="hf-source-name">PointClickCare</div>
+                <div class="hf-source-chevron">›</div>
+              </div>
+              <div class="hf-source-row">
+                <div class="hf-source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#35A06B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+                <div class="hf-source-name">MatrixCare</div>
+                <div class="hf-source-chevron">›</div>
+              </div>
+              <div class="hf-source-row">
+                <div class="hf-source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#35A06B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+                <div class="hf-source-name">NetHealth</div>
+                <div class="hf-source-chevron">›</div>
+              </div>
+              <div class="hf-source-row">
+                <div class="hf-source-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#35A06B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+                <div class="hf-source-name">3rd Party Provider Data</div>
+                <div class="hf-source-chevron">›</div>
               </div>
             </div>
-          </section>
-        </>
-      );
-    }
-
-    function TypewriterHeading() {
-      const p1 = "The top 1% of MDS expertise. ";
-      const p2 = " Built into your facility.";
-      const p3 = "Capture the reimbursement you’ve already earned.";
-
-      const [text, setText] = useState("");
-      const [step, setStep] = useState(0); // 0: p1, 1: p2, 2: deleting, 3: p3
-      const [isComplete, setIsComplete] = useState(false);
-
-      useEffect(() => {
-        if (isComplete) return;
-
-        let timeout;
-        if (step === 0) {
-          if (text.length < p1.length) {
-            timeout = setTimeout(() => setText(p1.slice(0, text.length + 1)), 25);
-          } else {
-            timeout = setTimeout(() => setStep(1), 1000);
-          }
-        } else if (step === 1) {
-          const combined = p1 + p2;
-          if (text.length < combined.length) {
-            timeout = setTimeout(() => setText(combined.slice(0, text.length + 1)), 20);
-          } else {
-            timeout = setTimeout(() => {
-              setText("");
-              setStep(3);
-            }, 1800);
-          }
-        } else if (step === 3) {
-          if (text.length < p3.length) {
-            timeout = setTimeout(() => setText(p3.slice(0, text.length + 1)), 30);
-          } else {
-            setIsComplete(true);
-          }
-        }
-
-        return () => clearTimeout(timeout);
-      }, [text, step, isComplete]);
-
-      const renderText = () => {
-        const activeText = step === 1 ? p1 + p2 : step === 3 ? p3 : p1;
-        const targets = step === 3 ? ["reimbursement"] : ["1%", "your"];
-        let charIndex = 0;
-
-        return activeText.split(" ").map((word, wordIndex, words) => {
-          const startIndex = charIndex;
-          charIndex += word.length;
-          const wordEnd = charIndex;
-          const isHighlighted = targets.some(t => word.toLowerCase().includes(t.toLowerCase()));
-
-          const wordNode = (
-            <span
-              key={`${step}-word-${wordIndex}`}
-              style={{
-                fontStyle: isHighlighted ? "italic" : "normal",
-              }}
-            >
-              {word.split("").map((char, letterIndex) => {
-                const absoluteIndex = startIndex + letterIndex;
-                const isVisible = absoluteIndex < text.length;
-
-                return (
-                  <span
-                    key={`${step}-${wordIndex}-${letterIndex}`}
-                    style={{
-                      color: isVisible
-                        ? isHighlighted
-                          ? "rgb(80, 165, 155)"
-                          : "inherit"
-                        : "transparent",
-                      transition: "color 120ms ease",
-                    }}
-                  >
-                    {char}
-                  </span>
-                );
-              })}
-            </span>
-          );
-
-          if (wordIndex === words.length - 1) {
-            return wordNode;
-          }
-
-          const spaceVisible = wordEnd < text.length;
-
-          return (
-            <React.Fragment key={`${step}-fragment-${wordIndex}`}>
-              {wordNode}
-              <span style={{ color: spaceVisible ? "inherit" : "transparent" }}> </span>
-            </React.Fragment>
-          );
-        });
-      };
-
-      return (
-        <span className="relative" style={{ whiteSpace: "pre-wrap" }}>
-          {renderText()}
-          {!isComplete && (
-            <span className="ml-1 inline-block h-[0.9em] w-[3px] animate-pulse bg-primary/50 align-middle"></span>
-          )}
-        </span>
-      );
-    }
-
-    const headingRoot = document.getElementById("typewriter-headline");
-    if (headingRoot) {
-      ReactDOM.createRoot(headingRoot).render(<TypewriterHeading />);
-    }
-
-    const rootElement = document.getElementById("pdpm-animation-root");
-
-    if (rootElement) {
-      ReactDOM.createRoot(rootElement).render(<DeclutterHeroAnimation />);
-    }
-
-    function FlowOfIntelligence() {
-      const containerRef = React.useRef(null);
-      const [isVisible, setIsVisible] = React.useState(false);
-      const [currentSlide, setCurrentSlide] = React.useState(0);
-
-      const slides = [
-        {
-          id: "mds-coding",
-          eyebrow: "Preventative",
-          title: "AI-assisted MDS coding",
-          description: "Clinical notes, orders, and medication signals are synthesized into coding recommendations before the assessment closes.",
-          gradient: "from-[#f8faf9] via-[#f0f4f5] to-[#f7f5ed]",
-          glowLeft: "bg-emerald-400/5",
-          glowCenter: "bg-teal-500/10",
-          glowRight: "bg-amber-400/5",
-          mobileGlow: "bg-teal-500/10",
-          leftLabel: "Inputs",
-          rightLabel: "Outputs",
-          leftCardsOffsetClassName: "",
-          leftCards: [
-            { title: "Nursing Notes", dot: "bg-blue-400", width: "w-[180px]", offset: "-ml-2", animation: "animate-float-1" },
-            { title: "Physician Orders", dot: "bg-purple-400", width: "w-[190px]", offset: "ml-10", animation: "animate-float-2" },
-            { title: "Vitals / MAR", dot: "bg-orange-400", width: "w-[160px]", offset: "ml-2", animation: "animate-float-3" },
-            { title: "Admission Assessment", dot: "bg-rose-400", width: "w-[200px]", offset: "ml-6", animation: "animate-float-4" },
-          ],
-          centerBadge: "AI Co-Pilot",
-          centerIconBg: "bg-teal-100",
-          centerIconColor: "text-teal-600",
-          centerPanels: [
-            {
-              eyebrow: "Missing diagnosis detected",
-              body: (
-                <div className="flex items-start gap-2">
-                  <div className="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"></div>
-                  <p className="text-xs font-semibold text-ink leading-snug">Diabetes w/ Neuropathy</p>
-                </div>
-              ),
-              className: "bg-white/60 border border-white/60",
-            },
-            {
-              eyebrow: "PDPM Impact",
-              body: (
-                <div className="flex justify-between items-center">
-                  <p className="text-sm font-bold text-[#4c3479]">+0.18 CMI</p>
-                  <span className="text-[10px] font-bold text-[#634992]">Potential</span>
-                </div>
-              ),
-              className: "bg-[#f0ebf8]/60 border border-[#e6dced]",
-              eyebrowClassName: "text-[#634992]/80",
-            },
-            {
-              eyebrow: "Evidence",
-              body: (
-                <div className="flex gap-2 text-[11px] font-semibold text-muted">
-                  <span className="bg-white/90 border border-emerald-200 px-2 py-0.5 rounded-md shadow-sm">Nursing</span>
-                  <span className="bg-white/90 border border-emerald-200 px-2 py-0.5 rounded-md shadow-sm">+ MAR</span>
-                </div>
-              ),
-              className: "bg-emerald-100 border border-emerald-200",
-              eyebrowClassName: "text-emerald-600/80",
-            },
-          ],
-          rightCards: [
-            { title: "MDS Coding Updated", bg: "bg-emerald-100", iconColor: "text-emerald-600", icon: "check" },
-            { title: "Actions: Review & Send Physician Queries / Orders", bg: "bg-amber-100", iconColor: "text-amber-600", icon: "bell", borderClassName: "border-amber-200/50" },
-            { title: "PDPM Impact Calculated", bg: "bg-violet-100", iconColor: "text-violet-600", icon: "graph" },
-          ],
-        },
-        {
-          id: "adr-package",
-          eyebrow: "Defensive",
-          title: "ADR package assembly",
-          description: "The platform gathers source documentation from across the chart and compiles an audit-ready defense package in minutes.",
-          gradient: "from-[#f8fbff] via-[#eef4ff] to-[#f8f4fb]",
-          glowLeft: "bg-sky-400/10",
-          glowCenter: "bg-fuchsia-300/10",
-          glowRight: "bg-cyan-400/10",
-          mobileGlow: "bg-sky-500/10",
-          leftLabel: "Evidence collected",
-          rightLabel: "Package delivered",
-          leftCardsOffsetClassName: "pt-12 lg:pt-8",
-          leftCards: [
-            { title: "Admission Assessment", dot: "bg-slate-500", width: "w-[230px]", offset: "-ml-1", animation: "animate-float-1" },
-            { title: "Discharge Summary", dot: "bg-cyan-500", width: "w-[210px]", offset: "ml-8", animation: "animate-float-2" },
-            { title: "Physician Orders", dot: "bg-indigo-400", width: "w-[180px]", offset: "ml-2", animation: "animate-float-3" },
-            { title: "Nursing Notes", dot: "bg-emerald-400", width: "w-[170px]", offset: "ml-10", animation: "animate-float-4" },
-            { title: "MDS Assessment", dot: "bg-rose-400", width: "w-[200px]", offset: "ml-4", animation: "animate-float-1" },
-          ],
-          centerBadge: "ADR Builder",
-          centerIconBg: "bg-indigo-100",
-          centerIconColor: "text-indigo-600",
-          centerPanels: [
-            {
-              eyebrow: "Audit request received",
-              body: <p className="text-xs font-semibold text-ink leading-snug">Requested dates of service and supporting chart notes are identified automatically.</p>,
-              className: "bg-white/70 border border-white/70",
-            },
-            {
-              eyebrow: "Cross-chart evidence map",
-              body: (
-                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Assessment</span>
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Orders</span>
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Nursing</span>
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Discharge</span>
-                </div>
-              ),
-              className: "bg-[#eef2ff]/70 border border-[#dbe3ff]",
-              eyebrowClassName: "text-indigo-700/80",
-            },
-            {
-              eyebrow: "Compiling Defense Package",
-              body: (
-                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Notify nurse manager</span>
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Update note</span>
-                </div>
-              ),
-              className: "bg-[#fff7ed]/80 border border-[#fde7c6]",
-              eyebrowClassName: "text-amber-700/80",
-            },
-          ],
-          rightCards: [
-            { title: "5 supporting sources reconciled", bg: "bg-sky-100", iconColor: "text-sky-600", icon: "check" },
-            { title: "Timeline and source index attached", bg: "bg-indigo-100", iconColor: "text-indigo-600", icon: "doc" },
-            { title: "Downloadable defense package ready", bg: "bg-violet-100", iconColor: "text-violet-600", icon: "download" },
-          ],
-        },
-        {
-          id: "pulse-check",
-          eyebrow: "Dynamic",
-          title: "Real-time patient pulse checks",
-          description: "As patient status changes, Foster flags the documentation risk in real time so staff can close gaps while care is still active.",
-          gradient: "from-[#f7fbf7] via-[#edf7f6] to-[#f5f7ff]",
-          glowLeft: "bg-emerald-400/10",
-          glowCenter: "bg-cyan-400/10",
-          glowRight: "bg-rose-300/10",
-          mobileGlow: "bg-emerald-500/10",
-          leftLabel: "Patient signals",
-          rightLabel: "Staff actions",
-          leftCardsOffsetClassName: "",
-          leftCards: [
-            { title: "O2 sat trending down", dot: "bg-rose-400", width: "w-[185px]", offset: "-ml-2", animation: "animate-float-1" },
-            { title: "New IV antibiotic order", dot: "bg-cyan-500", width: "w-[200px]", offset: "ml-9", animation: "animate-float-2" },
-            { title: "Weight + edema change", dot: "bg-amber-400", width: "w-[190px]", offset: "ml-3", animation: "animate-float-3" },
-            { title: "Nurse note added", dot: "bg-emerald-400", width: "w-[170px]", offset: "ml-7", animation: "animate-float-4" },
-          ],
-          centerBadge: "Live Monitor",
-          centerIconBg: "bg-emerald-100",
-          centerIconColor: "text-emerald-600",
-          centerPanels: [
-            {
-              eyebrow: "Condition shift detected",
-              body: (
-                <div className="flex items-center justify-between gap-3">
-                  <p className="text-sm font-bold text-[#155e63]">Respiratory decline risk</p>
-                  <span className="rounded-full bg-rose-100 px-2 py-1 text-[10px] font-bold uppercase tracking-[0.08em] text-rose-600">High</span>
-                </div>
-              ),
-              className: "bg-[#effcf8]/80 border border-[#d0f4eb]",
-              eyebrowClassName: "text-emerald-700/80",
-            },
-            {
-              eyebrow: "Documentation gap",
-              body: <p className="text-xs font-semibold text-ink leading-snug">Progress note does not yet reflect oxygen escalation and monitoring frequency.</p>,
-              className: "bg-white/70 border border-white/70",
-            },
-            {
-              eyebrow: "Suggested next step",
-              body: (
-                <div className="flex flex-wrap gap-2 text-[11px] font-semibold text-[#516178]">
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Notify nurse manager</span>
-                  <span className="bg-white/90 border border-white px-2 py-0.5 rounded-md shadow-sm">Update note</span>
-                </div>
-              ),
-              className: "bg-[#fff7ed]/80 border border-[#fde7c6]",
-              eyebrowClassName: "text-amber-700/80",
-            },
-          ],
-          rightCards: [
-            { title: "Alert sent to assigned staff", bg: "bg-rose-100", iconColor: "text-rose-600", icon: "bell" },
-            { title: "Documentation task created", bg: "bg-amber-100", iconColor: "text-amber-600", icon: "doc" },
-            { title: "Identify IPA triggers", bg: "bg-emerald-100", iconColor: "text-emerald-600", icon: "magnify" },
-          ],
-        },
-      ];
-
-      React.useEffect(() => {
-        const observer = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setIsVisible(true);
-              observer.disconnect();
-            }
-          },
-          { threshold: 0.2 }
-        );
-        if (containerRef.current) observer.observe(containerRef.current);
-        return () => observer.disconnect();
-      }, []);
-
-      React.useEffect(() => {
-        if (!isVisible) return undefined;
-
-        const interval = window.setInterval(() => {
-          setCurrentSlide((prev) => (prev + 1) % slides.length);
-        }, 8200);
-
-        return () => window.clearInterval(interval);
-      }, [isVisible, slides.length]);
-
-      const renderIcon = (type) => {
-        if (type === "check") {
-          return (
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7"></path>
-            </svg>
-          );
-        }
-
-        if (type === "bell") {
-          return (
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-            </svg>
-          );
-        }
-
-        if (type === "download") {
-          return (
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.4" d="M12 4v10m0 0l-4-4m4 4l4-4M5 20h14"></path>
-            </svg>
-          );
-        }
-
-        if (type === "graph") {
-          return (
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M4 19h16"></path>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M7 16l3-4 3 2 4-6"></path>
-              <circle cx="7" cy="16" r="1.35" fill="currentColor" stroke="none"></circle>
-              <circle cx="10" cy="12" r="1.35" fill="currentColor" stroke="none"></circle>
-              <circle cx="13" cy="14" r="1.35" fill="currentColor" stroke="none"></circle>
-              <circle cx="17" cy="8" r="1.35" fill="currentColor" stroke="none"></circle>
-            </svg>
-          );
-        }
-
-        if (type === "magnify") {
-          return (
-            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="5.5" strokeWidth="2.2"></circle>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.2" d="M15.5 15.5L20 20"></path>
-            </svg>
-          );
-        }
-
-        return (
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-          </svg>
-        );
-      };
-
-      return (
-        <div ref={containerRef} className="relative w-full overflow-hidden rounded-[32px] border border-line shadow-soft">
-          <style>{`
-            @keyframes float-slow {
-              0%, 100% { transform: translateY(0); }
-              50% { transform: translateY(-8px); }
-            }
-            @keyframes float-slower {
-              0%, 100% { transform: translateY(0); }
-              50% { transform: translateY(-12px); }
-            }
-            @keyframes pulse-glow {
-              0%, 100% { box-shadow: 0 12px 24px -10px rgba(17, 32, 54, 0.1); border-color: rgba(255, 255, 255, 0.4); }
-              50% { box-shadow: 0 12px 24px -10px rgba(17, 32, 54, 0.1), 0 0 20px 2px rgba(20, 184, 166, 0.15); border-color: rgba(20, 184, 166, 0.3); }
-            }
-            @keyframes flow-line {
-              0% { stroke-dashoffset: 100; }
-              100% { stroke-dashoffset: -100; }
-            }
-            @keyframes flow-line-reverse {
-              0% { stroke-dashoffset: -100; }
-              100% { stroke-dashoffset: 100; }
-            }
-            @keyframes line-pulse {
-              0%, 100% { opacity: 0.48; }
-              50% { opacity: 0.95; }
-            }
-            @keyframes scene-pulse {
-              0%, 100% { transform: scale(1); opacity: 0.82; }
-              50% { transform: scale(1.04); opacity: 1; }
-            }
-            @keyframes badge-glow {
-              0%, 100% { box-shadow: 0 12px 32px rgba(255, 255, 255, 0.14); }
-              50% { box-shadow: 0 18px 40px rgba(255, 255, 255, 0.28); }
-            }
-            .flow-path {
-              stroke-dasharray: 8 6;
-              animation: flow-line 20s linear infinite, line-pulse 4s ease-in-out infinite;
-            }
-            .flow-path-reverse {
-              stroke-dasharray: 8 6;
-              animation: flow-line-reverse 20s linear infinite, line-pulse 4s ease-in-out infinite;
-            }
-            .glass-card {
-              background: rgba(255, 255, 255, 0.6);
-              backdrop-filter: blur(12px);
-              -webkit-backdrop-filter: blur(12px);
-              border: 1px solid rgba(255, 255, 255, 0.4);
-              transition: all 0.3s ease;
-            }
-            .glass-card:hover {
-              transform: translateY(-2px);
-              box-shadow: 0 12px 24px -10px rgba(17, 32, 54, 0.1);
-              border-color: rgba(255, 255, 255, 0.8);
-              background: rgba(255, 255, 255, 0.8);
-            }
-            .animate-float-1 { animation: float-slow 4s ease-in-out infinite; }
-            .animate-float-2 { animation: float-slower 5s ease-in-out infinite; }
-            .animate-float-3 { animation: float-slow 4.5s ease-in-out infinite backwards; }
-            .animate-float-4 { animation: float-slower 5.5s ease-in-out infinite alternate; }
-            .animate-pulse-glow { animation: pulse-glow 4s ease-in-out infinite; }
-            .scene-dot-active { animation: scene-pulse 2.4s ease-in-out infinite; }
-            .scene-badge-active { animation: badge-glow 2.8s ease-in-out infinite; }
-          `}</style>
-
-          <div className="relative min-h-[700px] bg-[#f7faf9] lg:min-h-[660px]">
-            {slides.map((slide, slideIndex) => {
-              const isActive = currentSlide === slideIndex;
-
-              return (
-                <div
-                  key={slide.id}
-                  className={`absolute inset-0 bg-gradient-to-br ${slide.gradient} p-8 transition-all duration-700 ease-out lg:p-12 ${isActive ? "opacity-100 translate-x-0" : "pointer-events-none opacity-0 translate-x-6"}`}
-                  aria-hidden={!isActive}
-                >
-                  <div className={`absolute top-0 left-0 h-full w-1/3 ${slide.glowLeft} blur-[100px] pointer-events-none`}></div>
-                  <div className={`absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 ${slide.glowCenter} blur-[100px] pointer-events-none`}></div>
-                  <div className={`absolute bottom-0 right-0 h-full w-1/3 ${slide.glowRight} blur-[100px] pointer-events-none`}></div>
-                  <div className={`absolute inset-x-6 top-16 h-40 ${slide.mobileGlow} blur-[90px] pointer-events-none lg:hidden`}></div>
-
-                  <div className="relative z-20 flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-                    <div className={`max-w-2xl transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                      <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#1d3551]/65">{slide.eyebrow}</p>
-                      <h3 className="font-display mt-3 text-[clamp(1.8rem,3vw,2.8rem)] leading-tight text-[#112036]">{slide.title}</h3>
-                      <p className="mt-3 max-w-[44rem] text-base leading-7 text-[#365069]">{slide.description}</p>
-                    </div>
-
-                    <div className={`flex items-center gap-2 self-start rounded-full border border-white/70 bg-white/55 px-3 py-2 shadow-sm backdrop-blur-md transition-all duration-700 ${isActive ? "scene-badge-active" : ""}`}>
-                      {slides.map((_, dotIndex) => (
-                        <button
-                          key={`flow-slide-${dotIndex}`}
-                          type="button"
-                          onClick={() => setCurrentSlide(dotIndex)}
-                          aria-label={`Show slide ${dotIndex + 1}`}
-                          className={`h-2.5 rounded-full transition-all duration-500 ${dotIndex === currentSlide ? "scene-dot-active w-8 bg-[#112036]" : "w-2.5 bg-[#112036]/25 hover:bg-[#112036]/40"}`}
-                        ></button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="relative z-10 mt-10 lg:mt-12">
-                    <div className="relative mx-auto w-full max-w-[1160px]">
-                      <div className="absolute inset-0 pointer-events-none z-0 hidden overflow-hidden mix-blend-multiply opacity-60 lg:block">
-                        {isVisible && (
-                          <svg className="h-full w-full text-slate-400" preserveAspectRatio="none" viewBox="0 0 1000 430">
-                            <path d="M 155 195 C 305 195, 390 195, 500 195" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" />
-                            <path d="M 500 195 C 605 195, 680 195, 790 195" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="flow-path" style={{ animationDelay: "-2s" }} />
-                            <path d="M 160 110 C 315 118, 390 152, 500 178" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-1s" }} />
-                            <path d="M 160 280 C 315 272, 390 238, 500 212" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-3s" }} />
-                            <path d="M 500 178 C 605 152, 680 118, 785 110" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-4s" }} />
-                            <path d="M 500 212 C 605 238, 680 272, 785 280" fill="none" stroke="currentColor" strokeWidth="1.2" opacity="0.72" className="flow-path text-slate-400" style={{ animationDelay: "-5s" }} />
-                          </svg>
-                        )}
-                      </div>
-
-                      <div className="relative hidden min-h-[430px] items-center justify-between gap-8 px-0 pb-14 lg:flex">
-                        <div className={`w-full lg:w-1/3 flex flex-col items-center lg:items-start relative h-[280px] lg:h-[320px] transition-all duration-1000 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                          <div className={`absolute inset-0 flex flex-col justify-center gap-4 pl-4 lg:pl-0 ${slide.leftCardsOffsetClassName || ""}`}>
-                            {slide.leftCards.map((card, cardIndex) => (
-                              <div key={`${slide.id}-card-${cardIndex}`} className={`glass-card ${card.animation} rounded-2xl p-3 shadow-sm ${card.width} ${card.offset}`}>
-                                <div className="flex items-center gap-2">
-                                  <div className={`h-2 w-2 rounded-full ${card.dot}`}></div>
-                                  <span className="text-xs font-semibold text-ink">{card.title}</span>
-                                </div>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-
-                        <div className={`w-full lg:w-1/3 flex justify-center z-20 transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                          <div className="glass-card animate-pulse-glow relative w-full max-w-[340px] rounded-[28px] p-6 shadow-lg">
-                            <div className={`absolute top-5 right-5 flex h-10 w-10 items-center justify-center rounded-full border border-white/70 ${slide.centerIconBg} shadow-sm`}>
-                              <svg className={`h-5 w-5 ${slide.centerIconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                              </svg>
-                            </div>
-
-                            <div className="mb-4 pr-14 text-left">
-                              <span className="inline-block rounded-full bg-white/80 border border-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">{slide.centerBadge}</span>
-                            </div>
-
-                            <div className="space-y-3 text-left">
-                              {slide.centerPanels.map((panel, panelIndex) => (
-                                <div key={`${slide.id}-panel-${panelIndex}`} className={`rounded-xl p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] ${panel.className}`}>
-                                  <p className={`mb-1 text-[10px] font-bold uppercase ${panel.eyebrowClassName || "text-muted/80"}`}>{panel.eyebrow}</p>
-                                  {panel.body}
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className={`w-full lg:w-1/3 flex justify-center lg:justify-end transition-all duration-1000 delay-500 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                          <div className="w-full max-w-[280px] space-y-4 lg:mr-4">
-                            {slide.rightCards.map((output, outputIndex) => (
-                              <div key={`${slide.id}-output-${outputIndex}`} className={`glass-card flex items-center gap-3 rounded-2xl p-4 shadow-sm ${output.borderClassName || ""}`}>
-                                <div className={`flex h-8 w-8 items-center justify-center rounded-full ${output.bg} ${output.iconColor}`}>
-                                  {renderIcon(output.icon)}
-                                </div>
-                                <span className="text-xs font-bold leading-5 text-ink">{output.title}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className={`relative mx-auto flex min-h-[300px] w-full items-start justify-center pb-1 lg:hidden transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-                        <div className="glass-card animate-pulse-glow relative w-full max-w-[340px] rounded-[28px] p-5 pb-6 shadow-lg">
-                          <div className="mb-4 flex items-start justify-between gap-3 text-left">
-                            <span className="inline-block rounded-full bg-white/80 border border-white/70 px-3 py-1 text-[11px] font-bold uppercase tracking-widest text-[#2a5d6f] shadow-sm">{slide.centerBadge}</span>
-                            <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/70 ${slide.centerIconBg} shadow-sm`}>
-                              <svg className={`h-5 w-5 ${slide.centerIconColor}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                              </svg>
-                            </div>
-                          </div>
-
-                          <div className="space-y-3 text-left">
-                            {slide.centerPanels.map((panel, panelIndex) => (
-                              <div key={`${slide.id}-mobile-panel-${panelIndex}`} className={`rounded-xl p-3 shadow-[0_4px_12px_rgba(0,0,0,0.02)] ${panel.className}`}>
-                                <p className={`mb-1 text-[10px] font-bold uppercase ${panel.eyebrowClassName || "text-muted/80"}`}>{panel.eyebrow}</p>
-                                {panel.body}
-                              </div>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="absolute bottom-6 left-8 z-10 hidden opacity-60 lg:block">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">{slide.leftLabel}</p>
-                  </div>
-                  <div className="absolute bottom-6 right-8 z-10 hidden opacity-60 lg:block">
-                    <p className="text-[11px] font-bold uppercase tracking-widest text-[#1d3551]">{slide.rightLabel}</p>
-                  </div>
-                </div>
-              );
-            })}
+            <div class="hf-engine-btn">
+              <div class="hf-engine-dot-inline"></div>
+              Foster Clinical AI Engine
+            </div>
+            <div class="hf-chrome-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="21.17" y1="8" x2="12" y2="8"/><line x1="3.95" y1="6.06" x2="8.54" y2="14"/><line x1="10.88" y1="21.94" x2="15.46" y2="14"/></svg>
+              Works as a Chrome extension · sits on top of your EHR · no new system to learn
+            </div>
           </div>
         </div>
-      );
-    }
 
-    const flowRoot = document.getElementById("flow-of-intelligence-root");
-    if (flowRoot) {
-      ReactDOM.createRoot(flowRoot).render(<FlowOfIntelligence />);
-    }
-  </script>
-  <script src="./js/navbar.js"></script>
+        <div class="hf-panel" id="hfPanel1">
+          <div class="hf-panel-bar">
+            <div class="hf-dots"><span></span><span></span><span></span></div>
+            <div class="hf-panel-title">AI MDS Copilot · Active worklist</div>
+            <div class="hf-live"><div class="hf-pulse"></div>3 findings</div>
+          </div>
+          <div class="hf-panel-body">
+            <div class="hf-rec-header">Margaret Sullivan · Room 204A · Day 5 · ARD locks in <strong>5 days</strong></div>
+
+            <div class="hf-rec-item">
+              <div class="hf-rec-badge query">Physician query required</div>
+              <div class="hf-rec-title">Chronic respiratory failure with hypoxia — not coded (J96.11)</div>
+              <div class="hf-rec-body">Resident has documented COPD with long-term O2 use. Nursing notes document desaturation on room air and SOB laying flat. Chronic respiratory failure with hypoxia qualifies as NTA comorbidity — not currently coded in MDS.</div>
+              <div class="hf-query-loop">
+                <div class="hf-query-step done">
+                  <div class="hf-query-dot done"></div>
+                  <div class="hf-query-text">Query drafted <span class="hf-query-dim">· sent to Dr. Patel via PCC · 08:42 AM</span></div>
+                </div>
+                <div class="hf-query-step done">
+                  <div class="hf-query-dot done"></div>
+                  <div class="hf-query-text hf-query-green">Response received · J96.11 confirmed <span class="hf-query-dim">· 10:15 AM</span></div>
+                </div>
+                <div class="hf-query-step">
+                  <div class="hf-query-dot pending"></div>
+                  <div class="hf-query-text">MDS update pending coordinator review</div>
+                </div>
+              </div>
+              <div class="hf-rec-footer"><div class="hf-rec-impact">+1 NTA point</div><div class="hf-rec-link">→ Accept & update MDS</div></div>
+            </div>
+
+            <div class="hf-rec-item">
+              <div class="hf-rec-badge ipa">IPA trigger detected</div>
+              <div class="hf-rec-title">Diet change + swallowing disorder — COC not completed</div>
+              <div class="hf-rec-body">PM shift changed diet due to noted pocketing. No e-INTERACT COC completed. Episode not communicated in communication book. SLP swallowing disorder and mechanically altered diet not identified in MDS — flagged 5 days after qualifying event.</div>
+              <div class="hf-rec-footer"><div class="hf-rec-impact">IPA window open</div><div class="hf-rec-link">→ Initiate reassessment</div></div>
+            </div>
+
+            <div class="hf-rec-item">
+              <div class="hf-rec-badge mismatch">Inaccurate assessment</div>
+              <div class="hf-rec-title">PHQ-9 = 0 but nursing documentation contradicts</div>
+              <div class="hf-rec-body">PHQ-9 scored 0 in MDS. Nursing progress note same date: "resident crying, verbalizing feeling helpless, referred to psych." Mood assessment inconsistent with clinical documentation — depression not coded.</div>
+              <div class="hf-rec-footer"><div class="hf-rec-impact">Documentation gap</div><div class="hf-rec-link">→ View nursing note</div></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="hf-panel" id="hfPanel2">
+          <div class="hf-panel-bar">
+            <div class="hf-dots"><span></span><span></span><span></span></div>
+            <div class="hf-panel-title">UB-04 Validation · CLM-4821 · James Wilson</div>
+            <div class="hf-live"><div class="hf-pulse warn"></div>1 flag</div>
+          </div>
+          <div class="hf-panel-body">
+            <div class="hf-check-list">
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">ARD &amp; Occurrence Code 50</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">HIPPS Code Validation</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">Admit Date Consistency</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">Type of Bill (TOB)</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row flag"><div class="hf-check-icon warn">!</div><div class="hf-check-name">Section GG · Functional Score<div class="hf-check-sub">MDS: substantial assist · PT notes: supervision only</div></div><div class="hf-check-result flag">Flagged</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">PDPM Categories</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">Diagnosis Codes</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">Daily Skilled Coverage</div><div class="hf-check-result pass">Passed</div></div>
+              <div class="hf-check-row pass"><div class="hf-check-icon">✓</div><div class="hf-check-name">Certification Dates</div><div class="hf-check-result pass">Passed</div></div>
+            </div>
+            <div class="hf-check-footer flag-footer">
+              <div class="hf-check-footer-label">1 issue requires correction before submission</div>
+              <div class="hf-check-footer-btn">Review &amp; fix →</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hf-panel" id="hfPanel3">
+          <div class="hf-panel-bar">
+            <div class="hf-dots"><span></span><span></span><span></span></div>
+            <div class="hf-panel-title">ADR Response Generator · CLM-4821 · Medicare</div>
+            <div class="hf-live"><div class="hf-pulse ok"></div>Ready</div>
+          </div>
+          <div class="hf-panel-body">
+            <div class="hf-adr-flow">
+              <div class="hf-adr-step done">
+                <div class="hf-adr-step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <div class="hf-adr-step-label">Denial letter</div>
+                <div class="hf-adr-step-sub">Parsed & analyzed</div>
+              </div>
+              <div class="hf-adr-arrow">→</div>
+              <div class="hf-adr-step done">
+                <div class="hf-adr-step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                </div>
+                <div class="hf-adr-step-label">AI analysis</div>
+                <div class="hf-adr-step-sub">Evidence matched</div>
+              </div>
+              <div class="hf-adr-arrow">→</div>
+              <div class="hf-adr-step done">
+                <div class="hf-adr-step-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div class="hf-adr-step-label">Clinical defense</div>
+                <div class="hf-adr-step-sub">Packet assembled</div>
+              </div>
+            </div>
+            <div class="hf-evidence-block">
+              <div class="hf-evidence-label">Clinical evidence assembled</div>
+              <div class="hf-evidence-item green">Physician certification signed 01/06 · Skilled need documented</div>
+              <div class="hf-evidence-item amber">MDS ARD 01/10 · HIPPS RVA01 · PT minutes 480 · SLP 240</div>
+              <div class="hf-evidence-item blue">Daily skilled nursing notes 01/06–01/20 · Wound care documented</div>
+            </div>
+            <div class="hf-adr-ready">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#35A06B" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              Defense packet ready · Estimated response time: under 2 hours
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- EXEC SECTION -->
+<section class="exec-section" id="execs">
+  <div class="exec-inner">
+    <div class="section-label">For operators & finance</div>
+    <h2 class="section-h2">Know exactly what Foster is capturing.<br><em>Per patient. Per recommendation.</em></h2>
+    <p class="section-sub">Every PDPM uplift, billing correction, and denial recovery is attributed to the exact chart finding that produced it — and flows directly to your bottom line. Fixed cost base means every dollar captured is EBITDA.</p>
+
+    <div class="exec-grid">
+      <div class="exec-card">
+        <div class="exec-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 015 5 5 5 0 01-5 5 5 5 0 01-5-5 5 5 0 015-5m0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/></svg>
+        </div>
+        <div class="exec-card-bottom">
+          <div class="exec-card-title">Expert-built</div>
+          <div class="exec-card-body">Developed alongside senior MDS nurses and validated against the RAI Manual. Every recommendation reflects 20+ years of SNF coding expertise — not a generic LLM.</div>
+        </div>
+      </div>
+
+      <div class="exec-card">
+        <div class="exec-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+        </div>
+        <div class="exec-card-bottom">
+          <div class="exec-card-title">AI you can trust</div>
+          <div class="exec-card-body">Every recommendation deep-links to the exact source note in PCC. Your coordinator sees the clinical evidence before accepting anything. High-confidence cases move to action; borderline cases go to review.</div>
+        </div>
+      </div>
+
+      <div class="exec-card">
+        <div class="exec-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="exec-card-bottom">
+          <div class="exec-card-title">Read-only setup</div>
+          <div class="exec-card-body">Foster never writes to your EHR. Read-only PCC access, BAA executed before day one, no IT project, no workflow changes. Up and running in days.</div>
+        </div>
+      </div>
+
+      <div class="exec-card">
+        <div class="exec-card-icon">
+          <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        </div>
+        <div class="exec-card-bottom">
+          <div class="exec-card-title">High flow-through to EBITDA</div>
+          <div class="exec-card-body">Most SNF costs are already in place. When MDS accuracy improves and reimbursement increases on existing residents, much of that uplift can flow through to operating income with limited incremental overhead.</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="exec-featured-row">
+      <a class="exec-featured-card" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+        <div class="exec-card-label">Before you commit</div>
+        <div class="exec-featured-title">Free underpayment audit</div>
+        <div class="exec-featured-body">We review 20 Medicare patients from the last 90 days — read-only PCC access, full findings report, estimated revenue impact. You see exactly how much your facility is leaving on the table before you sign anything. No cost, no obligation.</div>
+        <div class="exec-card-cta">Request your free audit →</div>
+      </a>
+      <a class="exec-featured-card" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">
+        <div class="exec-card-label">Revenue attribution</div>
+        <div class="exec-featured-title">Per-patient uplift dashboard</div>
+        <div class="exec-featured-body">Every PDPM uplift, billing correction, and denial recovery tied to the exact intervention Foster surfaced. Actual per-patient, per-diem impact — not aggregate estimates. Every recommendation is auditable. Board-ready export in one click.</div>
+        <div class="exec-card-cta">See a sample report →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- REVENUE IMPACT -->
+<section class="revenue-section" id="revenueSection">
+  <div class="revenue-inner">
+    <div class="revenue-label">Revenue impact</div>
+    <h2 class="section-h2" style="margin-bottom:48px;">Average additional revenue<br><em>per building, per year.</em></h2>
+
+    <div class="cup-layout">
+
+      <!-- LEFT CUP — EMPTY -->
+      <div class="cup-col">
+        <div class="cup-amount-above">$0</div>
+        <div class="cup-wrap">
+          <svg width="220" height="300" viewBox="0 0 220 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- cup body: trapezoid, wider top -->
+            <path d="M20 10 L200 10 L178 290 L42 290 Z" stroke="rgba(248,247,244,0.1)" stroke-width="2" fill="rgba(248,247,244,0.02)" stroke-linejoin="round"/>
+            <!-- rim line -->
+            <line x1="20" y1="10" x2="200" y2="10" stroke="rgba(248,247,244,0.14)" stroke-width="3" stroke-linecap="round"/>
+            <!-- tiny water sliver at bottom -->
+            <clipPath id="emptyClip">
+              <path d="M20 10 L200 10 L178 290 L42 290 Z"/>
+            </clipPath>
+            <rect x="0" y="280" width="220" height="20" fill="rgba(248,247,244,0.06)" clip-path="url(#emptyClip)"/>
+          </svg>
+        </div>
+        <div class="cup-label-title">Additional revenue</div>
+        <div class="cup-label-sub">Before Foster</div>
+      </div>
+
+      <!-- RIGHT CUP — FILLS -->
+      <div class="cup-col">
+        <div class="cup-amount-above green">$100K–$<span id="cupCounter">120K</span></div>
+        <div class="cup-wrap">
+          <svg width="220" height="300" viewBox="0 0 220 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="cupClip">
+                <path d="M20 10 L200 10 L178 290 L42 290 Z"/>
+              </clipPath>
+              <linearGradient id="cupWater" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="rgba(56,139,210,0.9)"/>
+                <stop offset="100%" stop-color="rgba(20,60,110,0.85)"/>
+              </linearGradient>
+            </defs>
+            <!-- water fill -->
+            <g clip-path="url(#cupClip)">
+              <rect id="cupWaterFill" x="0" y="300" width="220" height="290" fill="url(#cupWater)"/>
+              <!-- wave -->
+              <g id="cupWaveGroup">
+                <path d="M-220 0 Q-165 -14 -110 0 Q-55 14 0 0 Q55 -14 110 0 Q165 14 220 0 Q275 -14 330 0 Q385 14 440 0 L440 24 L-220 24Z" fill="rgba(56,139,210,0.88)">
+                  <animateTransform attributeName="transform" type="translate" from="0,0" to="220,0" dur="2s" repeatCount="indefinite"/>
+                </path>
+              </g>
+            </g>
+            <!-- cup outline on top -->
+            <path d="M20 10 L200 10 L178 290 L42 290 Z" stroke="rgba(42,122,82,0.6)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+            <!-- rim -->
+            <line x1="20" y1="10" x2="200" y2="10" stroke="rgba(53,160,107,0.7)" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cup-label-title">Additional revenue</div>
+        <div class="cup-label-sub">With Foster</div>
+      </div>
+
+    </div>
+
+    <div class="revenue-note" style="font-size:12px;color:rgba(248,247,244,0.3);font-weight:400;margin-top:20px;">Based on Foster retrospective diagnostics · Medicare FFS patients · results vary by facility</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="section-label">Common questions</div>
+    <h2 class="section-h2">Things operators<br><em>always ask us.</em></h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">Is Foster just another MDS tool?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>No. MDS tools help coordinators complete assessments. Foster reads the chart first — surfacing what should be in the assessment before it's coded, then follows the claim downstream through billing and denial defense. The MDS is the starting point, not the whole product.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">Will this add more work for my MDS coordinators?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>The opposite. Foster replaces hours of manual chart hunting with a prioritized worklist — each finding linked directly to the source note in PCC. Your coordinators spend less time digging and more time on the judgment calls that require clinical expertise.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">Will better coding lead to more ADRs and audits?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>ADRs happen when billing doesn't match documentation. Foster only surfaces drivers already supported in the chart — every recommendation includes the clinical evidence attached. That alignment reduces audit risk. And if an ADR does come, the response packet is assembled automatically from the same chart evidence Foster already pulled.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">How does Foster access our patient data?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Read-only. Foster connects to PointClickCare via a read-only integration — we never write to your EHR or alter any records. Setup requires no IT project and no PCC replacement. We execute a BAA before accessing any patient data and comply fully with HIPAA requirements.</p></div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">How do we know the recommendations are accurate?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Foster's clinical AI is built on the RAI Manual and trained alongside experienced MDS nurses — every recommendation includes a direct deep-link to the exact source note in PCC that supports it. The physician order, therapy doc, or nursing entry is right there. Your coordinator verifies in one click before accepting anything. Nothing is a black box.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">How do you avoid false positives in your recommendations?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>Foster doesn't treat every documentation gap as a billable opportunity. Every recommendation runs through clinical validation against the RAI Manual, cross-referencing the full chart before anything surfaces to your team. High-confidence cases move to action; borderline cases go to review — with the supporting evidence already assembled so your coordinator makes the call, not the AI. Nothing is auto-submitted.</p></div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-row"><span class="faq-q-text">How long does it take to see results?</span><svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        <div class="faq-a"><div class="faq-a-inner"><p>The free diagnostic produces findings within days of read-only access being granted. Once live, Foster surfaces missed drivers on active admissions immediately. Most facilities see their first attributable recovery within the first billing cycle.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="cta-band-inner">
+    <h2>See what your facility is leaving on the table.</h2>
+    <p>Start with a free retrospective audit — 20 Medicare patients, read-only access, full findings report. You see the number before you commit to anything.</p>
+    <div class="cta-band-actions">
+      <a class="btn-white" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Request your free audit</a>
+      <a class="btn-ghost" href="https://calendly.com/pranav-fosterhealth/30min" target="_blank" rel="noreferrer">Talk to the team</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a class="footer-logo" href="index.html">Foster<span>.</span></a>
+  <ul class="footer-links">
+    <li><a href="#mds">How it works</a></li>
+    <li><a href="#execs">For operators</a></li>
+    <li><a href="#faq">Common questions</a></li>
+    <li><a href="roi.html">ROI calculator</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Foster Health</div>
+</footer>
+
+<script>
+function hfSetStep(idx) {
+  document.querySelectorAll('.hf-step').forEach((s,i) => s.classList.toggle('active', i===idx));
+  document.querySelectorAll('.hf-panel').forEach((p,i) => p.classList.toggle('active', i===idx));
+}
+
+// Before/After silhouette animation
+const revSection = document.getElementById('revenueSection');
+const cupWaterFill = document.getElementById('cupWaterFill');
+const cupWaveGroup = document.getElementById('cupWaveGroup');
+const cupCounter = document.getElementById('cupCounter');
+let jugDone = false;
+
+const CUP_BOTTOM = 300, CUP_HEIGHT = 290, FILL_LEVEL = 0.88;
+
+function resetJug() {
+  if (cupWaterFill) cupWaterFill.setAttribute('y', String(CUP_BOTTOM));
+  if (cupWaveGroup) cupWaveGroup.setAttribute('transform', `translate(0,${CUP_BOTTOM})`);
+  if (cupCounter) cupCounter.textContent = '120K';
+  jugDone = false;
+}
+
+function runJug() {
+  if (jugDone) return; jugDone = true;
+  const dur = 2000;
+  const t0 = performance.now();
+
+  function tick(now) {
+    const p = Math.min((now - t0) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 2.5);
+
+    const fillY = CUP_BOTTOM - (CUP_HEIGHT * FILL_LEVEL * eased);
+    cupWaterFill.setAttribute('y', String(fillY));
+    cupWaveGroup.setAttribute('transform', `translate(0,${fillY - 12})`);
+
+    const val = Math.round(120 + (400 - 120) * eased);
+    cupCounter.textContent = val + 'K';
+
+    if (p < 1) requestAnimationFrame(tick);
+    else cupCounter.textContent = '400K';
+  }
+  requestAnimationFrame(tick);
+}
+
+const jugObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !jugDone) runJug();
+    else if (!e.isIntersecting && jugDone) setTimeout(resetJug, 400);
+  });
+}, { threshold: 0.25 });
+if (revSection) jugObs.observe(revSection);
+</script>
 </body>
-
 </html>

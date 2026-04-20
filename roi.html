@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Foster Health — ROI Calculator</title>
+<link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1220;--navy-mid:#131E33;--navy-light:#1C2B44;
+  --green:#2A7A52;--green-light:#35A06B;--green-muted:#1D5238;
+  --white:#F8F7F4;--white-dim:rgba(248,247,244,0.7);--white-faint:rgba(248,247,244,0.35);
+  --border:rgba(248,247,244,0.10);--border-strong:rgba(248,247,244,0.18);
+  --serif:'Fraunces',Georgia,serif;--sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:64px;
+  background:rgba(11,18,32,0.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;
+}
+.nav-logo{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--white);text-decoration:none}
+.nav-logo span{color:var(--green-light)}
+.nav-back{
+  font-size:13px;color:var(--white-faint);text-decoration:none;display:flex;align-items:center;gap:6px;
+  transition:color .2s,border-color .2s,background .2s;padding:6px 0;border-radius:999px
+}
+.nav-back-icon{font-size:15px;line-height:1}
+.nav-back-text{line-height:1}
+@media (hover:hover) and (pointer:fine){
+  .nav-back:hover{color:var(--white-dim)}
+}
+
+.page-header{text-align:center;padding:80px 48px 56px;position:relative;overflow:hidden}
+.page-header::before{
+  content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);
+  width:700px;height:420px;
+  background:radial-gradient(ellipse at center,rgba(42,122,82,0.13) 0%,transparent 70%);
+  pointer-events:none;
+}
+.page-eyebrow{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--green-light);margin-bottom:16px;font-weight:500}
+.page-h1{font-family:var(--serif);font-size:clamp(36px,4vw,56px);font-weight:300;letter-spacing:-1.2px;line-height:1.1;margin-bottom:16px}
+.page-h1 em{font-style:italic;color:var(--white-dim)}
+.page-sub{font-size:16px;font-weight:300;color:var(--white-dim);max-width:500px;margin:0 auto;line-height:1.7}
+
+.calc-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:24px;
+  max-width:1060px;margin:0 auto;padding:0 48px 100px;align-items:start;
+}
+
+/* FORM */
+.form-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:16px;padding:40px}
+.form-title{font-family:var(--serif);font-size:22px;font-weight:300;letter-spacing:-.4px;margin-bottom:8px}
+.form-sub{font-size:14px;font-weight:300;color:var(--white-dim);line-height:1.6;margin-bottom:32px}
+
+.field{margin-bottom:20px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+.field-label{display:block;font-size:12px;font-weight:500;color:var(--white-dim);letter-spacing:.03em;margin-bottom:7px}
+.field-input{
+  width:100%;background:var(--navy);border:1px solid var(--border);
+  border-radius:8px;padding:11px 14px;
+  font-family:var(--sans);font-size:14px;font-weight:300;color:var(--white);
+  outline:none;transition:border-color .2s;appearance:none;
+}
+.field-input:focus{border-color:var(--green)}
+.field-input.invalid{border-color:#E24B4A}
+.field-input::placeholder{color:var(--white-faint)}
+
+.payer-label{
+  font-size:11px;font-weight:500;color:var(--green-light);
+  letter-spacing:.09em;text-transform:uppercase;
+  margin-bottom:14px;margin-top:6px;
+  display:flex;align-items:center;gap:8px;
+}
+.payer-label::before{content:'';display:inline-block;width:14px;height:1px;background:var(--green-light)}
+.payer-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px}
+.pct-wrap{position:relative}
+.pct-wrap .field-input{padding-right:30px}
+.pct-suffix{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--white-faint);pointer-events:none}
+
+.pct-total{
+  font-size:12px;text-align:right;margin-top:-8px;margin-bottom:20px;
+  transition:color .2s;
+}
+.pct-total.neutral{color:var(--white-faint)}
+.pct-total.ok{color:var(--green-light)}
+.pct-total.bad{color:#E24B4A}
+
+.divider-line{height:1px;background:var(--border);margin:24px 0}
+
+.btn-calc{
+  width:100%;padding:14px;
+  background:var(--green);color:var(--white);
+  border:none;border-radius:8px;
+  font-family:var(--sans);font-size:15px;font-weight:500;cursor:pointer;
+  transition:background .2s,transform .15s;
+}
+.btn-calc:hover{background:var(--green-light);transform:translateY(-1px)}
+.btn-calc:active{transform:translateY(0)}
+.btn-calc[disabled]{opacity:.72;cursor:wait;transform:none}
+.form-note{text-align:center;font-size:12px;color:var(--white-faint);margin-top:12px;line-height:1.5}
+.form-status{
+  display:none;
+  margin-top:14px;
+  font-size:13px;
+  line-height:1.6;
+}
+.form-status.show{display:block}
+.form-status.error{color:#ffb8b7}
+.form-status.success{color:var(--green-light)}
+
+/* RIGHT PANEL */
+.right-panel{display:flex;flex-direction:column;gap:16px}
+
+/* FOLLOW-UP CARD */
+.followup-card{
+  background:var(--navy-mid);border:1px solid rgba(42,122,82,0.4);
+  border-radius:16px;padding:36px;
+  display:none;animation:fadeUp .4s ease both;
+}
+.followup-card.show{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+.followup-eyebrow{
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--green-light);font-weight:500;margin-bottom:14px;
+  display:flex;align-items:center;gap:8px;
+}
+.followup-eyebrow::before{content:'';display:inline-block;width:14px;height:1px;background:var(--green-light)}
+
+.followup-title{
+  font-family:var(--serif);font-size:38px;font-weight:300;
+  letter-spacing:-1.2px;line-height:1.15;margin-bottom:12px;
+}
+.followup-desc{font-size:14px;font-weight:300;color:var(--white-dim);margin-bottom:24px;line-height:1.7}
+.followup-note{
+  font-size:12px;color:var(--white-faint);line-height:1.6;
+  padding:16px 18px;background:var(--navy);border:1px solid var(--border);
+  border-radius:10px;margin-bottom:18px;
+}
+.btn-audit{
+  display:block;width:100%;padding:12px;text-align:center;
+  background:transparent;color:var(--white);
+  border:1px solid var(--border-strong);border-radius:8px;
+  font-family:var(--sans);font-size:14px;font-weight:500;cursor:pointer;
+  text-decoration:none;transition:border-color .2s,background .2s;
+}
+.btn-audit:hover{border-color:var(--green);background:rgba(42,122,82,0.08)}
+
+/* WHY CARD */
+.why-card{background:var(--navy-mid);border:1px solid var(--border);border-radius:16px;padding:36px}
+.why-title{font-family:var(--serif);font-size:20px;font-weight:300;letter-spacing:-.3px;margin-bottom:24px}
+.why-item{display:flex;align-items:flex-start;gap:14px;margin-bottom:18px}
+.why-item:last-child{margin-bottom:0}
+.why-icon{
+  width:34px;height:34px;border-radius:8px;flex-shrink:0;
+  background:rgba(42,122,82,0.13);border:1px solid rgba(42,122,82,0.2);
+  display:flex;align-items:center;justify-content:center;
+}
+.why-icon svg{width:15px;height:15px;stroke:var(--green-light);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.why-item-h{font-size:14px;font-weight:500;margin-bottom:4px}
+.why-item-b{font-size:13px;font-weight:300;color:var(--white-dim);line-height:1.6}
+
+@media (max-width: 900px){
+  nav{padding:0 24px}
+  .page-header{padding:72px 24px 48px}
+  .calc-layout{grid-template-columns:1fr;padding:0 24px 80px}
+}
+
+@media (max-width: 640px){
+  nav{
+    justify-content:center;align-items:center;
+    gap:0;min-height:72px;height:auto;padding:14px 20px;position:sticky;
+  }
+  .nav-logo{font-size:30px;line-height:1}
+  .nav-back{
+    position:absolute;top:14px;left:20px;width:48px;height:48px;padding:0;gap:0;
+    justify-content:center;border:1px solid var(--border-strong);background:rgba(28,43,68,0.7);color:var(--white)
+  }
+  .nav-back-icon{font-size:24px;transform:translateX(-1px)}
+  .nav-back-text{display:none}
+  .page-header{padding:56px 20px 36px;text-align:left}
+  .page-sub{margin:0;max-width:none}
+  .calc-layout{padding:0 20px 64px;gap:20px}
+  .form-card,.followup-card,.why-card{padding:24px}
+  .field-row,.payer-grid{grid-template-columns:1fr}
+  .followup-title{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Foster<span>.</span></a>
+  <a href="index.html" class="nav-back" aria-label="Back to Foster Health">
+    <span class="nav-back-icon" aria-hidden="true">←</span>
+    <span class="nav-back-text">Back to Foster Health</span>
+  </a>
+</nav>
+
+<div class="page-header">
+  <div class="page-eyebrow">Revenue recovery estimator</div>
+  <h1 class="page-h1">See how much your facility<br><em>is leaving on the table.</em></h1>
+  <p class="page-sub">Enter your census and payer mix. We'll estimate your annual PDPM revenue leakage from missed drivers, billing errors, and unchallenged denials.</p>
+</div>
+
+<div class="calc-layout">
+
+  <div class="form-card">
+    <div class="form-title">Tell us about your facility</div>
+    <div class="form-sub">Complete every field below and we’ll follow up with a custom revenue recovery review.</div>
+
+    <form id="roiForm" novalidate>
+      <div class="field">
+        <label class="field-label" for="facilityName">Facility name</label>
+        <input class="field-input" type="text" id="facilityName" placeholder="Your facility name" required autocomplete="organization">
+      </div>
+
+      <div class="field-row">
+        <div>
+          <label class="field-label" for="census">Total licensed beds</label>
+          <input class="field-input" type="number" id="census" placeholder="120" min="1" step="1" required inputmode="numeric">
+        </div>
+        <div>
+          <label class="field-label" for="adc">Average daily census</label>
+          <input class="field-input" type="number" id="adc" placeholder="100" min="1" step="1" required inputmode="numeric" oninput="updateTotal()">
+        </div>
+      </div>
+
+      <div class="payer-label">Payer mix</div>
+      <div class="payer-grid">
+        <div>
+          <label class="field-label" for="medicare">Medicare FFS %</label>
+          <div class="pct-wrap">
+            <input class="field-input" type="number" id="medicare" placeholder="25" min="0" max="100" step="1" required inputmode="numeric" oninput="updateTotal()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="mc">Managed care %</label>
+          <div class="pct-wrap">
+            <input class="field-input" type="number" id="mc" placeholder="15" min="0" max="100" step="1" required inputmode="numeric" oninput="updateTotal()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="medicaid">Medicaid %</label>
+          <div class="pct-wrap">
+            <input class="field-input" type="number" id="medicaid" placeholder="55" min="0" max="100" step="1" required inputmode="numeric" oninput="updateTotal()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label class="field-label" for="other">Other %</label>
+          <div class="pct-wrap">
+            <input class="field-input" type="number" id="other" placeholder="5" min="0" max="100" step="1" required inputmode="numeric" oninput="updateTotal()">
+            <span class="pct-suffix">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="pct-total neutral" id="pctTotal">Enter a total of 100%</div>
+
+      <div class="divider-line"></div>
+
+      <div class="field-row">
+        <div>
+          <label class="field-label" for="email">Work email</label>
+          <input class="field-input" type="email" id="email" placeholder="you@facility.com" required autocomplete="email">
+        </div>
+        <div>
+          <label class="field-label" for="phone">Phone number</label>
+          <input class="field-input" type="tel" id="phone" placeholder="(555) 555-5555" required autocomplete="tel">
+        </div>
+      </div>
+
+      <button class="btn-calc" id="submitButton" type="submit">Calculate my recovery estimate →</button>
+      <p class="form-note">We’ll email your facility details to the Foster team and follow up directly.</p>
+      <p class="form-status" id="formStatus" aria-live="polite"></p>
+    </form>
+  </div>
+
+  <div class="right-panel">
+
+    <div class="followup-card" id="followupCard">
+      <div class="followup-eyebrow">Thanks for reaching out</div>
+      <div class="followup-title" id="followupTitle">We’ll follow up soon.</div>
+      <div class="followup-desc" id="followupDesc">Our team will review your facility details and reach out with next steps for a custom revenue recovery review.</div>
+      <div class="followup-note">If you want to speak with us right away, you can also book time directly with the Foster team.</div>
+      <a href="https://calendly.com/pranav-fosterhealth/30min" class="btn-audit" target="_blank" rel="noreferrer">Book a 30-minute call →</a>
+    </div>
+
+    <div class="why-card">
+      <div class="why-title">Why facilities recover more with Foster</div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg></div>
+        <div>
+          <div class="why-item-h">Continuous chart monitoring</div>
+          <div class="why-item-b">Foster reads every patient's chart around the clock — missed drivers and change-in-condition triggers caught the day they appear.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/><path d="M8 10h8M8 14h5"/></svg></div>
+        <div>
+          <div class="why-item-h">Physician query automation</div>
+          <div class="why-item-b">Queries drafted and routed automatically — no missed confirmations before the ARD locks.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div>
+          <div class="why-item-h">Pre-bill error prevention</div>
+          <div class="why-item-b">UB-04 triple-check runs before every submission — errors caught before they become denials.</div>
+        </div>
+      </div>
+      <div class="why-item">
+        <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div>
+          <div class="why-item-h">No black box</div>
+          <div class="why-item-b">Every recommendation deep-links to the exact source note in PCC. Built on the RAI Manual — your team verifies before accepting anything.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const payerFieldIds = ['medicare', 'mc', 'medicaid', 'other'];
+const fieldIds = ['facilityName', 'census', 'adc', 'medicare', 'mc', 'medicaid', 'other', 'email', 'phone'];
+const form = document.getElementById('roiForm');
+const submitButton = document.getElementById('submitButton');
+const formStatus = document.getElementById('formStatus');
+
+function updateTotal(){
+  const el = document.getElementById('pctTotal');
+  const values = payerFieldIds.map(id => document.getElementById(id).value.trim());
+  const hasAnyValue = values.some(Boolean);
+  const total = values.reduce((sum, value) => sum + (Number(value) || 0), 0);
+
+  if (!hasAnyValue) {
+    el.textContent = 'Enter a total of 100%';
+    el.className = 'pct-total neutral';
+    return total;
+  }
+
+  el.textContent = 'Total: '+total+'%';
+  el.className = 'pct-total '+(Math.abs(total - 100) < 0.001 ? 'ok' : 'bad');
+  return total;
+}
+
+function showStatus(message, kind){
+  formStatus.textContent = message;
+  formStatus.className = `form-status show ${kind}`;
+}
+
+function clearStatus(){
+  formStatus.textContent = '';
+  formStatus.className = 'form-status';
+}
+
+function clearFieldState(input){
+  input.classList.remove('invalid');
+  input.setCustomValidity('');
+}
+
+function phoneIsValid(value){
+  const digits = value.replace(/\D/g, '');
+  return digits.length >= 10 && digits.length <= 15;
+}
+
+function syncPayerValidation(){
+  const total = updateTotal();
+  const hasAllValues = payerFieldIds.every(id => document.getElementById(id).value.trim() !== '');
+  const isValid = hasAllValues && Math.abs(total - 100) < 0.001;
+  const message = hasAllValues && !isValid ? 'Payer mix must total 100%.' : '';
+
+  payerFieldIds.forEach(id => {
+    document.getElementById(id).setCustomValidity(message);
+  });
+
+  return isValid;
+}
+
+function collectFormData(){
+  fieldIds.forEach(id => clearFieldState(document.getElementById(id)));
+  clearStatus();
+
+  const facilityName = document.getElementById('facilityName');
+  const email = document.getElementById('email');
+  const phone = document.getElementById('phone');
+
+  facilityName.value = facilityName.value.trim();
+  email.value = email.value.trim();
+  phone.value = phone.value.trim();
+
+  syncPayerValidation();
+
+  if (!facilityName.value) {
+    facilityName.setCustomValidity('Please enter your facility name.');
+  }
+
+  if (phone.value && !phoneIsValid(phone.value)) {
+    phone.setCustomValidity('Please enter a valid phone number.');
+  }
+
+  let firstInvalid = null;
+  fieldIds.forEach(id => {
+    const input = document.getElementById(id);
+    if (!input.checkValidity()) {
+      input.classList.add('invalid');
+      firstInvalid = firstInvalid || input;
+    }
+  });
+
+  if (firstInvalid) {
+    showStatus(firstInvalid.validationMessage || 'Please complete every field with valid values.', 'error');
+    firstInvalid.focus();
+    firstInvalid.reportValidity();
+    return null;
+  }
+
+  return {
+    facilityName: facilityName.value,
+    census: Number(document.getElementById('census').value),
+    adc: Number(document.getElementById('adc').value),
+    medicare: Number(document.getElementById('medicare').value),
+    managedCare: Number(document.getElementById('mc').value),
+    medicaid: Number(document.getElementById('medicaid').value),
+    other: Number(document.getElementById('other').value),
+    email: email.value,
+    phone: phone.value,
+  };
+}
+
+async function submitForm(event){
+  event.preventDefault();
+  const payload = collectFormData();
+  if (!payload) return;
+
+  submitButton.disabled = true;
+  submitButton.textContent = 'Sending...';
+  clearStatus();
+
+  try {
+    const response = await fetch('/api/roi-submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      if (response.status === 501 || response.status === 405) {
+        throw new Error('This form needs to run through Vercel functions. If you are testing locally, use `vercel dev` instead of a plain static server.');
+      }
+      throw new Error(result.error || 'Unable to send your request right now.');
+    }
+
+    showFollowup(payload.facilityName, payload.email, payload.phone);
+    showStatus('Your request was sent successfully.', 'success');
+  } catch (error) {
+    showStatus(error.message || 'Unable to send your request right now.', 'error');
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Calculate my recovery estimate →';
+  }
+}
+
+function showFollowup(fname, email, phone){
+  const card = document.getElementById('followupCard');
+  const title = document.getElementById('followupTitle');
+  const desc = document.getElementById('followupDesc');
+
+  title.textContent = fname ? `Thanks, ${fname}. We’ll follow up soon.` : 'We’ll follow up soon.';
+  desc.textContent = fname
+    ? `Our team has your details for ${fname} and will reach out soon at ${email} or ${phone} with next steps for a custom revenue recovery review.`
+    : `Our team has your details and will reach out soon at ${email} or ${phone} with next steps for a custom revenue recovery review.`;
+
+  card.classList.add('show');
+  card.scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+fieldIds.forEach(id => {
+  const input = document.getElementById(id);
+  input.addEventListener('input', () => {
+    clearFieldState(input);
+    clearStatus();
+    if (payerFieldIds.includes(id)) {
+      syncPayerValidation();
+    }
+  });
+});
+
+form.addEventListener('submit', submitForm);
+updateTotal();
+</script>
+</body>
+</html>
