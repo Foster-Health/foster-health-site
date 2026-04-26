@@ -234,13 +234,11 @@
 
   function setupMessage(message) {
     return `
-      <div class="blog-status blog-status-warning">
-        <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Sanity setup needed</p>
-        <p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(message)}</p>
-        <p class="mt-3 text-sm leading-6 text-muted">
-          Use the setup steps in <code>/SANITY_SETUP.md</code>, then publish a post in Sanity Studio.
-        </p>
-      </div>
+      <p class="blog-status-eyebrow">Sanity setup needed</p>
+      <p class="blog-status-body">${escapeHtml(message)}</p>
+      <p class="blog-status-body">
+        Use the setup steps in <code>/SANITY_SETUP.md</code>, then publish a post in Sanity Studio.
+      </p>
     `;
   }
 

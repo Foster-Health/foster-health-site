@@ -2,6 +2,7 @@
   const statusEl = document.getElementById("blogStatus");
   const featuredEl = document.getElementById("featuredPost");
   const gridEl = document.getElementById("blogGrid");
+  const recentSectionEl = document.getElementById("recentPostsSection");
 
   if (!statusEl || !featuredEl || !gridEl || !window.FosterSanity) {
     return;
@@ -9,6 +10,7 @@
 
   const { escapeHtml, fetchSanity, formatDate, hasValidConfig, setupMessage } =
     window.FosterSanity;
+  const showCardImages = false;
 
   const postsQuery = `
     *[_type == "post" && defined(slug.current)]
@@ -31,35 +33,30 @@
       .slice(0, 3)
       .map(
         (category) =>
-          `<span class="rounded-full border border-line bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-muted">${escapeHtml(
-            category
-          )}</span>`
+          `<span class="blog-chip">${escapeHtml(category)}</span>`
       )
       .join("");
   }
 
   function renderPostCard(post) {
-    const imageMarkup = post.mainImageUrl
+    const hasImage = showCardImages && Boolean(post.mainImageUrl);
+    const imageMarkup = hasImage
       ? `<img class="blog-card-image" src="${escapeHtml(
           post.mainImageUrl
         )}" alt="${escapeHtml(post.mainImageAlt || post.title)}" loading="lazy" />`
-      : `<div class="blog-card-image blog-card-image-fallback"></div>`;
+      : "";
 
     return `
-      <article class="blog-card rounded-[24px] border border-line bg-white shadow-soft transition hover:-translate-y-1 hover:border-primary/30">
-        <a class="block h-full" href="/blog-post?slug=${encodeURIComponent(
+      <article class="blog-card${hasImage ? " blog-card-has-image" : ""}">
+        <a class="blog-card-link" href="/blog-post.html?slug=${encodeURIComponent(
           post.slug
         )}">
           ${imageMarkup}
-          <div class="p-5">
-            <div class="flex flex-wrap gap-2">${renderCategories(post.categories)}</div>
-            <h3 class="font-display mt-4 text-2xl leading-tight text-ink">${escapeHtml(
-              post.title
-            )}</h3>
-            <p class="mt-3 text-base leading-7 text-muted">${escapeHtml(
-              post.excerpt || ""
-            )}</p>
-            <div class="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-[#47607a]">
+          <div class="blog-card-body">
+            <div class="blog-chip-row">${renderCategories(post.categories)}</div>
+            <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
+            <p class="blog-card-excerpt">${escapeHtml(post.excerpt || "")}</p>
+            <div class="blog-post-meta blog-card-meta">
               <span>${escapeHtml(post.authorName || "Foster Health")}</span>
               <span>${escapeHtml(formatDate(post.publishedAt))}</span>
               ${
@@ -80,55 +77,67 @@
       return;
     }
 
+    const hasImage = showCardImages && Boolean(post.mainImageUrl);
+
     featuredEl.innerHTML = `
-      <article class="overflow-hidden rounded-[28px] border border-line bg-white shadow-panel">
-        <div class="grid gap-0 lg:grid-cols-[1.1fr_0.9fr]">
-          <div class="p-6 lg:p-8">
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Featured article</p>
-            <div class="mt-5 flex flex-wrap gap-2">${renderCategories(post.categories)}</div>
-            <h2 class="font-display mt-5 text-[clamp(2rem,3vw,3.3rem)] leading-tight">${escapeHtml(
-              post.title
-            )}</h2>
-            <p class="mt-4 max-w-2xl text-lg leading-8 text-muted">${escapeHtml(
-              post.excerpt || ""
-            )}</p>
-            <div class="mt-6 flex flex-wrap gap-x-4 gap-y-2 text-sm font-semibold text-[#47607a]">
-              <span>${escapeHtml(post.authorName || "Foster Health")}</span>
-              <span>${escapeHtml(formatDate(post.publishedAt))}</span>
-              ${
-                post.estimatedReadingTime
-                  ? `<span>${escapeHtml(String(post.estimatedReadingTime))} min read</span>`
-                  : ""
-              }
-            </div>
-            <a class="font-display mt-8 inline-flex items-center rounded-2xl bg-[#112036] px-5 py-3 font-bold text-white transition hover:-translate-y-0.5 hover:bg-[#081727]"
-              href="/blog-post?slug=${encodeURIComponent(post.slug)}">
-              Read article
-            </a>
-          </div>
-          <div class="min-h-[280px] border-t border-line lg:border-l lg:border-t-0">
+      <article class="blog-featured-card${hasImage ? " blog-featured-card-has-image" : ""}">
+        <div class="blog-featured-copy">
+          <p class="blog-section-kicker">Featured article</p>
+          <div class="blog-chip-row">${renderCategories(post.categories)}</div>
+          <h2 class="blog-featured-title">${escapeHtml(post.title)}</h2>
+          <p class="blog-featured-excerpt">${escapeHtml(post.excerpt || "")}</p>
+          <div class="blog-post-meta">
+            <span>${escapeHtml(post.authorName || "Foster Health")}</span>
+            <span>${escapeHtml(formatDate(post.publishedAt))}</span>
             ${
-              post.mainImageUrl
-                ? `<img class="h-full w-full object-cover" src="${escapeHtml(
-                    post.mainImageUrl
-                  )}" alt="${escapeHtml(post.mainImageAlt || post.title)}" loading="lazy" />`
-                : '<div class="h-full w-full bg-[linear-gradient(140deg,#dff2fb_0%,#eef9f4_100%)]"></div>'
+              post.estimatedReadingTime
+                ? `<span>${escapeHtml(String(post.estimatedReadingTime))} min read</span>`
+                : ""
             }
           </div>
+          <a class="blog-featured-link" href="/blog-post.html?slug=${encodeURIComponent(
+            post.slug
+          )}">
+            Read article
+          </a>
         </div>
+        ${
+          hasImage
+            ? `<div class="blog-featured-media">
+                <img class="blog-featured-image" src="${escapeHtml(
+                  post.mainImageUrl
+                )}" alt="${escapeHtml(post.mainImageAlt || post.title)}" loading="lazy" />
+              </div>`
+            : ""
+        }
       </article>
     `;
   }
 
+  function statusMessage(eyebrow, body, extraBody) {
+    return `
+      <p class="blog-status-eyebrow">${escapeHtml(eyebrow)}</p>
+      <p class="blog-status-body">${escapeHtml(body)}</p>
+      ${
+        extraBody
+          ? `<p class="blog-status-body">${escapeHtml(extraBody)}</p>`
+          : ""
+      }
+    `;
+  }
+
   function showStatus(message, type) {
-    statusEl.className = `rise-in rounded-[24px] border p-5 shadow-soft ${type}`;
+    statusEl.className = `blog-status rise-in ${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove("hidden");
   }
 
   async function initBlog() {
     if (!hasValidConfig()) {
-      showStatus(setupMessage("Add your Sanity project ID to connect the blog."), "blog-status-warning");
+      showStatus(
+        setupMessage("Add your Sanity project ID to connect the blog."),
+        "blog-status-warning"
+      );
       return;
     }
 
@@ -136,26 +145,32 @@
       const posts = await fetchSanity(postsQuery);
 
       if (!Array.isArray(posts) || posts.length === 0) {
+        featuredEl.innerHTML = "";
+        gridEl.innerHTML = "";
+        if (recentSectionEl) {
+          recentSectionEl.classList.add("hidden");
+        }
         showStatus(
-          `
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">No posts yet</p>
-            <p class="mt-2 text-sm leading-6 text-muted">
-              The Sanity connection is working. Publish your first post and it will appear here.
-            </p>
-          `,
+          statusMessage(
+            "No posts yet",
+            "The Sanity connection is working.",
+            "Publish your first post and it will appear here automatically."
+          ),
           "blog-status-info"
         );
         return;
       }
 
+      const remainingPosts = posts.slice(1);
       renderFeaturedPost(posts[0]);
-      gridEl.innerHTML = posts.slice(1).map(renderPostCard).join("");
+      gridEl.innerHTML = remainingPosts.map(renderPostCard).join("");
+
+      if (recentSectionEl) {
+        recentSectionEl.classList.toggle("hidden", remainingPosts.length === 0);
+      }
     } catch (error) {
       showStatus(
-        `
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Could not load posts</p>
-          <p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(error.message)}</p>
-        `,
+        statusMessage("Could not load posts", error.message),
         "blog-status-warning"
       );
     }
