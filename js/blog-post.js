@@ -55,26 +55,39 @@
     }
   `;
 
+  function statusMessage(eyebrow, body, extraBody) {
+    return `
+      <p class="blog-status-eyebrow">${escapeHtml(eyebrow)}</p>
+      <p class="blog-status-body">${escapeHtml(body)}</p>
+      ${
+        extraBody
+          ? `<p class="blog-status-body">${escapeHtml(extraBody)}</p>`
+          : ""
+      }
+    `;
+  }
+
   function showStatus(message, type) {
-    statusEl.className = `rise-in mt-6 rounded-[24px] border p-5 shadow-soft ${type}`;
+    statusEl.className = `blog-status rise-in ${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove("hidden");
   }
 
   async function initPost() {
     if (!hasValidConfig()) {
-      showStatus(setupMessage("Add your Sanity project ID before loading article pages."), "blog-status-warning");
+      showStatus(
+        setupMessage("Add your Sanity project ID before loading article pages."),
+        "blog-status-warning"
+      );
       return;
     }
 
     if (!slug) {
       showStatus(
-        `
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Missing article slug</p>
-          <p class="mt-2 text-sm leading-6 text-muted">
-            Open this page from the blog listing so the article slug is included in the URL.
-          </p>
-        `,
+        statusMessage(
+          "Missing article slug",
+          "Open this page from the blog listing so the article slug is included in the URL."
+        ),
         "blog-status-warning"
       );
       return;
@@ -85,12 +98,10 @@
 
       if (!post) {
         showStatus(
-          `
-            <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Article not found</p>
-            <p class="mt-2 text-sm leading-6 text-muted">
-              This slug does not match a published Sanity post yet.
-            </p>
-          `,
+          statusMessage(
+            "Article not found",
+            "This slug does not match a published Sanity post yet."
+          ),
           "blog-status-warning"
         );
         return;
@@ -100,12 +111,7 @@
       titleEl.textContent = post.title || "Untitled article";
       excerptEl.textContent = post.excerpt || "";
       chipsEl.innerHTML = (post.categories || [])
-        .map(
-          (category) =>
-            `<span class="rounded-full border border-line bg-white px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-muted">${escapeHtml(
-              category
-            )}</span>`
-        )
+        .map((category) => `<span class="blog-chip">${escapeHtml(category)}</span>`)
         .join("");
       metaEl.innerHTML = `
         <span>${escapeHtml(post.authorName || "Foster Health")}</span>
@@ -123,18 +129,13 @@
           )}" loading="lazy" />
         `
         : "";
-      if (!post.mainImageUrl) {
-        heroWrapEl.classList.add("hidden");
-      }
+      heroWrapEl.classList.toggle("hidden", !post.mainImageUrl);
 
       bodyEl.innerHTML = renderPortableText(post.body);
       shellEl.classList.remove("hidden");
     } catch (error) {
       showStatus(
-        `
-          <p class="text-xs font-bold uppercase tracking-[0.08em] text-primary">Could not load article</p>
-          <p class="mt-2 text-sm leading-6 text-muted">${escapeHtml(error.message)}</p>
-        `,
+        statusMessage("Could not load article", error.message),
         "blog-status-warning"
       );
     }

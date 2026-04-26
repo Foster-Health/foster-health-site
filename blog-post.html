@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foster Health | Article</title>
+  <meta
+    name="description"
+    content="Read the latest Foster Health article on reimbursement capture and recovery for skilled nursing."
+  >
+  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body class="blog-page blog-article-page">
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="/" class="site-brand">Foster<span>.</span></a>
+
+      <button
+        class="site-nav-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-label="Open navigation menu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="site-nav-menu">
+        <a href="/#mds" class="site-nav-link">How it works</a>
+        <a href="/#execs" class="site-nav-link">For operators</a>
+        <a href="/#faq" class="site-nav-link">FAQ</a>
+        <a href="./blog.html" class="site-nav-link active" aria-current="page">Blog</a>
+        <a href="./roi.html" class="site-nav-link">ROI Calculator</a>
+        <a
+          href="https://calendly.com/pranav-fosterhealth/30min"
+          target="_blank"
+          rel="noreferrer"
+          class="site-nav-cta"
+        >
+          Book a 30-minute call
+        </a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="blog-article-main">
+    <section class="blog-article-section">
+      <div class="blog-container blog-article-wrap">
+        <a href="./blog.html" class="blog-back-link">← Back to all articles</a>
+
+        <div id="postStatus" class="blog-status hidden" aria-live="polite"></div>
+
+        <article id="articleShell" class="blog-post-shell hidden">
+          <header class="blog-post-header">
+            <div id="postChips" class="blog-chip-row"></div>
+            <h1 id="postTitle" class="blog-post-title"></h1>
+            <p id="postExcerpt" class="blog-post-excerpt"></p>
+            <div id="postMeta" class="blog-post-meta"></div>
+          </header>
+
+          <div id="postHeroWrap" class="blog-post-hero-wrap"></div>
+
+          <div id="postBody" class="blog-body"></div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="blog-container site-footer-inner">
+      <a href="/" class="site-footer-brand">Foster<span>.</span></a>
+      <div class="site-footer-links">
+        <a href="/#mds">How it works</a>
+        <a href="/#execs">For operators</a>
+        <a href="/#faq">FAQ</a>
+        <a href="./blog.html">Blog</a>
+        <a href="./roi.html">ROI calculator</a>
+      </div>
+      <p class="site-footer-copy">© 2026 Foster Health</p>
+    </div>
+  </footer>
+
+  <script src="./js/sanity-site-config.js"></script>
+  <script src="./js/sanity-client.js"></script>
+  <script src="./js/blog-post.js"></script>
+  <script>
+    (function () {
+      const nav = document.querySelector(".site-nav");
+      const toggle = document.querySelector(".site-nav-toggle");
+
+      if (!nav || !toggle) {
+        return;
+      }
+
+      toggle.addEventListener("click", function () {
+        const isOpen = nav.classList.toggle("menu-open");
+        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      });
+
+      document.addEventListener("click", function (event) {
+        if (!nav.classList.contains("menu-open")) {
+          return;
+        }
+
+        if (!nav.contains(event.target)) {
+          nav.classList.remove("menu-open");
+          toggle.setAttribute("aria-expanded", "false");
+        }
+      });
+
+      nav.querySelectorAll(".site-nav-link, .site-nav-cta").forEach(function (link) {
+        link.addEventListener("click", function () {
+          nav.classList.remove("menu-open");
+          toggle.setAttribute("aria-expanded", "false");
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
