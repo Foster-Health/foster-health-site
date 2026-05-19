@@ -940,8 +940,15 @@ button {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.2rem;
-  padding: 1.5rem 0;
+  gap: 2rem;
+  padding: 1.75rem 0;
+}
+
+.site-footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 16rem;
 }
 
 .site-footer-brand {
@@ -952,6 +959,21 @@ button {
 
 .site-footer-brand span {
   color: var(--green-light);
+}
+
+.site-footer-address {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0;
+  color: var(--white-faint);
+  font-size: 0.78rem;
+  font-style: normal;
+  line-height: 1.45;
+}
+
+.site-footer-address span:first-child {
+  color: var(--white-dim);
 }
 
 .site-footer-links {
@@ -1078,6 +1100,11 @@ button {
   .site-footer-inner {
     flex-direction: column;
     text-align: center;
+  }
+
+  .site-footer-brand-block {
+    align-items: center;
+    min-width: 0;
   }
 }
 

@@ -1150,10 +1150,18 @@ nav.menu-open .nav-menu-toggle span:nth-child(3) {
 footer {
   background: var(--navy);
   border-top: 1px solid var(--border);
-  padding: 48px;
+  padding: 42px 48px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 32px;
+}
+
+.footer-brand-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 260px;
 }
 
 .footer-logo {
@@ -1165,6 +1173,20 @@ footer {
 }
 
 .footer-logo span { color: var(--green-light); }
+
+.footer-address {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-style: normal;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--white-faint);
+}
+
+.footer-address span:first-child {
+  color: var(--white-dim);
+}
 
 .footer-links {
   display: flex;
@@ -1499,6 +1521,7 @@ footer {
     padding: 36px 24px;
     text-align: center;
   }
+  .footer-brand-block { align-items: center; min-width: 0; }
   .footer-links { flex-wrap: wrap; justify-content: center; gap: 16px; }
 }
 
@@ -2006,7 +2029,13 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <a class="footer-logo" href="/">Foster<span>.</span></a>
+  <div class="footer-brand-block">
+    <a class="footer-logo" href="/">Foster<span>.</span></a>
+    <address class="footer-address">
+      <span>Foster Health Technologies, LLC</span>
+      <span>1055 Mason St, San Francisco, CA 94108</span>
+    </address>
+  </div>
   <ul class="footer-links">
     <li><a href="#mds">How it works</a></li>
     <li><a href="#execs">For operators</a></li>

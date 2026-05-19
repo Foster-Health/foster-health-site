@@ -168,10 +168,40 @@ nav{
 .why-item-h{font-size:14px;font-weight:500;margin-bottom:4px}
 .why-item-b{font-size:13px;font-weight:300;color:var(--white-dim);line-height:1.6}
 
+.roi-footer{
+  border-top:1px solid var(--border);
+  background:var(--navy);
+  padding:36px 48px;
+}
+.roi-footer-inner{
+  max-width:1060px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:28px;
+}
+.roi-footer-brand-block{display:flex;flex-direction:column;gap:9px;min-width:260px}
+.roi-footer-brand{
+  font-family:var(--serif);font-size:18px;font-weight:300;color:var(--white-dim);text-decoration:none;
+}
+.roi-footer-brand span{color:var(--green-light)}
+.roi-footer-address{
+  display:flex;flex-direction:column;gap:4px;
+  font-style:normal;font-size:12px;line-height:1.45;color:var(--white-faint);
+}
+.roi-footer-address span:first-child{color:var(--white-dim)}
+.roi-footer-links{display:flex;flex-wrap:wrap;gap:20px}
+.roi-footer-links a{
+  font-size:13px;color:var(--white-faint);text-decoration:none;transition:color .2s;
+}
+.roi-footer-links a:hover{color:var(--white-dim)}
+.roi-footer-copy{font-size:12px;color:var(--white-faint)}
+
 @media (max-width: 900px){
   nav{padding:0 24px}
   .page-header{padding:72px 24px 48px}
   .calc-layout{grid-template-columns:1fr;padding:0 24px 80px}
+  .roi-footer{padding:36px 24px}
+  .roi-footer-inner{flex-direction:column;text-align:center;gap:20px}
+  .roi-footer-brand-block{align-items:center;min-width:0}
+  .roi-footer-links{justify-content:center;gap:16px}
 }
 
 @media (max-width: 640px){
@@ -330,6 +360,25 @@ nav{
 
   </div>
 </div>
+
+<footer class="roi-footer">
+  <div class="roi-footer-inner">
+    <div class="roi-footer-brand-block">
+      <a href="/" class="roi-footer-brand">Foster<span>.</span></a>
+      <address class="roi-footer-address">
+        <span>Foster Health Technologies, LLC</span>
+        <span>1055 Mason St, San Francisco, CA 94108</span>
+      </address>
+    </div>
+    <div class="roi-footer-links">
+      <a href="/#mds">How it works</a>
+      <a href="/#execs">For operators</a>
+      <a href="/#faq">FAQ</a>
+      <a href="./blog.html">Blog</a>
+    </div>
+    <div class="roi-footer-copy">© 2026 Foster Health</div>
+  </div>
+</footer>
 
 <script>
 const payerFieldIds = ['medicare', 'mc', 'medicaid', 'other'];
