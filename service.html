@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Service — Foster runs your MDS</title>
+<meta name="description" content="Foster Full Service: the entire MDS lifecycle run by Foster's coordinators and AI. In-house quality at half the cost.">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="/js/navbar.js" defer></script>
+<style>
+  :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#5F666B;--line:#E7E7E2;
+    --serif:'Instrument Serif',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  ::selection{background:var(--cobalt);color:#fff}
+  body{font-family:var(--sans);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  .btn{display:inline-block;background:var(--cobalt);color:#fff;text-decoration:none;padding:14px 26px;font-size:15px;font-weight:500;border-radius:2px}
+  .btn:hover{background:#1730D6}
+  .btn.line{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn.line:hover{background:var(--ink);color:#fff}
+  .btn:focus-visible,a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative}
+  .logo{display:inline-block;font-family:var(--serif);font-size:28px;letter-spacing:.025em;text-decoration:none;color:var(--ink);transform:scaleX(1.06);transform-origin:left center}
+  .nav-r{display:flex;gap:26px;align-items:center;font-size:14px}
+  .nav-r a{text-decoration:none;color:var(--gray)}
+  .nav-r a:hover{color:var(--ink)}
+  .nav-r .btn{padding:10px 18px;color:#fff}
+  .nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;padding:10px}
+  .nav-toggle span{display:block;width:100%;height:1px;background:currentColor;margin:5px 0;transition:transform .2s,opacity .2s}
+  .menu-open .nav-toggle span:first-child{transform:translateY(6px) rotate(45deg)}
+  .menu-open .nav-toggle span:nth-child(2){opacity:0}
+  .menu-open .nav-toggle span:last-child{transform:translateY(-6px) rotate(-45deg)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-bottom:24px}
+  .hl{background:var(--cobalt-wash);color:var(--ink);font-weight:600;padding:2px 7px;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .cb{color:var(--cobalt)}
+  .it{font-style:italic;color:var(--cobalt)}
+
+  .hero{padding:100px 0 80px;max-width:820px}
+  .hero h1{font-size:clamp(44px,6vw,80px);line-height:1}
+  .hero p{margin:28px 0 36px;font-size:18px;color:var(--gray);max-width:520px}
+
+  section{padding:90px 0}
+  h2{font-size:clamp(30px,4.2vw,50px);line-height:1.1;max-width:720px;margin-bottom:16px}
+  .sub{color:var(--gray);font-size:17px;max-width:600px;margin-bottom:56px}
+
+  /* before/after boxes */
+  .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:56px;max-width:1000px}
+  .vs{border:1px solid var(--line);padding:34px 32px;background:var(--white)}
+  .vs.flag{background:var(--cobalt-wash);border-color:var(--cobalt)}
+  .vk{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cobalt);display:block;margin-bottom:14px}
+  .vs h3{font-family:var(--serif);font-weight:400;font-size:clamp(24px,2.6vw,32px);line-height:1.15;margin-bottom:10px}
+  .vs p{color:var(--slate,#43525A);font-size:15px;max-width:46ch}
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:64px;max-width:1000px}
+  .hw{border-top:2px solid var(--ink);padding-top:14px;font-size:15px;color:var(--slate,#43525A)}
+  .hw b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--cobalt);font-weight:500;margin-bottom:8px}
+  @media(max-width:860px){.how,.vs-grid{grid-template-columns:1fr}}
+
+  /* checklist */
+  .bone{background:var(--bone);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 56px;max-width:840px}
+  .ck{display:flex;gap:16px;align-items:baseline;font-family:var(--serif);font-size:clamp(20px,2.2vw,27px);color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:14px}
+  .ck span{font-family:var(--mono);color:var(--cobalt);font-size:17px}
+  .ck-foot{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--gray);margin-top:36px}
+
+  /* pilot strip */
+  .pilot-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:48px}
+  .ps .pk{font-family:var(--mono);font-size:13px;color:var(--cobalt);border-top:2px solid var(--ink);padding-top:14px;margin-bottom:10px}
+  .ps h3{font-size:22px;margin-bottom:6px}
+  .ps p{color:var(--gray);font-size:14.5px}
+
+  .cta{background:var(--cobalt-wash);border-top:1px solid var(--line);text-align:center;position:relative;overflow:hidden;padding:0}
+  #cta-field{position:absolute;inset:0;pointer-events:none}
+  .cta .cta-inner{position:relative;z-index:1;padding:90px 0}
+  .cta h2{margin:0 auto 14px}
+  .cta p{color:var(--gray);max-width:440px;margin:0 auto 34px}
+  footer{padding:34px 0 60px;font-size:14px;color:var(--gray);border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--gray)}
+
+  @media(max-width:860px){
+    .check-grid{grid-template-columns:1fr}
+    .pilot-strip{grid-template-columns:1fr}
+    .nav-toggle{display:block}
+    .nav-r{display:none;position:absolute;top:100%;left:0;right:0;z-index:20;flex-direction:column;align-items:stretch;gap:4px;padding:14px;background:var(--white);border:1px solid var(--line);box-shadow:0 16px 36px rgba(11,17,22,.08)}
+    .menu-open .nav-r{display:flex}
+    .nav-r a{padding:10px 12px}
+    .nav-r .btn{text-align:center;margin-top:4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav data-site-nav aria-label="Primary navigation">
+    <a class="logo" href="/" aria-label="Foster home">Foster.</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+    <div class="nav-r" id="primary-navigation">
+      <a href="/service" aria-current="page">Full Service</a>
+      <a href="/copilot">Copilot</a>
+      <a href="/#plans">Plans</a>
+      <a href="/blog">Blog</a>
+      <a class="btn" href="/contact">Contact us</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">FULL SERVICE — THE FOSTER STANDARD</div>
+    <h1>We run it <span class="it">for you.</span></h1>
+    <p>Your entire MDS function, operated by Foster's coordinators and AI. <span class="hl">In-house quality, but better. Half the cost.</span> For one building or your whole portfolio.</p>
+    <a class="btn" href="/contact">Contact us</a>
+    <a class="btn line" href="/service#model" style="margin-left:12px">See the model</a>
+  </header>
+</div>
+
+<section id="model">
+  <div class="wrap">
+    <div class="eyebrow">WHY THIS WORKS NOW</div>
+    <h2>MDS is going remote. Remote has meant lower quality. <span class="it">Foster makes it better than in-house.</span></h2>
+
+    <div class="vs-grid">
+      <div class="vs">
+        <span class="vk">THE OLD MODEL</span>
+        <h3>One nurse, one building.</h3>
+        <p>All the reading, drafting, querying, and judgment on one person's desk.</p>
+      </div>
+      <div class="vs flag">
+        <span class="vk">THE FOSTER MODEL</span>
+        <h3>One nurse, many buildings.</h3>
+        <p>Foster's AI does the reading, querying, pre-bill checks, and denial management. Everything for Med A. Our MDS nurse just reviews.</p>
+      </div>
+    </div>
+
+    <div class="how">
+      <div class="hw"><b>HOW · 01</b>AI reads 100% of the chart, continuously. No human has time for that.</div>
+      <div class="hw"><b>HOW · 02</b>Every coded item links to the note that proves it.</div>
+      <div class="hw"><b>HOW · 03</b>A senior nurse spends all their time on judgment, none of it buried in reading.</div>
+    </div>
+  </div>
+</section>
+
+<section class="bone">
+  <div class="wrap">
+    <div class="eyebrow">WHAT YOUR FOSTER COORDINATOR RUNS</div>
+    <h2>The whole desk. <span class="it">Owned.</span></h2>
+    <p class="sub">Everything between admission and payment.</p>
+    <div class="check-grid">
+      <div class="ck"><span>✓</span>Chart review</div>
+      <div class="ck"><span>✓</span>Coding &amp; drafting</div>
+      <div class="ck"><span>✓</span>Physician querying</div>
+      <div class="ck"><span>✓</span>Meetings &amp; communication</div>
+      <div class="ck"><span>✓</span>Submission &amp; sign-off</div>
+      <div class="ck"><span>✓</span>Triple check before billing</div>
+      <div class="ck"><span>✓</span>ADRs &amp; denials</div>
+      <div class="ck"><span>✓</span>Better bedside charting for your nurses</div>
+    </div>
+    <p class="ck-foot">ALL REMOTE · ON-SITE VISITS OPTIONAL</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">START WITH ONE BUILDING</div>
+    <h2>Prove it before you <span class="it">commit.</span></h2>
+    <div class="pilot-strip">
+      <div class="ps"><div class="pk">01</div><h3>Pick one building</h3><p>Read access to your PointClickCare. No workflow changes, no IT project.</p></div>
+      <div class="ps"><div class="pk">02</div><h3>One month, side by side</h3><p>Foster works every assessment alongside your current process. Same residents, same deadlines.</p></div>
+      <div class="ps"><div class="pk">03</div><h3>Compare, then expand</h3><p>Our work next to what happened in-house. Roll out when the results convince you.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <canvas id="cta-field" aria-hidden="true"></canvas>
+  <div class="wrap cta-inner">
+    <h2>Ready to hand off <span class="it">the hardest desk in the building?</span></h2>
+    <p>Tell us about your buildings. We'll show you Foster working a real chart.</p>
+    <a class="btn" href="/contact">Contact us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><span style="font-family:var(--serif);font-size:18px;color:var(--ink)">Foster.</span> &nbsp;Foster Health Technologies, Inc. · San Francisco</div>
+    <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="/service" aria-current="page">Full Service</a> &nbsp;·&nbsp; <a href="/copilot">Copilot</a> &nbsp;·&nbsp; <a href="/#plans">Plans</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/contact">Contact</a></div>
+    <div>© 2026 Foster Health</div>
+  </div>
+</footer>
+<script>
+(function(){
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cvs = document.getElementById('cta-field');
+  if (cvs && cvs.getContext){
+    var ctx = cvs.getContext('2d');
+    var host = cvs.parentElement;
+    var parts = [], mx = -9999, my = -9999, running = false, rafId = null;
+    var COUNT = window.innerWidth < 700 ? 70 : 160;
+
+    function fieldSize(){
+      var r = host.getBoundingClientRect();
+      var d = window.devicePixelRatio || 1;
+      cvs.width = r.width * d; cvs.height = r.height * d;
+      cvs.style.width = r.width + 'px'; cvs.style.height = r.height + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      return r;
+    }
+    function fieldInit(){
+      var r = fieldSize();
+      parts = [];
+      for (var i = 0; i < COUNT; i++){
+        parts.push({
+          x: Math.random() * r.width, y: Math.random() * r.height,
+          vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+          s: 1 + Math.random() * 2, a: .12 + Math.random() * .3
+        });
+      }
+    }
+    function fieldDraw(){
+      var w = cvs.clientWidth, h = cvs.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+        if (d2 < 19600){
+          var d = Math.sqrt(d2) || 1, f = (140 - d) / 140;
+          p.x += dx / d * f * 2.4; p.y += dy / d * f * 2.4;
+        }
+        if (p.x < -6) p.x = w + 6; if (p.x > w + 6) p.x = -6;
+        if (p.y < -6) p.y = h + 6; if (p.y > h + 6) p.y = -6;
+        ctx.fillStyle = 'rgba(31,59,255,' + p.a + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 6.2832); ctx.fill();
+      }
+    }
+    function fieldLoop(){ fieldDraw(); rafId = running ? requestAnimationFrame(fieldLoop) : null; }
+
+    fieldInit();
+    if (reduced){
+      fieldDraw();
+    } else {
+      host.addEventListener('mousemove', function(e){
+        var r = host.getBoundingClientRect();
+        mx = e.clientX - r.left; my = e.clientY - r.top;
+      });
+      host.addEventListener('mouseleave', function(){ mx = -9999; my = -9999; });
+      window.addEventListener('resize', function(){ fieldInit(); if (!running) fieldDraw(); });
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          running = e.isIntersecting;
+          if (running && rafId === null) fieldLoop();
+        });
+      }, { threshold: 0.05 }).observe(host);
+    }
+  }
+})();
+</script>
+</body>
+</html>

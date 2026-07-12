@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot — Your MDS team, powered by Foster</title>
+<meta name="description" content="Foster Copilot: your MDS coordinators, powered by AI that reads every chart and drafts every item with proof — inside the EHR they already use.">
+<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<script src="/js/navbar.js" defer></script>
+<style>
+  :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#5F666B;--line:#E7E7E2;--flag:#B3402F;
+    --serif:'Instrument Serif',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  ::selection{background:var(--cobalt);color:#fff}
+  body{font-family:var(--sans);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6}
+  h1,h2,h3{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  .btn{display:inline-block;background:var(--cobalt);color:#fff;text-decoration:none;padding:14px 26px;font-size:15px;font-weight:500;border-radius:2px}
+  .btn:hover{background:#1730D6}
+  .btn.line{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+  .btn.line:hover{background:var(--ink);color:#fff}
+  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative}
+  .logo{display:inline-block;font-family:var(--serif);font-size:28px;letter-spacing:.025em;text-decoration:none;color:var(--ink);transform:scaleX(1.06);transform-origin:left center}
+  .nav-r{display:flex;gap:26px;align-items:center;font-size:14px}
+  .nav-r a{text-decoration:none;color:var(--gray)}
+  .nav-r a:hover{color:var(--ink)}
+  .nav-r .btn{padding:10px 18px;color:#fff}
+  .nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;padding:10px}
+  .nav-toggle span{display:block;width:100%;height:1px;background:currentColor;margin:5px 0;transition:transform .2s,opacity .2s}
+  .menu-open .nav-toggle span:first-child{transform:translateY(6px) rotate(45deg)}
+  .menu-open .nav-toggle span:nth-child(2){opacity:0}
+  .menu-open .nav-toggle span:last-child{transform:translateY(-6px) rotate(-45deg)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-bottom:24px}
+  .it{font-style:italic;color:var(--cobalt)}
+
+  .hero{padding:100px 0 80px;max-width:840px}
+  .hero h1{font-size:clamp(44px,6vw,80px);line-height:1}
+  .hero p{margin:28px 0 36px;font-size:18px;color:var(--gray);max-width:540px}
+
+  /* HOW IT WORKS — interactive steps + swapping panels */
+  .hiw{padding:90px 0 110px;border-top:1px solid var(--line)}
+  .hiw h2{font-size:clamp(30px,4.2vw,50px);line-height:1.1;max-width:820px;margin-bottom:10px}
+  .hiw .sub{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,30px);color:var(--gray);margin-bottom:64px}
+  .hiw-grid{display:grid;grid-template-columns:400px 1fr;gap:52px;align-items:start}
+
+  .step{display:block;width:100%;text-align:left;background:none;border:none;border-top:1px solid var(--line);padding:22px 8px;cursor:pointer;font:inherit;color:inherit}
+  .step:last-of-type{border-bottom:1px solid var(--line)}
+  .step .head{display:flex;align-items:baseline;gap:18px}
+  .step .num{font-family:var(--mono);font-size:13px;color:var(--gray)}
+  .step-title{font-family:var(--serif);font-size:24px;transition:color .2s}
+  .step p{color:var(--gray);font-size:14.5px;margin:12px 0 4px 43px;max-width:44ch;display:none}
+  .step.active{background:var(--bone)}
+  .step.active .num,.step.active .step-title{color:var(--cobalt)}
+  .step.active p{display:block}
+  .step:hover .step-title{color:var(--cobalt)}
+
+  /* shared window chrome */
+  .win{border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--white);box-shadow:0 20px 60px rgba(11,17,22,.06)}
+  .wbar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--bone)}
+  .wbar span{width:9px;height:9px;border-radius:50%;background:var(--line)}
+  .wbar em{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--gray);margin-left:10px;letter-spacing:.08em}
+  .wbar i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--cobalt);margin-left:auto;letter-spacing:.08em}
+  .wbody{padding:20px 22px;font-size:14px}
+
+  .ppanel{display:none}
+  .ppanel.active{display:block;animation:pin .35s ease}
+  @keyframes pin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion: reduce){.ppanel.active{animation:none}}
+
+  /* P1 connect */
+  .crow{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:4px;padding:14px 16px;margin-bottom:10px;font-weight:500;font-size:14.5px}
+  .crow span{font-family:var(--mono);font-size:10.5px;color:var(--gray);font-weight:400;letter-spacing:.06em}
+  .cengine{border:1px solid var(--cobalt);background:var(--cobalt-wash);color:var(--cobalt);border-radius:4px;padding:14px 16px;text-align:center;font-family:var(--mono);font-size:12.5px;letter-spacing:.08em}
+  .cfoot{font-family:var(--mono);font-size:10.5px;color:var(--gray);letter-spacing:.06em;margin-top:12px;text-align:center}
+
+  /* P2 worklist */
+  .pt-head{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;color:var(--gray);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:16px}
+  .pt-head i{font-style:normal;color:var(--cobalt)}
+  .fnd{border:1px solid var(--line);border-radius:4px;padding:16px 18px;margin-bottom:12px}
+  .fnd .tag{font-family:var(--mono);font-size:10px;letter-spacing:.12em;margin-bottom:8px;color:var(--cobalt)}
+  .fnd .tag.warn{color:#8a6d1f}
+  .fnd .tag.bad{color:var(--flag)}
+  .fnd h4{font-family:var(--serif);font-weight:400;font-size:18px;line-height:1.25;margin-bottom:6px}
+  .fnd p{color:var(--gray);font-size:13px;max-width:58ch}
+  .fnd .tl{font-family:var(--mono);font-size:11.5px;color:var(--gray);margin-top:10px;display:flex;flex-direction:column;gap:5px}
+  .fnd .tl b{color:var(--ink);font-weight:500;margin-right:8px}
+  .fnd .tl .on,.fnd .tl .on b{color:var(--cobalt)}
+  .fnd .act{display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;color:var(--cobalt);margin-top:10px;letter-spacing:.06em}
+
+  /* P3 validation */
+  .vr{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:11px 4px;border-bottom:1px solid var(--line);font-size:13.5px}
+  .vr:last-of-type{border-bottom:none}
+  .vr b{font-weight:500}
+  .vr .st{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:#2E7D5B}
+  .vr.flag b{color:var(--flag)}
+  .vr.flag .st{color:var(--flag)}
+  .vr small{display:block;color:var(--gray);font-size:12px;font-weight:400}
+  .vfoot{margin-top:14px;border:1px solid var(--flag);border-radius:4px;padding:12px 16px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:13px;color:var(--flag)}
+  .vfoot span{font-family:var(--mono);font-size:11px;letter-spacing:.06em}
+
+  /* P4 adr */
+  .flow{display:flex;align-items:center;justify-content:space-between;gap:8px;border:1px solid var(--line);border-radius:4px;padding:18px 16px;margin-bottom:14px}
+  .fnode{text-align:center;flex:1}
+  .fnode b{display:block;font-size:13.5px;font-weight:600}
+  .fnode span{font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:var(--cobalt)}
+  .farr{color:var(--cobalt);font-family:var(--mono)}
+  .ev-lab{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--gray);margin-bottom:10px}
+  .ev{border-left:3px solid var(--cobalt);background:var(--bone);padding:10px 14px;font-size:13px;margin-bottom:8px;font-family:var(--mono)}
+  .pfoot{margin-top:14px;border:1px solid var(--cobalt);background:var(--cobalt-wash);border-radius:4px;padding:12px 16px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--cobalt)}
+
+  .cta{background:var(--cobalt-wash);border-top:1px solid var(--line);text-align:center;position:relative;overflow:hidden}
+  #cta-field{position:absolute;inset:0;pointer-events:none}
+  .cta .cta-inner{padding:90px 0;position:relative;z-index:1}
+  .cta h2{font-size:clamp(30px,4.2vw,50px);line-height:1.1;margin:0 auto 14px;max-width:720px}
+  .cta p{color:var(--gray);max-width:460px;margin:0 auto 34px}
+  footer{padding:34px 0 60px;font-size:14px;color:var(--gray);border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--gray)}
+
+  @media(max-width:920px){
+    .hiw-grid{grid-template-columns:1fr;gap:36px}
+    .panel-col,.ppanel,.win,.wbody{min-width:0;max-width:100%}
+    .flow{flex-wrap:wrap}
+    .nav-toggle{display:block}
+    .nav-r{display:none;position:absolute;top:100%;left:0;right:0;z-index:20;flex-direction:column;align-items:stretch;gap:4px;padding:14px;background:var(--white);border:1px solid var(--line);box-shadow:0 16px 36px rgba(11,17,22,.08)}
+    .menu-open .nav-r{display:flex}
+    .nav-r a{padding:10px 12px}
+    .nav-r .btn{text-align:center;margin-top:4px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav data-site-nav aria-label="Primary navigation">
+    <a class="logo" href="/" aria-label="Foster home">Foster.</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+    <div class="nav-r" id="primary-navigation">
+      <a href="/service">Full Service</a>
+      <a href="/copilot" aria-current="page">Copilot</a>
+      <a href="/#plans">Plans</a>
+      <a href="/blog">Blog</a>
+      <a class="btn" href="/contact">Contact us</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="eyebrow">COPILOT</div>
+    <h1>Your team, <span class="it">supercharged.</span></h1>
+    <p>Keep MDS in-house. Give your coordinators an AI that has already read the whole chart, every item drafted with the proof attached, inside the EHR they use.</p>
+    <a class="btn" href="/contact">Contact us</a>
+    <a class="btn line" href="/copilot#works" style="margin-left:12px">How it works</a>
+  </header>
+</div>
+
+<section class="hiw" id="works">
+  <div class="wrap">
+    <div class="eyebrow">HOW FOSTER WORKS</div>
+    <h2>Clinical AI that works the full revenue cycle.</h2>
+    <p class="sub">From the first chart read to the last appeal.</p>
+
+    <div class="hiw-grid">
+      <div class="steps-col" aria-label="How Foster works">
+        <button class="step active" data-p="0" id="step-connect" type="button" aria-expanded="true" aria-controls="panel-connect">
+          <span class="head"><span class="num">01</span><span class="step-title">Connect</span></span>
+          <p>Foster sits on top of the EHR your team already runs. Connect PointClickCare, MatrixCare, or Net Health in minutes with read-only access. No new system to learn, no workflow changes, no IT project.</p>
+        </button>
+        <button class="step" data-p="1" id="step-recommend" type="button" aria-expanded="false" aria-controls="panel-recommend">
+          <span class="head"><span class="num">02</span><span class="step-title">Recommend</span></span>
+          <p>Foster reads every document continuously: admission records, progress notes, therapy logs, hospital records. It flags what's billable with the evidence attached, detects IPA triggers, runs physician queries end to end, and surfaces inaccurate assessments before the ARD closes.</p>
+        </button>
+        <button class="step" data-p="2" id="step-prevent" type="button" aria-expanded="false" aria-controls="panel-prevent">
+          <span class="head"><span class="num">03</span><span class="step-title">Prevent denials</span></span>
+          <p>Before every claim goes out, Foster runs an automated UB-04 triple check: HIPPS codes, ARD timing, diagnosis codes, PDPM categories, and billing fields. Errors caught pre-submission, not post-denial.</p>
+        </button>
+        <button class="step" data-p="3" id="step-appeal" type="button" aria-expanded="false" aria-controls="panel-appeal">
+          <span class="head"><span class="num">04</span><span class="step-title">Appeal &amp; recover</span></span>
+          <p>When a denial or ADR lands, Foster assembles the complete response packet: denial letter analysis, matched clinical evidence, and a defensible appeal narrative. Weeks of prep compressed to hours.</p>
+        </button>
+      </div>
+
+      <div class="panel-col">
+
+        <div class="ppanel active win" id="panel-connect" role="region" aria-labelledby="step-connect">
+          <div class="wbar"><span></span><span></span><span></span><em>foster clinical AI engine · data ingestion</em><i>● CONNECTING</i></div>
+          <div class="wbody">
+            <div class="crow">PointClickCare<span>PRIMARY EHR</span></div>
+            <div class="crow">MatrixCare<span>SUPPORTED</span></div>
+            <div class="crow">Net Health<span>THERAPY DATA</span></div>
+            <div class="crow">3rd-party provider data<span>HOSPITAL · LAB · PHARMACY</span></div>
+            <div class="cengine">▼ &nbsp;FOSTER CLINICAL AI ENGINE</div>
+            <div class="cfoot">SITS ON TOP OF YOUR EHR · READ-ONLY ACCESS · BAA BEFORE DAY ONE</div>
+          </div>
+        </div>
+
+        <div class="ppanel win" id="panel-recommend" role="region" aria-labelledby="step-recommend" hidden>
+          <div class="wbar"><span></span><span></span><span></span><em>foster copilot · active worklist · sample data · no PHI</em><i>● 3 FINDINGS</i></div>
+          <div class="wbody">
+            <div class="pt-head">M. SULLIVAN · ROOM 204A · DAY 5<i>ARD LOCKS IN 5 DAYS</i></div>
+            <div class="fnd">
+              <div class="tag">PHYSICIAN QUERY REQUIRED</div>
+              <h4>Chronic respiratory failure with hypoxia — not coded (J96.11)</h4>
+              <p>Documented COPD with long-term O2. Desaturation on room air. Qualifies as an NTA comorbidity, missing from the draft MDS.</p>
+              <div class="tl">
+                <div><b>08:42</b>Query drafted, sent to physician via PCC</div>
+                <div><b>10:15</b>Response received, J96.11 confirmed</div>
+                <div class="on"><b>NOW</b>Pending coordinator review</div>
+              </div>
+              <div class="act"><span>+1 NTA POINT</span><span>ACCEPT &amp; UPDATE MDS →</span></div>
+            </div>
+            <div class="fnd">
+              <div class="tag warn">IPA TRIGGER DETECTED</div>
+              <h4>Diet change + swallowing disorder — COC not completed</h4>
+              <p>Mechanically altered diet and SLP swallowing disorder not identified in the MDS. Reassessment window open.</p>
+            </div>
+            <div class="fnd">
+              <div class="tag bad">INACCURATE ASSESSMENT</div>
+              <h4>PHQ-9 scored 0 — nursing note same day contradicts</h4>
+              <p>Mood assessment inconsistent with clinical documentation. Depression not coded.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ppanel win" id="panel-prevent" role="region" aria-labelledby="step-prevent" hidden>
+          <div class="wbar"><span></span><span></span><span></span><em>UB-04 validation · CLM-4821 · sample data</em><i>● 1 FLAG</i></div>
+          <div class="wbody">
+            <div class="vr"><b>ARD &amp; Occurrence Code 50</b><span class="st">PASSED</span></div>
+            <div class="vr"><b>HIPPS code validation</b><span class="st">PASSED</span></div>
+            <div class="vr"><b>Admit date consistency</b><span class="st">PASSED</span></div>
+            <div class="vr flag"><b>Section GG · Functional score<small>MDS: substantial assist · PT notes: supervision only</small></b><span class="st">FLAGGED</span></div>
+            <div class="vr"><b>PDPM categories</b><span class="st">PASSED</span></div>
+            <div class="vr"><b>Diagnosis codes</b><span class="st">PASSED</span></div>
+            <div class="vr"><b>Daily skilled coverage</b><span class="st">PASSED</span></div>
+            <div class="vfoot"><span>1 ISSUE REQUIRES CORRECTION BEFORE SUBMISSION</span><span>REVIEW &amp; FIX →</span></div>
+          </div>
+        </div>
+
+        <div class="ppanel win" id="panel-appeal" role="region" aria-labelledby="step-appeal" hidden>
+          <div class="wbar"><span></span><span></span><span></span><em>ADR response generator · CLM-4821 · Medicare</em><i>● READY</i></div>
+          <div class="wbody">
+            <div class="flow">
+              <div class="fnode"><b>Denial letter</b><span>PARSED &amp; ANALYZED</span></div>
+              <div class="farr">→</div>
+              <div class="fnode"><b>AI analysis</b><span>EVIDENCE MATCHED</span></div>
+              <div class="farr">→</div>
+              <div class="fnode"><b>Clinical defense</b><span>PACKET ASSEMBLED</span></div>
+            </div>
+            <div class="ev-lab">CLINICAL EVIDENCE ASSEMBLED</div>
+            <div class="ev">Physician certification signed 01/06 · skilled need documented</div>
+            <div class="ev">MDS ARD 01/10 · HIPPS RVA01 · PT minutes 480 · SLP 240</div>
+            <div class="ev">Daily skilled nursing notes 01/06–01/20 · wound care documented</div>
+            <div class="pfoot">✓ DEFENSE PACKET READY · ESTIMATED RESPONSE TIME: UNDER 2 HOURS</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <canvas id="cta-field" aria-hidden="true"></canvas>
+  <div class="wrap cta-inner">
+    <h2>Supercharge <span class="it">your staff.</span></h2>
+    <p>Tell us about your team. We'll show Copilot working a real chart in 20 minutes.</p>
+    <a class="btn" href="/contact">Contact us</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div><span style="font-family:var(--serif);font-size:18px;color:var(--ink)">Foster.</span> &nbsp;Foster Health Technologies, Inc. · San Francisco</div>
+    <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="/service">Full Service</a> &nbsp;·&nbsp; <a href="/copilot" aria-current="page">Copilot</a> &nbsp;·&nbsp; <a href="/#plans">Plans</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/contact">Contact</a></div>
+    <div>© 2026 Foster Health</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var steps = Array.prototype.slice.call(document.querySelectorAll('.step'));
+  var panels = Array.prototype.slice.call(document.querySelectorAll('.ppanel'));
+  steps.forEach(function(s){
+    s.addEventListener('click', function(){
+      var i = parseInt(s.dataset.p, 10);
+      steps.forEach(function(x, j){
+        var open = j === i;
+        x.classList.toggle('active', open);
+        x.setAttribute('aria-expanded', String(open));
+      });
+      panels.forEach(function(x, j){
+        var open = j === i;
+        x.classList.toggle('active', open);
+        x.hidden = !open;
+      });
+    });
+  });
+
+  /* ---- cta particle field ---- */
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var cvs = document.getElementById('cta-field');
+  if (cvs && cvs.getContext){
+    var ctx = cvs.getContext('2d');
+    var host = cvs.parentElement;
+    var parts = [], mx = -9999, my = -9999, running = false, rafId = null;
+    var COUNT = window.innerWidth < 700 ? 70 : 160;
+
+    function fieldSize(){
+      var r = host.getBoundingClientRect();
+      var d = window.devicePixelRatio || 1;
+      cvs.width = r.width * d; cvs.height = r.height * d;
+      cvs.style.width = r.width + 'px'; cvs.style.height = r.height + 'px';
+      ctx.setTransform(d, 0, 0, d, 0, 0);
+      return r;
+    }
+    function fieldInit(){
+      var r = fieldSize();
+      parts = [];
+      for (var i = 0; i < COUNT; i++){
+        parts.push({
+          x: Math.random() * r.width, y: Math.random() * r.height,
+          vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35,
+          s: 1 + Math.random() * 2, a: .12 + Math.random() * .3
+        });
+      }
+    }
+    function fieldDraw(){
+      var w = cvs.clientWidth, h = cvs.clientHeight;
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy;
+        var dx = p.x - mx, dy = p.y - my, d2 = dx * dx + dy * dy;
+        if (d2 < 19600){
+          var d = Math.sqrt(d2) || 1, f = (140 - d) / 140;
+          p.x += dx / d * f * 2.4; p.y += dy / d * f * 2.4;
+        }
+        if (p.x < -6) p.x = w + 6; if (p.x > w + 6) p.x = -6;
+        if (p.y < -6) p.y = h + 6; if (p.y > h + 6) p.y = -6;
+        ctx.fillStyle = 'rgba(31,59,255,' + p.a + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, 6.2832); ctx.fill();
+      }
+    }
+    function fieldLoop(){ fieldDraw(); rafId = running ? requestAnimationFrame(fieldLoop) : null; }
+
+    fieldInit();
+    if (reduced){
+      fieldDraw();
+    } else {
+      host.addEventListener('mousemove', function(e){
+        var r = host.getBoundingClientRect();
+        mx = e.clientX - r.left; my = e.clientY - r.top;
+      });
+      host.addEventListener('mouseleave', function(){ mx = -9999; my = -9999; });
+      window.addEventListener('resize', function(){ fieldInit(); if (!running) fieldDraw(); });
+      new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          running = e.isIntersecting;
+          if (running && rafId === null) fieldLoop();
+        });
+      }, { threshold: 0.05 }).observe(host);
+    }
+  }
+})();
+</script>
+</body>
+</html>
