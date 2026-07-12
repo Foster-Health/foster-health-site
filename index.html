@@ -263,77 +263,63 @@
       flex-wrap: wrap
     }
 
-    .partners {
-      border-top: 1px solid var(--line);
+    .engine-band {
+      border-top: 1px solid var(--ink);
       border-bottom: 1px solid var(--line);
-      background: var(--bone)
+      background: var(--white)
     }
 
-    .plabel-band {
-      padding: 18px 28px 0;
-      max-width: 1160px;
-      margin: 0 auto
-    }
-
-    .plabel {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .14em;
-      color: var(--gray)
-    }
-
-    .marquee {
-      padding: 16px 28px 22px
-    }
-
-    .marquee-in {
-      max-width: 1104px;
-      margin: 0 auto
-    }
-
-    .partner-set {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 28px;
-      width: 100%
-    }
-
-    .pmark {
-      width: 100%;
-      height: 96px;
-      padding: 16px 38px;
-      border: 1px solid var(--line);
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    .engine-marquee {
       overflow: hidden
     }
 
-    .pmark img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      max-width: 190px;
-      max-height: 54px;
-      object-fit: contain
+    .engine-track {
+      display: flex;
+      width: max-content;
+      animation: engine-scroll 44s linear infinite
     }
 
-    .pmark .logo-maxwell {
-      transform: scale(1.85)
+    .engine-marquee:hover .engine-track,
+    .engine-marquee:focus .engine-track {
+      animation-play-state: paused
     }
 
-    @media(max-width:680px) {
-      .partner-set {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        max-width: 420px;
-        margin: 0 auto
-      }
+    .engine-marquee:focus-visible {
+      outline: 2px solid var(--cobalt);
+      outline-offset: -2px
+    }
 
-      .pmark {
-        height: 88px
-      }
+    .engine-set {
+      display: flex;
+      flex: none
+    }
+
+    .engine-chip {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      padding: 17px 32px;
+      border-right: 1px solid var(--line);
+      font-family: var(--mono);
+      font-size: 13px;
+      white-space: nowrap
+    }
+
+    .engine-chip b {
+      color: var(--ink);
+      font-weight: 500;
+      letter-spacing: .06em
+    }
+
+    .engine-chip i {
+      color: var(--cobalt);
+      font-size: 11px;
+      font-style: normal;
+      letter-spacing: .08em
+    }
+
+    @keyframes engine-scroll {
+      to { transform: translateX(-50%) }
     }
 
 
@@ -655,6 +641,14 @@
       .claim .big {
         transition: none
       }
+
+      .engine-track {
+        animation: none
+      }
+
+      .engine-set[aria-hidden="true"] {
+        display: none
+      }
     }
 
     @media(max-width:860px) {
@@ -766,14 +760,36 @@
   </div>
 
 
-  <div class="partners" aria-label="Design partners">
-    <div class="plabel-band"><span class="plabel">DESIGN PARTNERS</span></div>
-    <div class="marquee">
-      <div class="marquee-in">
-        <div class="partner-set">
-          <span class="pmark"><img src="/assets/ag-rhodes.png" alt="A.G. Rhodes"></span>
-          <span class="pmark"><img src="/assets/the-strategies.png" alt="The Strategies"></span>
-          <span class="pmark"><img class="logo-maxwell" src="/assets/maxwell-group.png" alt="Maxwell Group"></span>
+  <div class="engine-band" aria-label="The Foster engine">
+    <div class="engine-marquee" tabindex="0" aria-label="Foster engine capabilities. Focus or hover to pause.">
+      <div class="engine-track">
+        <div class="engine-set">
+          <span class="engine-chip"><b>MDS 3.0</b><i>[ NATIVE ]</i></span>
+          <span class="engine-chip"><b>PDPM GROUPER</b><i>[ DETERMINISTIC ]</i></span>
+          <span class="engine-chip"><b>ICD-10 MAPPINGS</b><i>[ CURRENT ]</i></span>
+          <span class="engine-chip"><b>RAI MANUAL</b><i>[ ENFORCED ]</i></span>
+          <span class="engine-chip"><b>IPA TRIGGERS</b><i>[ MONITORED ]</i></span>
+          <span class="engine-chip"><b>NTA CAPTURE</b><i>[ LIVE ]</i></span>
+          <span class="engine-chip"><b>SECTION GG</b><i>[ CHECKED ]</i></span>
+          <span class="engine-chip"><b>UB-04 TRIPLE CHECK</b><i>[ PRE-BILL ]</i></span>
+          <span class="engine-chip"><b>ADR DEFENSE</b><i>[ READY ]</i></span>
+          <span class="engine-chip"><b>PHYSICIAN QUERIES</b><i>[ DRAFTED ]</i></span>
+          <span class="engine-chip"><b>EVIDENCE LINKS</b><i>[ EVERY ITEM ]</i></span>
+          <span class="engine-chip"><b>RN SIGN-OFF</b><i>[ ALWAYS ]</i></span>
+        </div>
+        <div class="engine-set" aria-hidden="true">
+          <span class="engine-chip"><b>MDS 3.0</b><i>[ NATIVE ]</i></span>
+          <span class="engine-chip"><b>PDPM GROUPER</b><i>[ DETERMINISTIC ]</i></span>
+          <span class="engine-chip"><b>ICD-10 MAPPINGS</b><i>[ CURRENT ]</i></span>
+          <span class="engine-chip"><b>RAI MANUAL</b><i>[ ENFORCED ]</i></span>
+          <span class="engine-chip"><b>IPA TRIGGERS</b><i>[ MONITORED ]</i></span>
+          <span class="engine-chip"><b>NTA CAPTURE</b><i>[ LIVE ]</i></span>
+          <span class="engine-chip"><b>SECTION GG</b><i>[ CHECKED ]</i></span>
+          <span class="engine-chip"><b>UB-04 TRIPLE CHECK</b><i>[ PRE-BILL ]</i></span>
+          <span class="engine-chip"><b>ADR DEFENSE</b><i>[ READY ]</i></span>
+          <span class="engine-chip"><b>PHYSICIAN QUERIES</b><i>[ DRAFTED ]</i></span>
+          <span class="engine-chip"><b>EVIDENCE LINKS</b><i>[ EVERY ITEM ]</i></span>
+          <span class="engine-chip"><b>RN SIGN-OFF</b><i>[ ALWAYS ]</i></span>
         </div>
       </div>
     </div>
