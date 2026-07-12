@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Foster</title>
+<meta name="description" content="Interested in transforming skilled nursing MDS? Tell us about your buildings.">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#5F666B;--line:#E7E7E2;
+    --serif:'Instrument Serif',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  ::selection{background:var(--cobalt);color:#fff}
+  body{font-family:var(--sans);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6}
+  h1,h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+  .btn{display:inline-block;background:var(--cobalt);color:#fff;text-decoration:none;padding:14px 26px;font-size:15px;font-weight:500;border-radius:2px;border:none;cursor:pointer;font-family:var(--sans)}
+  .btn:hover{background:#1730D6}
+  .btn[disabled]{cursor:wait;opacity:.7}
+  .btn:focus-visible,a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--cobalt);outline-offset:2px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative}
+  .logo{display:inline-block;font-family:var(--serif);font-size:28px;letter-spacing:.025em;text-decoration:none;color:var(--ink);transform:scaleX(1.06);transform-origin:left center}
+  .nav-r{display:flex;gap:26px;align-items:center;font-size:14px}
+  .nav-r a{text-decoration:none;color:var(--gray)}
+  .nav-r a:hover{color:var(--ink)}
+  .nav-r .btn{padding:10px 18px;color:#fff}
+  .nav-r .btn:hover{color:#fff}
+  .nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;padding:10px}
+  .nav-toggle span{display:block;width:100%;height:1px;background:currentColor;margin:5px 0;transition:transform .2s,opacity .2s}
+  .menu-open .nav-toggle span:first-child{transform:translateY(6px) rotate(45deg)}
+  .menu-open .nav-toggle span:nth-child(2){opacity:0}
+  .menu-open .nav-toggle span:last-child{transform:translateY(-6px) rotate(-45deg)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-bottom:24px}
+  .it{font-style:italic;color:var(--cobalt)}
+
+  .contact{display:grid;grid-template-columns:1fr 1fr;gap:80px;padding:90px 0 110px;align-items:start}
+  .contact h1{font-size:clamp(38px,5vw,64px);line-height:1.02;margin-bottom:22px}
+  .contact .lede{color:var(--gray);font-size:17px;max-width:420px;margin-bottom:36px}
+  .points{font-family:var(--mono);font-size:12.5px;letter-spacing:.06em;color:var(--gray);display:flex;flex-direction:column;gap:12px}
+  .points b{color:var(--ink);font-weight:500}
+
+  form{border:1px solid var(--line);padding:38px 36px;background:var(--bone)}
+  .field{margin-bottom:20px}
+  label{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+  input,select,textarea{width:100%;min-width:0;padding:12px 14px;border:1px solid var(--line);border-radius:2px;font-family:var(--sans);font-size:15px;background:var(--white);color:var(--ink)}
+  textarea{min-height:110px;resize:vertical}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .note{font-size:13px;color:var(--gray);margin-top:16px}
+  .form-status{display:none;margin-top:16px;font-size:14px}
+  .form-status.show{display:block}
+  .form-status.success{color:#1730D6}
+  .form-status.error{color:#A52A1A}
+
+  footer{padding:34px 0 60px;font-size:14px;color:var(--gray);border-top:1px solid var(--line)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
+  footer a{color:var(--gray)}
+  .footer-links{display:flex;flex-wrap:wrap;gap:16px}
+
+  @media(max-width:880px){
+    .contact{grid-template-columns:1fr;gap:48px}
+    .nav-toggle{display:block}
+    .nav-r{display:none;position:absolute;top:100%;left:0;right:0;z-index:20;flex-direction:column;align-items:stretch;gap:4px;padding:14px;background:var(--white);border:1px solid var(--line);box-shadow:0 16px 36px rgba(11,17,22,.08)}
+    .menu-open .nav-r{display:flex}
+    .nav-r a{padding:10px 12px}
+    .nav-r .btn{text-align:center;margin-top:4px}
+  }
+  @media(max-width:640px){
+    .wrap{padding:0 20px}
+    .contact{padding:64px 0 80px}
+    .two{grid-template-columns:1fr;gap:0}
+    form{padding:28px 22px}
+    footer .wrap{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav data-site-nav aria-label="Primary navigation">
+    <a class="logo" href="/">Foster.</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="Open navigation menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-r" id="primary-nav">
+      <a href="/#plans">Plans</a>
+      <a href="/blog">Blog</a>
+      <a class="btn" href="/contact" aria-current="page">Contact us</a>
+    </div>
+  </nav>
+
+  <main class="contact">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h1>Interested in transforming skilled nursing <span class="it">MDS?</span></h1>
+      <p class="lede">Tell us about your buildings. We'll come back within one business day with a 20-minute demo on a real chart — no slides.</p>
+      <div class="points">
+        <div><b>FULL SERVICE</b> — we run your entire MDS function</div>
+        <div><b>COPILOT</b> — your coordinators, powered by Foster's AI</div>
+        <div><b>PILOT</b> — one building, one month, side by side</div>
+      </div>
+    </div>
+
+    <form id="contact-form">
+      <div class="two">
+        <div class="field"><label for="f-name">Name</label><input id="f-name" name="name" maxlength="120" required autocomplete="name"></div>
+        <div class="field"><label for="f-title">Title</label><input id="f-title" name="title" maxlength="120" placeholder="e.g. CFO, VP of Reimbursement" autocomplete="organization-title"></div>
+      </div>
+      <div class="field"><label for="f-email">Work email</label><input id="f-email" name="email" type="email" maxlength="254" required autocomplete="email"></div>
+      <div class="two">
+        <div class="field"><label for="f-org">Organization</label><input id="f-org" name="org" maxlength="160" required autocomplete="organization"></div>
+        <div class="field"><label for="f-count">Buildings</label>
+          <select id="f-count" name="buildings"><option>1</option><option>2–5</option><option>6–20</option><option>20+</option></select>
+        </div>
+      </div>
+      <div class="field"><label for="f-interest">I'm interested in</label>
+        <select id="f-interest" name="interest"><option>Full service — run MDS for us</option><option>Copilot — power our coordinators</option><option>A one-building pilot</option><option>Not sure yet</option></select>
+      </div>
+      <div class="field"><label for="f-msg">Anything we should know?</label><textarea id="f-msg" name="message" maxlength="5000" placeholder="EHR, current MDS staffing, timelines…"></textarea></div>
+      <button class="btn" id="submit-button" type="submit">Send</button>
+      <p class="note">We'll only use this to reply to you. No lists, no spam.</p>
+      <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+    </form>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div><span style="font-family:var(--serif);font-size:18px;color:var(--ink)">Foster.</span> &nbsp;Foster Health Technologies, Inc. · San Francisco</div>
+    <div class="footer-links"><a href="/">Home</a><a href="/#plans">Plans</a><a href="/blog">Blog</a><a href="/contact">Contact</a></div>
+    <div>© 2026 Foster Health</div>
+  </div>
+</footer>
+
+<script src="/js/navbar.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  var button = document.getElementById('submit-button');
+  var status = document.getElementById('form-status');
+
+  function showStatus(message, type) {
+    status.textContent = message;
+    status.className = 'form-status show ' + type;
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    var formData = new FormData(form);
+    var payload = Object.fromEntries(formData.entries());
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    status.className = 'form-status';
+    status.textContent = '';
+
+    try {
+      var response = await fetch('/api/contact-submit', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payload)
+      });
+      var result = await response.json().catch(function () { return {}; });
+      if (!response.ok) throw new Error(result.error || 'Unable to send your message right now.');
+      form.reset();
+      showStatus('Thanks — your message was sent. We’ll be in touch within one business day.', 'success');
+    } catch (error) {
+      showStatus(error.message || 'Unable to send your message right now.', 'error');
+    } finally {
+      button.disabled = false;
+      button.textContent = 'Send';
+    }
+  });
+})();
+</script>
+</body>
+</html>

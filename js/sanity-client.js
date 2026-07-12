@@ -89,8 +89,11 @@
   }
 
   function buildLinkFromMarkDef(text, markDef) {
-    const href = escapeHtml(markDef.href || "#");
-    const rel = markDef.blank ? ' rel="noreferrer"' : "";
+    const rawHref = String(markDef.href || "").trim();
+    const href = /^(https?:|mailto:|\/)/i.test(rawHref)
+      ? escapeHtml(rawHref)
+      : "#";
+    const rel = markDef.blank ? ' rel="noopener noreferrer"' : "";
     const target = markDef.blank ? ' target="_blank"' : "";
     return `<a href="${href}"${target}${rel}>${text}</a>`;
   }

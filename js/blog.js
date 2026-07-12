@@ -10,8 +10,6 @@
 
   const { escapeHtml, fetchSanity, formatDate, hasValidConfig, setupMessage } =
     window.FosterSanity;
-  const showCardImages = false;
-
   const postsQuery = `
     *[_type == "post" && defined(slug.current)]
       | order(coalesce(publishedAt, _createdAt) desc) {
@@ -22,9 +20,7 @@
         "slug": slug.current,
         "publishedAt": coalesce(publishedAt, _createdAt),
         "authorName": author->name,
-        "categories": categories[]->title,
-        "mainImageUrl": mainImage.asset->url,
-        "mainImageAlt": coalesce(mainImage.alt, title)
+        "categories": categories[]->title
       }
   `;
 
@@ -39,19 +35,11 @@
   }
 
   function renderPostCard(post) {
-    const hasImage = showCardImages && Boolean(post.mainImageUrl);
-    const imageMarkup = hasImage
-      ? `<img class="blog-card-image" src="${escapeHtml(
-          post.mainImageUrl
-        )}" alt="${escapeHtml(post.mainImageAlt || post.title)}" loading="lazy" />`
-      : "";
-
     return `
-      <article class="blog-card${hasImage ? " blog-card-has-image" : ""}">
-        <a class="blog-card-link" href="/blog-post.html?slug=${encodeURIComponent(
+      <article class="blog-card">
+        <a class="blog-card-link" href="/blog-post?slug=${encodeURIComponent(
           post.slug
         )}">
-          ${imageMarkup}
           <div class="blog-card-body">
             <div class="blog-chip-row">${renderCategories(post.categories)}</div>
             <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
@@ -77,10 +65,8 @@
       return;
     }
 
-    const hasImage = showCardImages && Boolean(post.mainImageUrl);
-
     featuredEl.innerHTML = `
-      <article class="blog-featured-card${hasImage ? " blog-featured-card-has-image" : ""}">
+      <article class="blog-featured-card">
         <div class="blog-featured-copy">
           <p class="blog-section-kicker">Featured article</p>
           <div class="blog-chip-row">${renderCategories(post.categories)}</div>
@@ -95,21 +81,12 @@
                 : ""
             }
           </div>
-          <a class="blog-featured-link" href="/blog-post.html?slug=${encodeURIComponent(
+          <a class="blog-featured-link" href="/blog-post?slug=${encodeURIComponent(
             post.slug
           )}">
             Read article
           </a>
         </div>
-        ${
-          hasImage
-            ? `<div class="blog-featured-media">
-                <img class="blog-featured-image" src="${escapeHtml(
-                  post.mainImageUrl
-                )}" alt="${escapeHtml(post.mainImageAlt || post.title)}" loading="lazy" />
-              </div>`
-            : ""
-        }
       </article>
     `;
   }
@@ -127,6 +104,11 @@
   }
 
   function showStatus(message, type) {
+    featuredEl.innerHTML = "";
+    gridEl.innerHTML = "";
+    if (recentSectionEl) {
+      recentSectionEl.classList.add("hidden");
+    }
     statusEl.className = `blog-status rise-in ${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove("hidden");
@@ -145,11 +127,6 @@
       const posts = await fetchSanity(postsQuery);
 
       if (!Array.isArray(posts) || posts.length === 0) {
-        featuredEl.innerHTML = "";
-        gridEl.innerHTML = "";
-        if (recentSectionEl) {
-          recentSectionEl.classList.add("hidden");
-        }
         showStatus(
           statusMessage(
             "No posts yet",

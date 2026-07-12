@@ -3,58 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Foster Health | Article</title>
+  <title>Article — Foster Health</title>
   <meta
     name="description"
     content="Read the latest Foster Health article on reimbursement capture and recovery for skilled nursing."
   >
-  <link rel="icon" type="image/svg+xml" href="./img/favicon.svg">
+  <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap"
     rel="stylesheet"
   >
-  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body class="blog-page blog-article-page">
   <header class="site-header">
-    <nav class="site-nav">
-      <a href="/" class="site-brand">Foster<span>.</span></a>
-
-      <button
-        class="site-nav-toggle"
-        type="button"
-        aria-expanded="false"
-        aria-label="Open navigation menu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <div class="site-nav-menu">
-        <a href="/#mds" class="site-nav-link">How it works</a>
-        <a href="/#execs" class="site-nav-link">For operators</a>
-        <a href="/#faq" class="site-nav-link">FAQ</a>
-        <a href="./blog.html" class="site-nav-link active" aria-current="page">Blog</a>
-        <a href="./roi.html" class="site-nav-link">ROI Calculator</a>
-        <a
-          href="https://calendly.com/pranav-fosterhealth/30min"
-          target="_blank"
-          rel="noreferrer"
-          class="site-nav-cta"
+    <div class="wrap">
+      <nav data-site-nav aria-label="Primary navigation">
+        <a class="logo" href="/" aria-label="Foster Health home">Foster.</a>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-controls="primary-nav"
+          aria-expanded="false"
+          aria-label="Open navigation menu"
         >
-          Book a 30-minute call
-        </a>
-      </div>
-    </nav>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-r" id="primary-nav">
+          <a href="/#plans">Plans</a>
+          <a href="/blog" aria-current="page">Blog</a>
+          <a class="btn" href="/contact">Contact us</a>
+        </div>
+      </nav>
+    </div>
   </header>
 
   <main class="blog-article-main">
     <section class="blog-article-section">
-      <div class="blog-container blog-article-wrap">
-        <a href="./blog.html" class="blog-back-link">← Back to all articles</a>
+      <div class="wrap blog-article-wrap">
+        <a href="/blog" class="blog-back-link">← Back to all articles</a>
 
         <div id="postStatus" class="blog-status hidden" aria-live="polite"></div>
 
@@ -67,7 +58,6 @@
           </header>
 
           <div id="postHeroWrap" class="blog-post-hero-wrap"></div>
-
           <div id="postBody" class="blog-body"></div>
         </article>
       </div>
@@ -75,60 +65,24 @@
   </main>
 
   <footer class="site-footer">
-    <div class="blog-container site-footer-inner">
-      <div class="site-footer-brand-block">
-        <a href="/" class="site-footer-brand">Foster<span>.</span></a>
-        <address class="site-footer-address">
-          <span>Foster Health Technologies, LLC</span>
-          <span>1055 Mason St, San Francisco, CA 94108</span>
-        </address>
+    <div class="wrap site-footer-inner">
+      <div class="site-footer-identity">
+        <a class="site-footer-logo" href="/">Foster.</a>
+        <span>Foster Health Technologies, Inc. · San Francisco</span>
       </div>
-      <div class="site-footer-links">
-        <a href="/#mds">How it works</a>
-        <a href="/#execs">For operators</a>
-        <a href="/#faq">FAQ</a>
-        <a href="./blog.html">Blog</a>
-        <a href="./roi.html">ROI calculator</a>
-      </div>
-      <p class="site-footer-copy">© 2026 Foster Health</p>
+      <nav class="site-footer-links" aria-label="Footer navigation">
+        <a href="/">Home</a>
+        <a href="/#plans">Plans</a>
+        <a href="/blog" aria-current="page">Blog</a>
+        <a href="/contact">Contact</a>
+      </nav>
+      <p>© 2026 Foster Health</p>
     </div>
   </footer>
 
-  <script src="./js/sanity-site-config.js"></script>
-  <script src="./js/sanity-client.js"></script>
-  <script src="./js/blog-post.js"></script>
-  <script>
-    (function () {
-      const nav = document.querySelector(".site-nav");
-      const toggle = document.querySelector(".site-nav-toggle");
-
-      if (!nav || !toggle) {
-        return;
-      }
-
-      toggle.addEventListener("click", function () {
-        const isOpen = nav.classList.toggle("menu-open");
-        toggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      });
-
-      document.addEventListener("click", function (event) {
-        if (!nav.classList.contains("menu-open")) {
-          return;
-        }
-
-        if (!nav.contains(event.target)) {
-          nav.classList.remove("menu-open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      nav.querySelectorAll(".site-nav-link, .site-nav-cta").forEach(function (link) {
-        link.addEventListener("click", function () {
-          nav.classList.remove("menu-open");
-          toggle.setAttribute("aria-expanded", "false");
-        });
-      });
-    })();
-  </script>
+  <script src="/js/sanity-site-config.js"></script>
+  <script src="/js/sanity-client.js"></script>
+  <script src="/js/blog-post.js"></script>
+  <script src="/js/navbar.js"></script>
 </body>
 </html>
