@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Full Service — Foster runs your MDS</title>
 <meta name="description" content="Foster Full Service: the entire MDS lifecycle run by Foster's coordinators and AI. In-house quality at half the cost.">
-<link rel="icon" href="/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
-<script src="/js/navbar.js" defer></script>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#5F666B;--line:#E7E7E2;
+  :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#8A8F94;--line:#E7E7E2;
     --serif:'Instrument Serif',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,sans-serif}
   *{margin:0;padding:0;box-sizing:border-box}
   ::selection{background:var(--cobalt);color:#fff}
@@ -22,17 +20,12 @@
   .btn.line{background:transparent;color:var(--ink);border:1px solid var(--ink)}
   .btn.line:hover{background:var(--ink);color:#fff}
   .btn:focus-visible,a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative}
-  .logo{display:inline-block;font-family:var(--serif);font-size:28px;letter-spacing:.025em;text-decoration:none;color:var(--ink);transform:scaleX(1.06);transform-origin:left center}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+  .logo{font-family:var(--serif);font-size:24px;text-decoration:none;color:var(--ink)}
   .nav-r{display:flex;gap:26px;align-items:center;font-size:14px}
   .nav-r a{text-decoration:none;color:var(--gray)}
   .nav-r a:hover{color:var(--ink)}
   .nav-r .btn{padding:10px 18px;color:#fff}
-  .nav-toggle{display:none;width:44px;height:44px;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;padding:10px}
-  .nav-toggle span{display:block;width:100%;height:1px;background:currentColor;margin:5px 0;transition:transform .2s,opacity .2s}
-  .menu-open .nav-toggle span:first-child{transform:translateY(6px) rotate(45deg)}
-  .menu-open .nav-toggle span:nth-child(2){opacity:0}
-  .menu-open .nav-toggle span:last-child{transform:translateY(-6px) rotate(-45deg)}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-bottom:24px}
   .hl{background:var(--cobalt-wash);color:var(--ink);font-weight:600;padding:2px 7px;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
   .cb{color:var(--cobalt)}
@@ -76,6 +69,17 @@
   .cta .cta-inner{position:relative;z-index:1;padding:90px 0}
   .cta h2{margin:0 auto 14px}
   .cta p{color:var(--gray);max-width:440px;margin:0 auto 34px}
+  /* clinical Q&A */
+  .clinq{padding:90px 0 40px}
+  .clinq h2{margin-bottom:40px}
+  .clinq details{border-top:1px solid var(--line);padding:20px 0;max-width:860px}
+  .clinq details:last-of-type{border-bottom:1px solid var(--line)}
+  .clinq summary{font-family:var(--serif);font-size:clamp(18px,2vw,22px);color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:20px}
+  .clinq summary::-webkit-details-marker{display:none}
+  .clinq summary::after{content:"+";color:var(--cobalt);font-size:22px;flex-shrink:0;line-height:1}
+  .clinq details[open] summary::after{content:"–"}
+  .clinq details p{margin-top:12px;max-width:66ch;font-size:15px;color:var(--gray)}
+  .clinq summary:focus-visible{outline:2px solid var(--cobalt);outline-offset:4px}
   footer{padding:34px 0 60px;font-size:14px;color:var(--gray);border-top:1px solid var(--line)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px}
   footer a{color:var(--gray)}
@@ -83,25 +87,18 @@
   @media(max-width:860px){
     .check-grid{grid-template-columns:1fr}
     .pilot-strip{grid-template-columns:1fr}
-    .nav-toggle{display:block}
-    .nav-r{display:none;position:absolute;top:100%;left:0;right:0;z-index:20;flex-direction:column;align-items:stretch;gap:4px;padding:14px;background:var(--white);border:1px solid var(--line);box-shadow:0 16px 36px rgba(11,17,22,.08)}
-    .menu-open .nav-r{display:flex}
-    .nav-r a{padding:10px 12px}
-    .nav-r .btn{text-align:center;margin-top:4px}
+    .nav-r a:not(.btn){display:none}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav data-site-nav aria-label="Primary navigation">
-    <a class="logo" href="/" aria-label="Foster home">Foster.</a>
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
-    <div class="nav-r" id="primary-navigation">
-      <a href="/service" aria-current="page">Full Service</a>
-      <a href="/copilot">Copilot</a>
-      <a href="/#plans">Plans</a>
-      <a href="/blog">Blog</a>
-      <a class="btn" href="/contact">Contact us</a>
+  <nav>
+    <a class="logo" href="index.html">Foster.</a>
+    <div class="nav-r">
+      <a href="index.html">Home</a>
+      <a href="copilot.html">Copilot</a>
+      <a class="btn" href="contact.html">Contact us</a>
     </div>
   </nav>
 
@@ -109,8 +106,8 @@
     <div class="eyebrow">FULL SERVICE — THE FOSTER STANDARD</div>
     <h1>We run it <span class="it">for you.</span></h1>
     <p>Your entire MDS function, operated by Foster's coordinators and AI. <span class="hl">In-house quality, but better. Half the cost.</span> For one building or your whole portfolio.</p>
-    <a class="btn" href="/contact">Contact us</a>
-    <a class="btn line" href="/service#model" style="margin-left:12px">See the model</a>
+    <a class="btn" href="contact.html">Contact us</a>
+    <a class="btn line" href="#model" style="margin-left:12px">See the model</a>
   </header>
 </div>
 
@@ -128,7 +125,7 @@
       <div class="vs flag">
         <span class="vk">THE FOSTER MODEL</span>
         <h3>One nurse, many buildings.</h3>
-        <p>Foster's AI does the reading, querying, pre-bill checks, and denial management. Everything for Med A. Our MDS nurse just reviews.</p>
+        <p>Foster's AI does the reading, querying, pre-bill checks, and denial management. Everything for Med A. Our MDS nurse reviews, signs, and stands behind it.</p>
       </div>
     </div>
 
@@ -153,10 +150,37 @@
       <div class="ck"><span>✓</span>Submission &amp; sign-off</div>
       <div class="ck"><span>✓</span>Triple check before billing</div>
       <div class="ck"><span>✓</span>ADRs &amp; denials</div>
+      <div class="ck"><span>✓</span>CAAs &amp; care plan drafts</div>
+      <div class="ck"><span>✓</span>Survey &amp; audit support</div>
       <div class="ck"><span>✓</span>Better bedside charting for your nurses</div>
     </div>
-    <p class="ck-foot">ALL REMOTE · ON-SITE VISITS OPTIONAL</p>
+    <p class="ck-foot">REMOTE-FIRST · BEDSIDE STEPS STAY WITH YOUR NURSES, GUIDED BY FOSTER · ONSITE WHEN IT MATTERS</p>
   </div>
+</section>
+
+<section class="clinq wrap">
+  <div class="eyebrow">THE CLINICAL QUESTIONS</div>
+  <h2>Asked by MDS professionals. <span class="it">Answered straight.</span></h2>
+  <details open>
+    <summary>What about the parts of the MDS that must happen at the bedside?</summary>
+    <p>Resident interviews and direct observation happen in your building, by your nurses. Foster schedules them, prompts your staff on exactly what to capture, and tracks completion so nothing is missed before the ARD. Everything that can be done remotely, we do.</p>
+  </details>
+  <details>
+    <summary>Who coordinates and signs the assessment, and what happens at survey?</summary>
+    <p>A licensed Foster RN coordinates and signs, consistent with federal RAI requirements, and every coded item carries a linked evidence trail. For surveys and audits, your Foster RN supports the process end to end, onsite when it matters. State requirements are confirmed before we take over any building.</p>
+  </details>
+  <details>
+    <summary>Who runs care planning?</summary>
+    <p>Foster completes the CAAs and drafts the MDS-triggered care plan updates. Your IDT, the people who know the resident, own and finalize the care plan. Foster joins the meetings remotely.</p>
+  </details>
+  <details>
+    <summary>What if the documentation isn't in the chart?</summary>
+    <p>That's the failure mode of chart-only review, and it's why Foster isn't chart-only. Gaps are flagged the day they appear, physician queries run to resolution, and bedside charting guidance helps your floor nurses capture what's missing before the ARD, not after.</p>
+  </details>
+  <details>
+    <summary>Can a building really run without in-house MDS staff?</summary>
+    <p>Your clinical team stays. What goes away is the dedicated MDS desk in every building. Operators who want to keep that seat run Copilot instead; both models are supported.</p>
+  </details>
 </section>
 
 <section>
@@ -176,14 +200,14 @@
   <div class="wrap cta-inner">
     <h2>Ready to hand off <span class="it">the hardest desk in the building?</span></h2>
     <p>Tell us about your buildings. We'll show you Foster working a real chart.</p>
-    <a class="btn" href="/contact">Contact us</a>
+    <a class="btn" href="contact.html">Contact us</a>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
     <div><span style="font-family:var(--serif);font-size:18px;color:var(--ink)">Foster.</span> &nbsp;Foster Health Technologies, Inc. · San Francisco</div>
-    <div><a href="/">Home</a> &nbsp;·&nbsp; <a href="/service" aria-current="page">Full Service</a> &nbsp;·&nbsp; <a href="/copilot">Copilot</a> &nbsp;·&nbsp; <a href="/#plans">Plans</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/contact">Contact</a></div>
+    <div><a href="index.html">Home</a> &nbsp;·&nbsp; <a href="copilot.html">Copilot</a> &nbsp;·&nbsp; <a href="contact.html">Contact</a></div>
     <div>© 2026 Foster Health</div>
   </div>
 </footer>
