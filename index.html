@@ -154,13 +154,38 @@
 
     .nav-toggle {
       display: none;
+      width: 42px;
+      height: 42px;
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 2px;
-      padding: 9px 12px;
+      padding: 0;
       color: var(--ink);
-      font: 500 13px var(--sans);
-      cursor: pointer
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: currentColor;
+      transition: transform .2s ease, opacity .2s ease
+    }
+
+    [data-site-nav].menu-open .nav-toggle span:nth-child(1) {
+      transform: translateY(6.5px) rotate(45deg)
+    }
+
+    [data-site-nav].menu-open .nav-toggle span:nth-child(2) {
+      opacity: 0
+    }
+
+    [data-site-nav].menu-open .nav-toggle span:nth-child(3) {
+      transform: translateY(-6.5px) rotate(-45deg)
     }
 
     /* HERO — vast white, serif declaration, spec card right */
@@ -662,7 +687,7 @@
       }
 
       .nav-toggle {
-        display: inline-block
+        display: inline-flex
       }
 
       .nav-r {
@@ -730,7 +755,7 @@
   <div class="wrap">
     <nav data-site-nav aria-label="Primary">
       <a class="logo" href="/" aria-current="page" aria-label="Foster home">Foster.</a>
-      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
       <div class="nav-r" id="primary-navigation">
         <a href="/service">Full Service</a>
         <a href="/copilot">Copilot</a>

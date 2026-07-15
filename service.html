@@ -7,6 +7,7 @@
 <meta name="description" content="Foster Full Service: the entire MDS lifecycle run by Foster's coordinators and AI. In-house quality at half the cost.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="/js/navbar.js" defer></script>
 <style>
   :root{--white:#FFFFFF;--bone:#FAFAF7;--ink:#0B1116;--cobalt:#1F3BFF;--cobalt-wash:#EEF1FF;--gray:#8A8F94;--line:#E7E7E2;
     --serif:'Instrument Serif',Georgia,serif;--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:'Inter',-apple-system,sans-serif}
@@ -19,13 +20,18 @@
   .btn:hover{background:#1730D6}
   .btn.line{background:transparent;color:var(--ink);border:1px solid var(--ink)}
   .btn.line:hover{background:var(--ink);color:#fff}
-  .btn:focus-visible,a:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
-  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line)}
+  .btn:focus-visible,a:focus-visible,button:focus-visible{outline:2px solid var(--cobalt);outline-offset:3px}
+  nav{display:flex;justify-content:space-between;align-items:center;padding:24px 0;border-bottom:1px solid var(--line);position:relative}
   .logo{font-family:var(--serif);font-size:24px;text-decoration:none;color:var(--ink)}
   .nav-r{display:flex;gap:26px;align-items:center;font-size:14px}
   .nav-r a{text-decoration:none;color:var(--gray)}
   .nav-r a:hover{color:var(--ink)}
   .nav-r .btn{padding:10px 18px;color:#fff}
+  .nav-toggle{display:none;width:42px;height:42px;padding:0;border:1px solid var(--line);border-radius:2px;color:var(--ink);background:var(--white);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+  .nav-toggle span{display:block;width:18px;height:1.5px;background:currentColor;transition:transform .2s ease,opacity .2s ease}
+  [data-site-nav].menu-open .nav-toggle span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  [data-site-nav].menu-open .nav-toggle span:nth-child(2){opacity:0}
+  [data-site-nav].menu-open .nav-toggle span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
   .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--cobalt);margin-bottom:24px}
   .hl{background:var(--cobalt-wash);color:var(--ink);font-weight:600;padding:2px 7px;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
   .cb{color:var(--cobalt)}
@@ -87,18 +93,25 @@
   @media(max-width:860px){
     .check-grid{grid-template-columns:1fr}
     .pilot-strip{grid-template-columns:1fr}
-    .nav-r a:not(.btn){display:none}
+    .nav-toggle{display:inline-flex;margin-left:auto}
+    .nav-r{display:none;position:absolute;top:calc(100% - 1px);left:0;right:0;z-index:30;flex-direction:column;align-items:stretch;gap:0;padding:12px;border:1px solid var(--line);background:var(--white);box-shadow:0 18px 36px rgba(11,17,22,.12)}
+    [data-site-nav].menu-open .nav-r{display:flex}
+    .nav-r a{display:block;width:100%;padding:11px 12px}
+    .nav-r .btn{margin-top:6px;text-align:center}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav>
-    <a class="logo" href="index.html">Foster.</a>
-    <div class="nav-r">
-      <a href="index.html">Home</a>
-      <a href="copilot.html">Copilot</a>
-      <a class="btn" href="contact.html">Contact us</a>
+  <nav data-site-nav aria-label="Primary navigation">
+    <a class="logo" href="/" aria-label="Foster home">Foster.</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+    <div class="nav-r" id="primary-navigation">
+      <a href="/service" aria-current="page">Full Service</a>
+      <a href="/copilot">Copilot</a>
+      <a href="/#plans">Plans</a>
+      <a href="/blog">Blog</a>
+      <a class="btn" href="/contact">Contact us</a>
     </div>
   </nav>
 
