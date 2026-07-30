@@ -6,7 +6,7 @@ This repo now supports a Sanity-powered blog while keeping the marketing site as
 
 - Keep this repo as the public website.
 - Deploy the Sanity Studio from `/studio` as a separate Vercel project.
-- Use the Sanity hosted content API to power `/blog` and `/blog-post`.
+- Use the Sanity hosted content API to power `/blog` and `/blog/:slug`.
 
 This is the simplest path for your current stack because the site does not use Next.js or another framework yet.
 
@@ -85,10 +85,10 @@ Create:
 Once the post is published in Sanity, it will appear on:
 
 - `/blog`
-- `/blog-post?slug=your-post-slug`
+- `/blog/your-post-slug`
 
 ## Notes
 
 - This setup avoids a full site migration.
-- If you later want pretty article URLs like `/blog/your-post-slug`, the best next step is moving the site to Next.js.
+- Vercel rewrites clean article URLs to the static article template.
 - Draft previews are not wired yet; the public site only shows published posts.

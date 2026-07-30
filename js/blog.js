@@ -37,7 +37,7 @@
   function renderPostCard(post) {
     return `
       <article class="blog-card">
-        <a class="blog-card-link" href="/blog-post?slug=${encodeURIComponent(
+        <a class="blog-card-link" href="/blog/${encodeURIComponent(
           post.slug
         )}">
           <div class="blog-card-body">
@@ -81,7 +81,7 @@
                 : ""
             }
           </div>
-          <a class="blog-featured-link" href="/blog-post?slug=${encodeURIComponent(
+          <a class="blog-featured-link" href="/blog/${encodeURIComponent(
             post.slug
           )}">
             Read article

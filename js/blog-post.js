@@ -32,7 +32,9 @@
   } = window.FosterSanity;
 
   const params = new URLSearchParams(window.location.search);
-  const slug = params.get("slug");
+  const slug =
+    params.get("slug") ||
+    decodeURIComponent(window.location.pathname.split("/").filter(Boolean)[1] || "");
 
   const postQuery = `
     *[_type == "post" && slug.current == $slug][0]{
@@ -41,6 +43,7 @@
       estimatedReadingTime,
       "slug": slug.current,
       "publishedAt": coalesce(publishedAt, _createdAt),
+      "modifiedAt": _updatedAt,
       "authorName": author->name,
       "categories": categories[]->title,
       "mainImageUrl": mainImage.asset->url,
@@ -71,6 +74,56 @@
     statusEl.className = `blog-status rise-in ${type}`;
     statusEl.innerHTML = message;
     statusEl.classList.remove("hidden");
+  }
+
+  function updateMetadata(post) {
+    const title = `${post.title} — Foster Health`;
+    const description =
+      post.excerpt ||
+      "Read the latest Foster Health article on reimbursement capture and recovery for skilled nursing.";
+    const url = `https://www.fosterhealth.io/blog/${encodeURIComponent(post.slug)}`;
+    const values = {
+      metaDescription: description,
+      ogTitle: title,
+      ogDescription: description,
+      ogUrl: url,
+      ogImage: post.mainImageUrl || "",
+      twitterTitle: title,
+      twitterDescription: description,
+      twitterImage: post.mainImageUrl || "",
+      articlePublishedTime: post.publishedAt || "",
+      articleModifiedTime: post.modifiedAt || "",
+      articleAuthor: post.authorName || "Foster Health",
+    };
+
+    document.title = title;
+    document.getElementById("canonicalUrl").href = url;
+    Object.entries(values).forEach(([id, content]) => {
+      document.getElementById(id).content = content;
+    });
+
+    const jsonLd = document.createElement("script");
+    jsonLd.type = "application/ld+json";
+    jsonLd.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: post.title,
+      description,
+      image: post.mainImageUrl || undefined,
+      datePublished: post.publishedAt,
+      dateModified: post.modifiedAt,
+      author: {
+        "@type": "Person",
+        name: post.authorName || "Foster Health",
+      },
+      publisher: {
+        "@type": "Organization",
+        name: "Foster Health",
+        url: "https://www.fosterhealth.io/",
+      },
+      mainEntityOfPage: url,
+    });
+    document.head.appendChild(jsonLd);
   }
 
   async function initPost() {
@@ -107,7 +160,7 @@
         return;
       }
 
-      document.title = `Foster Health | ${post.title}`;
+      updateMetadata(post);
       titleEl.textContent = post.title || "Untitled article";
       excerptEl.textContent = post.excerpt || "";
       chipsEl.innerHTML = (post.categories || [])
