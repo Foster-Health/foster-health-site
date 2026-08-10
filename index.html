@@ -381,13 +381,13 @@
 
     .claims-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px
     }
 
     .claim .big {
       font-family: var(--serif);
-      font-size: clamp(90px, 12vw, 170px);
+      font-size: clamp(80px, 10vw, 150px);
       line-height: .9;
       color: var(--ink)
     }
@@ -847,11 +847,15 @@
     <div class="wrap claims-grid">
       <div class="claim">
         <div class="big">11<span class="c">%</span></div>
-        <div class="lab">More PDPM revenue, from reading 100% of the chart</div>
+        <div class="lab">More PDPM revenue from accurate, defensible coding</div>
       </div>
       <div class="claim">
-        <div class="big"><span class="c">½</span></div>
-        <div class="lab">The cost of running MDS in-house</div>
+        <div class="big">100<span class="c">%</span></div>
+        <div class="lab">Of claims reviewed before submission</div>
+      </div>
+      <div class="claim">
+        <div class="big">12<span class="c">+</span></div>
+        <div class="lab">Staff hours saved per building, per week</div>
       </div>
     </div>
   </section>
