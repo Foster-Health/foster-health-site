@@ -308,9 +308,14 @@
       animation: engine-scroll 44s linear infinite
     }
 
-    .engine-marquee:hover .engine-track,
-    .engine-marquee:focus .engine-track {
+    .engine-marquee:focus-visible .engine-track {
       animation-play-state: paused
+    }
+
+    @media (hover: hover) {
+      .engine-marquee:hover .engine-track {
+        animation-play-state: paused
+      }
     }
 
     .engine-marquee:focus-visible {
