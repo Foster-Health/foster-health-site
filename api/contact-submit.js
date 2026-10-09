@@ -1,5 +1,5 @@
 const RECIPIENT_EMAIL = "pranav@fosterhealth.io";
-const SENDER_EMAIL = "followup@fosterhealth.io";
+const SENDER_EMAIL = "followup@notify.fosterhealth.io";
 const RESEND_API_URL = "https://api.resend.com/emails";
 
 const BUILDING_OPTIONS = new Set(["1", "2–5", "6–20", "20+"]);
