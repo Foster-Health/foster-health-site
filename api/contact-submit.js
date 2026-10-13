@@ -1,3 +1,5 @@
+const { z } = require("zod");
+
 const RECIPIENT_EMAIL = "pranav@fosterhealth.io";
 const SENDER_EMAIL = "followup@notify.fosterhealth.io";
 const RESEND_API_URL = "https://api.resend.com/emails";
@@ -9,6 +11,16 @@ const INTEREST_OPTIONS = new Set([
   "A one-building pilot",
   "Not sure yet",
 ]);
+
+const CONTACT_PAYLOAD_SCHEMA = z.object({
+  name: z.string().optional(),
+  title: z.string().optional(),
+  email: z.string().optional(),
+  org: z.string().optional(),
+  buildings: z.string().optional(),
+  interest: z.string().optional(),
+  message: z.string().optional(),
+});
 
 function normalizeText(value) {
   return typeof value === "string" ? value.trim() : "";
@@ -24,18 +36,20 @@ function escapeHtml(value) {
 }
 
 function validatePayload(payload) {
-  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+  const parsed = CONTACT_PAYLOAD_SCHEMA.safeParse(payload);
+  if (!parsed.success) {
     return { ok: false, error: "Invalid contact submission." };
   }
 
+  const input = parsed.data;
   const data = {
-    name: normalizeText(payload.name),
-    title: normalizeText(payload.title),
-    email: normalizeText(payload.email).toLowerCase(),
-    org: normalizeText(payload.org),
-    buildings: normalizeText(payload.buildings),
-    interest: normalizeText(payload.interest),
-    message: normalizeText(payload.message),
+    name: normalizeText(input.name),
+    title: normalizeText(input.title),
+    email: normalizeText(input.email).toLowerCase(),
+    org: normalizeText(input.org),
+    buildings: normalizeText(input.buildings),
+    interest: normalizeText(input.interest),
+    message: normalizeText(input.message),
   };
 
   if (!data.name) return { ok: false, error: "Name is required." };
@@ -156,3 +170,5 @@ module.exports = async function handler(req, res) {
     });
   }
 };
+
+module.exports._test = { validatePayload };

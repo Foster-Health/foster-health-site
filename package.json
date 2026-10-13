@@ -1,0 +1,11 @@
+{
+  "name": "foster-health-site",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node --test api/*.test.js && node test-seo.js"
+  },
+  "dependencies": {
+    "zod": "4.6.7"
+  }
+}
