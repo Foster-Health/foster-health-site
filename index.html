@@ -88,6 +88,8 @@
       color: var(--ink);
     }
 
+    header nav { display: flex; align-items: center; gap: 28px }
+
     .navlink {
       display: inline-flex;
       align-items: center;
@@ -216,16 +218,6 @@
       padding-top: 24px;
       padding-bottom: 96px;
     }
-
-    .band .join {
-      display: inline-block;
-      font: 600 17px/1.4 var(--sans);
-      color: var(--ink);
-      margin-bottom: 10px;
-      transition: color .2s;
-    }
-
-    .band .join:hover { color: var(--cobalt) }
 
     .band .lead {
       font: 400 16px/1.6 var(--sans);
@@ -415,6 +407,7 @@
   <header class="wrap">
     <a class="logo" href="/" aria-current="page" aria-label="Foster home">Foster.</a>
     <nav aria-label="Primary">
+      <a class="navlink" href="mailto:recruiting@fosterhealth.io?subject=Careers%20at%20Foster"><i aria-hidden="true"></i>Careers</a>
       <button class="navlink" type="button" data-open="chat"><i aria-hidden="true"></i>Contact</button>
     </nav>
   </header>
@@ -443,7 +436,6 @@
 
   <section class="band">
     <div class="wrap">
-      <a class="join" href="mailto:pranav@fosterhealth.io?subject=Joining%20Foster">Join us!</a>
       <p class="lead">Our team combines long term care operators, clinicians, top researchers, and RCM&nbsp;experts&nbsp;from:</p>
       <div class="logos">
         <img class="pacs" src="/img/logos/pacs-mark.svg" alt="PACS" loading="lazy">
