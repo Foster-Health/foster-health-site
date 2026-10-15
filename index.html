@@ -246,14 +246,19 @@
       display: block;
       height: 32px;
       width: auto;
+      flex: 0 0 auto;
       mix-blend-mode: multiply;
     }
 
-    .logos .cal { height: 34px }
-    .logos .mdc { height: 34px }
-    .logos .amz { height: 30px; margin-top: 8px }
-    .logos .pacs { height: 34px }
-    .logos .gl { height: 54px }
+    .logos .cal { height: clamp(26px, 2.9vw, 40px) }
+    .logos .mdc { height: clamp(24px, 2.6vw, 36px) }
+    .logos .amz { height: clamp(20px, 2.2vw, 30px); margin-top: 8px }
+    .logos .pacs { height: clamp(24px, 2.6vw, 36px) }
+    .logos .gl { height: clamp(38px, 4vw, 56px) }
+
+    @media (min-width: 641px) {
+      .logos { flex-wrap: nowrap; gap: 0 clamp(28px, 4.5vw, 72px) }
+    }
 
     /* ---------- footer ---------- */
     footer {
@@ -441,7 +446,7 @@
       <a class="join" href="mailto:pranav@fosterhealth.io?subject=Joining%20Foster">Join us!</a>
       <p class="lead">Our team combines long term care operators, clinicians, top researchers, and RCM&nbsp;experts&nbsp;from:</p>
       <div class="logos">
-        <img class="cal" src="/img/logos/berkeley.png" alt="UC Berkeley" loading="lazy">
+        <img class="cal" src="/img/logos/berkeley.jpg" alt="UC Berkeley" loading="lazy">
         <img class="amz" src="/img/logos/amazon.svg" alt="Amazon" loading="lazy">
         <img class="mdc" src="/img/logos/md-clarity.png" alt="MD Clarity" loading="lazy">
         <img class="pacs" src="/img/logos/pacs-mark.svg" alt="PACS" loading="lazy">
