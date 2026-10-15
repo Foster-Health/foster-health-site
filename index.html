@@ -135,13 +135,12 @@
     }
 
     h1 {
-      font: 400 clamp(44px, 4.5vw, 70px)/1 var(--serif);
+      font: 400 clamp(50px, 5.3vw, 84px)/1 var(--serif);
       letter-spacing: -.02em;
       color: var(--ink);
-      text-wrap: balance;
     }
 
-    h1 em { font-style: italic; color: var(--cobalt) }
+    h1 em { font-style: normal; color: var(--cobalt); white-space: nowrap }
 
     .sub {
       max-width: 46ch;
@@ -160,6 +159,28 @@
       -webkit-box-decoration-break: clone;
       box-decoration-break: clone;
     }
+
+    .hero-cta { padding-top: 6px }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 50px;
+      padding: 0 24px;
+      border: 0;
+      border-radius: 2px;
+      background: var(--cobalt);
+      color: #fff;
+      font: 500 15px/1 var(--sans);
+      letter-spacing: .01em;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: background .2s, transform .2s var(--ease), box-shadow .2s var(--ease);
+    }
+
+    .btn:hover { background: var(--cobalt-dk); transform: translateY(-1px); box-shadow: 0 10px 24px rgba(31, 59, 255, .22) }
+    .btn:active { transform: none; box-shadow: none }
 
     /* ---------- tile ---------- */
     .tile {
@@ -213,6 +234,7 @@
     .hero .eyebrow { animation: rise .8s var(--ease) .05s both }
     .hero h1 { animation: rise .9s var(--ease) .15s both }
     .hero .sub { animation: rise .9s var(--ease) .3s both }
+    .hero .hero-cta { animation: rise .9s var(--ease) .42s both }
     .tile-wrap { animation: fadein 1.2s var(--ease) .35s both }
 
     /* ---------- join band ---------- */
@@ -375,7 +397,7 @@
 
     /* ---------- reduced motion ---------- */
     @media (prefers-reduced-motion: reduce) {
-      .drift, .drift2, .hero .eyebrow, .hero h1, .hero .sub, .tile-wrap, .modal-bg, .modal-card { animation: none }
+      .drift, .drift2, .hero .eyebrow, .hero h1, .hero .sub, .hero .hero-cta, .tile-wrap, .modal-bg, .modal-card { animation: none }
       .tile, .layer { transition: none }
     }
 
@@ -383,7 +405,7 @@
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; gap: 40px }
       main { padding-top: 24px; padding-bottom: 64px }
-      h1 { font-size: 46px }
+      h1 { font-size: 50px }
       .logo { font-size: 30px }
     }
 
@@ -394,6 +416,9 @@
 
     @media (max-width: 640px) {
       header { padding-top: 20px; padding-bottom: 20px }
+      h1 { font-size: 46px }
+      h1 em { white-space: normal }
+      h1 .kw { white-space: nowrap }
       .modal-card { padding: 34px 22px 28px; border-radius: 12px }
       .fgrid { grid-template-columns: 1fr }
       footer .wrap { flex-direction: column }
@@ -417,8 +442,9 @@
   <main class="wrap" id="top">
     <div class="hero">
       <div class="hero-copy">
-        <h1>The <em>clinical intelligence</em> behind SNF&nbsp;reimbursement.</h1>
+        <h1>The <em>clinical intelligence</em> behind <span class="kw">SNF reimbursement.</span></h1>
         <p class="sub">We uncover missed reimbursement, give your MDS team an <span class="hl">extra set of hands</span>, and help you manage everything from real&#8209;time coding to&nbsp;denials.</p>
+        <div class="hero-cta"><button class="btn" type="button" data-open="chat">Talk to our team</button></div>
       </div>
 
       <div class="tile-wrap">
