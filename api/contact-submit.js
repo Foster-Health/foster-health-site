@@ -8,6 +8,8 @@ const INTEREST_OPTIONS = new Set([
   "Copilot — power our coordinators",
   "A one-building pilot",
   "Not sure yet",
+  "Chat with our team",
+  "Join the waitlist",
 ]);
 
 function normalizeText(value) {
@@ -38,7 +40,6 @@ function validatePayload(payload) {
     message: normalizeText(payload.message),
   };
 
-  if (!data.name) return { ok: false, error: "Name is required." };
   if (data.name.length > 120) return { ok: false, error: "Name is too long." };
   if (data.title.length > 120) return { ok: false, error: "Title is too long." };
   if (!data.email || data.email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
@@ -46,7 +47,7 @@ function validatePayload(payload) {
   }
   if (!data.org) return { ok: false, error: "Organization is required." };
   if (data.org.length > 160) return { ok: false, error: "Organization is too long." };
-  if (!BUILDING_OPTIONS.has(data.buildings)) {
+  if (data.buildings && !BUILDING_OPTIONS.has(data.buildings)) {
     return { ok: false, error: "Select a valid building range." };
   }
   if (!INTEREST_OPTIONS.has(data.interest)) {
@@ -59,13 +60,13 @@ function validatePayload(payload) {
 
 function buildEmailText(data) {
   return [
-    `New Foster inquiry from ${data.name}`,
+    `New Foster inquiry from ${data.name || data.email}`,
     "",
-    `Name: ${data.name}`,
+    `Name: ${data.name || "Not provided"}`,
     `Title: ${data.title || "Not provided"}`,
     `Work email: ${data.email}`,
     `Organization: ${data.org}`,
-    `Buildings: ${data.buildings}`,
+    `Buildings: ${data.buildings || "Not provided"}`,
     `Interested in: ${data.interest}`,
     "",
     "Message:",
@@ -75,11 +76,11 @@ function buildEmailText(data) {
 
 function buildEmailHtml(data) {
   const rows = [
-    ["Name", data.name],
+    ["Name", data.name || "Not provided"],
     ["Title", data.title || "Not provided"],
     ["Work email", data.email],
     ["Organization", data.org],
-    ["Buildings", data.buildings],
+    ["Buildings", data.buildings || "Not provided"],
     ["Interested in", data.interest],
   ]
     .map(
