@@ -279,7 +279,7 @@
       position: absolute;
       left: 50%; top: 50%;
       transform: translate(-50%, -50%);
-      width: min(720px, calc(100vw - 32px));
+      width: min(560px, calc(100vw - 32px));
       max-height: calc(100vh - 32px);
       max-height: calc(100dvh - 32px);
       overflow: auto;
@@ -300,55 +300,50 @@
     }
     .modal-x:hover { background: rgba(11, 17, 22, .06); color: var(--ink) }
 
-    .modal h2 { font: 400 clamp(34px, 4vw, 52px)/1.02 var(--serif); letter-spacing: -.01em; margin-bottom: 28px }
+    .modal h2 { font: 400 clamp(32px, 3.6vw, 44px)/1.02 var(--serif); letter-spacing: -.01em; margin-bottom: 26px }
     .modal .msub { color: var(--gray); font-size: 17px; margin-bottom: 30px }
 
-    .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px }
-    .f { display: flex; flex-direction: column; gap: 8px }
-    .f.full { grid-column: 1 / -1 }
-    .f label { font-size: 15px; color: var(--ink); font-weight: 500 }
-    .f label i { color: #E8763A; font-style: normal; margin-left: 2px }
+    .fstack { display: flex; flex-direction: column; gap: 14px }
+    .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
 
-    .f input, .f select, .f textarea {
+    .fstack input, .fstack select, .fstack textarea {
       font: inherit;
-      font-size: 15px;
+      font-size: 16px;
       color: var(--ink);
       background: #fff;
       border: 1px solid #DCDCD5;
-      border-radius: 6px;
-      padding: 13px 14px;
+      border-radius: 8px;
+      padding: 16px 18px;
       width: 100%;
       transition: border-color .2s, box-shadow .2s;
     }
 
-    .f input:focus, .f select:focus, .f textarea:focus { border-color: var(--cobalt); box-shadow: 0 0 0 3px rgba(31, 59, 255, .14); outline: none }
-    .f textarea { min-height: 120px; resize: vertical }
-    .f select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235F666B' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px }
+    .fstack ::placeholder { color: #6B7279 }
+    .fstack select:invalid { color: #6B7279 }
+    .fstack input:focus, .fstack select:focus, .fstack textarea:focus { border-color: var(--cobalt); box-shadow: 0 0 0 3px rgba(31, 59, 255, .14); outline: none }
+    .fstack textarea { min-height: 150px; resize: vertical }
+    .fstack select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235F666B' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 40px }
 
     .msubmit {
-      grid-column: 1 / -1;
-      margin-top: 10px;
+      margin-top: 6px;
       width: 100%;
       border: 0;
       border-radius: 8px;
       padding: 18px 20px;
       font: inherit;
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 600;
       color: #fff;
-      background: linear-gradient(90deg, #0B1116 0%, #0B1116 60%, #3C3F6B 100%);
+      background: var(--ink);
       cursor: pointer;
       transition: transform .2s var(--ease), box-shadow .2s var(--ease), opacity .2s;
     }
     .msubmit:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(11, 17, 22, .25) }
     .msubmit[disabled] { opacity: .6; cursor: default; transform: none; box-shadow: none }
 
-    .fstatus { grid-column: 1 / -1; display: none; font-size: 14.5px; margin-top: 4px }
+    .fstatus { display: none; font-size: 14.5px; margin-top: 2px }
     .fstatus.show { display: block }
     .fstatus.error { color: #A52A1A }
-
-    .mfine { grid-column: 1 / -1; font-size: 12.5px; color: var(--gray-lt); margin-top: 2px }
-    .mfine a { color: var(--gray); text-decoration: underline }
 
     .mdone { display: none; text-align: center; padding: 30px 0 10px }
     .mdone h2 { margin-bottom: 10px }
@@ -390,7 +385,6 @@
       h1 em { white-space: normal }
       h1 .kw { white-space: nowrap }
       .modal-card { padding: 34px 22px 28px; border-radius: 12px }
-      .fgrid { grid-template-columns: 1fr }
       footer .wrap { flex-direction: column }
       .band { padding-bottom: 64px }
       .logos { gap: 24px 40px; padding: 32px 0 36px }
@@ -460,41 +454,24 @@
       <button class="modal-x" type="button" data-close aria-label="Close">×</button>
       <h2 id="modal-title">Chat with our team</h2>
 
-      <form id="lead-form" class="fgrid" novalidate>
-        <div class="f">
-          <label for="f-name">Full name</label>
-          <input id="f-name" name="name" type="text" autocomplete="name" maxlength="120">
-        </div>
-        <div class="f">
-          <label for="f-title">Job title</label>
-          <input id="f-title" name="title" type="text" autocomplete="organization-title" maxlength="120">
-        </div>
-        <div class="f">
-          <label for="f-email">Work email<i>*</i></label>
-          <input id="f-email" name="email" type="email" autocomplete="email" required maxlength="254">
-        </div>
-        <div class="f">
-          <label for="f-org">Organization<i>*</i></label>
-          <input id="f-org" name="org" type="text" autocomplete="organization" required maxlength="160">
-        </div>
-        <div class="f full">
-          <label for="f-buildings">How many buildings?</label>
-          <select id="f-buildings" name="buildings">
-            <option value="" disabled selected>Select one</option>
-            <option value="1">1</option>
-            <option value="2–5">2–5</option>
-            <option value="6–20">6–20</option>
-            <option value="20+">20+</option>
-          </select>
-        </div>
-        <div class="f full">
-          <label for="f-message">Anything we should know?</label>
-          <textarea id="f-message" name="message" maxlength="5000"></textarea>
-        </div>
+      <form id="lead-form" class="fstack" novalidate>
+        <label class="sr" for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" placeholder="Email*" required maxlength="254">
+        <label class="sr" for="f-org">Company name</label>
+        <input id="f-org" name="org" type="text" autocomplete="organization" placeholder="Company name*" required maxlength="160">
+        <label class="sr" for="f-buildings">Number of buildings</label>
+        <select id="f-buildings" name="buildings" required>
+          <option value="" disabled selected>Number of buildings*</option>
+          <option value="1">1 building</option>
+          <option value="2–5">2–5 buildings</option>
+          <option value="6–20">6–20 buildings</option>
+          <option value="20+">20+ buildings</option>
+        </select>
+        <label class="sr" for="f-message">Message</label>
+        <textarea id="f-message" name="message" placeholder="Message*" required maxlength="5000"></textarea>
         <input type="hidden" name="interest" value="Chat with our team">
-        <button class="msubmit" id="f-submit" type="submit">Request a demo</button>
+        <button class="msubmit" id="f-submit" type="submit">Submit</button>
         <p class="fstatus" id="f-status" role="status" aria-live="polite"></p>
-        <p class="mfine">By submitting you agree to our <a href="/privacy">privacy policy</a>. No spam, ever.</p>
       </form>
 
       <div class="mdone">
@@ -583,7 +560,7 @@
         modal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
         lastFocus = document.activeElement;
-        setTimeout(function () { var first = form.querySelector('input'); if (first) first.focus(); }, 60);
+        setTimeout(function () { var first = form.querySelector('input:not([type=hidden])'); if (first) first.focus(); }, 60);
       }
 
       function closeModal() {
