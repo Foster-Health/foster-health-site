@@ -66,10 +66,9 @@
 
     .wrap {
       width: 100%;
-      max-width: 1520px;
       margin: 0 auto;
-      padding-left: max(24px, env(safe-area-inset-left, 0px));
-      padding-right: max(24px, env(safe-area-inset-right, 0px));
+      padding-left: max(24px, 5vw, env(safe-area-inset-left, 0px));
+      padding-right: max(24px, 5vw, env(safe-area-inset-right, 0px));
     }
 
     /* ---------- nav ---------- */
@@ -119,8 +118,8 @@
 
     .hero {
       display: grid;
-      grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-      gap: 72px;
+      grid-template-columns: minmax(0, 55fr) minmax(0, 45fr);
+      gap: clamp(40px, 5vw, 96px);
       align-items: center;
       width: 100%;
     }
@@ -135,7 +134,7 @@
     }
 
     h1 {
-      font: 400 clamp(50px, 5.3vw, 84px)/1 var(--serif);
+      font: 400 clamp(50px, 4.7vw, 84px)/1 var(--serif);
       letter-spacing: -.02em;
       color: var(--ink);
     }
@@ -410,7 +409,6 @@
     }
 
     @media (min-width: 901px) {
-      .wrap { padding-left: max(48px, env(safe-area-inset-left, 0px)); padding-right: max(48px, env(safe-area-inset-right, 0px)) }
       header { padding-top: 36px; padding-bottom: 36px }
     }
 
