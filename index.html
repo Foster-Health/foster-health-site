@@ -112,7 +112,7 @@
       display: flex;
       align-items: center;
       padding-top: 56px;
-      padding-bottom: 96px;
+      padding-bottom: 72px;
     }
 
     .hero {
@@ -210,6 +210,56 @@
     .hero h1 { animation: rise .9s var(--ease) .15s both }
     .hero .sub { animation: rise .9s var(--ease) .3s both }
     .tile-wrap { animation: fadein 1.2s var(--ease) .35s both }
+
+    /* ---------- join band ---------- */
+    .band {
+      padding-top: 24px;
+      padding-bottom: 96px;
+    }
+
+    .band .join {
+      display: inline-block;
+      font: 600 17px/1.4 var(--sans);
+      color: var(--ink);
+      margin-bottom: 10px;
+      transition: color .2s;
+    }
+
+    .band .join:hover { color: var(--cobalt) }
+
+    .band .lead {
+      font: 400 16px/1.6 var(--sans);
+      color: var(--gray);
+      max-width: 60ch;
+    }
+
+    .logos {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 28px 72px;
+      padding: 44px 0 48px;
+    }
+
+    .logos img {
+      display: block;
+      height: 32px;
+      width: auto;
+      mix-blend-mode: multiply;
+    }
+
+    .logos .gs { height: 56px }
+    .logos .amz { height: 30px; margin-top: 8px }
+    .logos .pacs { height: 34px }
+    .logos .gl { height: 54px }
+
+    .proof {
+      font: 500 11px/1.7 var(--mono);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray-lt);
+      max-width: 70ch;
+    }
 
     /* ---------- footer ---------- */
     footer {
@@ -354,6 +404,9 @@
       .modal-card { padding: 34px 22px 28px; border-radius: 12px }
       .fgrid { grid-template-columns: 1fr }
       footer .wrap { flex-direction: column }
+      .band { padding-bottom: 64px }
+      .logos { gap: 24px 40px; padding: 32px 0 36px }
+      .logos .gl { height: 46px }
     }
   </style>
 </head>
@@ -388,6 +441,20 @@
       </div>
     </div>
   </main>
+
+  <section class="band">
+    <div class="wrap">
+      <a class="join" href="mailto:pranav@fosterhealth.io?subject=Joining%20Foster">Join us!</a>
+      <p class="lead">Foster Health is based in New York City. Our team has built and researched at:</p>
+      <div class="logos">
+        <img class="gs" src="/img/logos/goldman-sachs.svg" alt="Goldman Sachs" loading="lazy">
+        <img class="amz" src="/img/logos/amazon.svg" alt="Amazon" loading="lazy">
+        <img class="pacs" src="/img/logos/pacs-mark.svg" alt="PACS" loading="lazy">
+        <img class="gl" src="/img/logos/golden-living.png" alt="Golden Living" loading="lazy">
+      </div>
+      <p class="proof">Built alongside long-term care operators &amp; clinicians. Backed by industry veterans.</p>
+    </div>
+  </section>
 
   <footer>
     <div class="wrap">
