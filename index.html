@@ -105,8 +105,8 @@
       transition: color .2s;
     }
 
-    .navlink:hover { color: var(--ink) }
-    .navlink i { display: inline-block; width: 6px; height: 6px; background: var(--cobalt) }
+    .navlink:hover, .navlink:focus-visible { color: var(--cobalt) }
+    .navlink i { display: inline-block; width: 6px; height: 6px; background: currentColor; transition: background .2s }
 
     /* ---------- hero ---------- */
     main {
