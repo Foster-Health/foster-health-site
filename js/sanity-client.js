@@ -245,7 +245,16 @@
     `;
   }
 
+  // Some slugs in Sanity were entered with stray slashes or a "/blog/" prefix; normalise them for URLs.
+  function cleanSlug(value) {
+    return String(value || "")
+      .trim()
+      .replace(/^\/?blog\//, "")
+      .replace(/^\/+|\/+$/g, "");
+  }
+
   window.FosterSanity = {
+    cleanSlug,
     config,
     escapeHtml,
     fetchSanity,

@@ -8,7 +8,7 @@
     return;
   }
 
-  const { escapeHtml, fetchSanity, formatDate, hasValidConfig, setupMessage } =
+  const { cleanSlug, escapeHtml, fetchSanity, formatDate, hasValidConfig, setupMessage } =
     window.FosterSanity;
   const postsQuery = `
     *[_type == "post" && defined(slug.current)]
@@ -37,9 +37,7 @@
   function renderPostCard(post) {
     return `
       <article class="blog-card">
-        <a class="blog-card-link" href="/blog/${encodeURIComponent(
-          post.slug
-        )}">
+        <a class="blog-card-link" href="/blog/${encodeURIComponent(cleanSlug(post.slug))}">
           <div class="blog-card-body">
             <div class="blog-chip-row">${renderCategories(post.categories)}</div>
             <h3 class="blog-card-title">${escapeHtml(post.title)}</h3>
@@ -81,9 +79,7 @@
                 : ""
             }
           </div>
-          <a class="blog-featured-link" href="/blog/${encodeURIComponent(
-            post.slug
-          )}">
+          <a class="blog-featured-link" href="/blog/${encodeURIComponent(cleanSlug(post.slug))}">
             Read article
           </a>
         </div>
