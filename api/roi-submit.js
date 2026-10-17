@@ -1,6 +1,25 @@
+const { z } = require("zod");
+
 const RECIPIENT_EMAIL = "pranav@fosterhealth.io";
 const SENDER_EMAIL = "followup@notify.fosterhealth.io";
 const RESEND_API_URL = "https://api.resend.com/emails";
+
+const NUMBER_INPUT_SCHEMA = z.union([
+  z.number().finite(),
+  z.string().trim().min(1).max(24).regex(/^\d+(?:\.\d+)?$/),
+]);
+
+const ROI_PAYLOAD_SCHEMA = z.object({
+  facilityName: z.string().optional(),
+  email: z.string().optional(),
+  phone: z.string().optional(),
+  census: NUMBER_INPUT_SCHEMA.optional(),
+  adc: NUMBER_INPUT_SCHEMA.optional(),
+  medicare: NUMBER_INPUT_SCHEMA.optional(),
+  managedCare: NUMBER_INPUT_SCHEMA.optional(),
+  medicaid: NUMBER_INPUT_SCHEMA.optional(),
+  other: NUMBER_INPUT_SCHEMA.optional(),
+});
 
 function escapeHtml(value) {
   return String(value)
@@ -36,32 +55,42 @@ function phoneDigits(value) {
 }
 
 function toNumber(value) {
+  if (value === undefined) return NaN;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : NaN;
 }
 
 function validatePayload(payload) {
-  const facilityName = normalizeText(payload.facilityName);
-  const email = normalizeText(payload.email).toLowerCase();
-  const phone = normalizePhone(payload.phone);
+  const parsed = ROI_PAYLOAD_SCHEMA.safeParse(payload);
+  if (!parsed.success) {
+    return { ok: false, error: "Invalid ROI submission." };
+  }
 
-  const census = toNumber(payload.census);
-  const adc = toNumber(payload.adc);
-  const medicare = toNumber(payload.medicare);
-  const managedCare = toNumber(payload.managedCare);
-  const medicaid = toNumber(payload.medicaid);
-  const other = toNumber(payload.other);
+  const input = parsed.data;
+  const facilityName = normalizeText(input.facilityName);
+  const email = normalizeText(input.email).toLowerCase();
+  const phone = normalizePhone(input.phone);
+
+  const census = toNumber(input.census);
+  const adc = toNumber(input.adc);
+  const medicare = toNumber(input.medicare);
+  const managedCare = toNumber(input.managedCare);
+  const medicaid = toNumber(input.medicaid);
+  const other = toNumber(input.other);
 
   if (!facilityName) {
     return { ok: false, error: "Facility name is required." };
   }
-
-  if (!Number.isFinite(census) || census <= 0) {
-    return { ok: false, error: "Total licensed beds must be greater than 0." };
+  if (facilityName.length > 160 || /[\r\n]/.test(facilityName)) {
+    return { ok: false, error: "Enter a valid facility name of 160 characters or less." };
   }
 
-  if (!Number.isFinite(adc) || adc <= 0) {
-    return { ok: false, error: "Average daily census must be greater than 0." };
+  if (!Number.isInteger(census) || census <= 0 || census > 100000) {
+    return { ok: false, error: "Total licensed beds must be between 1 and 100,000." };
+  }
+
+  if (!Number.isInteger(adc) || adc <= 0 || adc > 100000) {
+    return { ok: false, error: "Average daily census must be between 1 and 100,000." };
   }
 
   const payerValues = [
@@ -82,12 +111,12 @@ function validatePayload(payload) {
     return { ok: false, error: "Payer mix must total 100%." };
   }
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!email || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return { ok: false, error: "A valid work email is required." };
   }
 
   const digits = phoneDigits(phone);
-  if (!phone || digits.length < 10 || digits.length > 15) {
+  if (!phone || phone.length > 40 || digits.length < 10 || digits.length > 15) {
     return { ok: false, error: "A valid phone number is required." };
   }
 
@@ -223,13 +252,6 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed." });
   }
 
-  const apiKey = process.env.RESEND_API || process.env.RESEND_API_KEY;
-  if (!apiKey) {
-    return res
-      .status(500)
-      .json({ error: "Missing Resend configuration on the server." });
-  }
-
   let payload = req.body || {};
   if (typeof payload === "string") {
     try {
@@ -242,6 +264,13 @@ module.exports = async function handler(req, res) {
   const validation = validatePayload(payload);
   if (!validation.ok) {
     return res.status(400).json({ error: validation.error });
+  }
+
+  const apiKey = process.env.RESEND_API || process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return res
+      .status(500)
+      .json({ error: "Missing Resend configuration on the server." });
   }
 
   const estimate = calculateEstimate(validation.data);
