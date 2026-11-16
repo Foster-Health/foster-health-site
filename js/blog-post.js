@@ -32,12 +32,16 @@
   } = window.FosterSanity;
 
   const params = new URLSearchParams(window.location.search);
-  const slug =
+  const { cleanSlug } = window.FosterSanity;
+  const slug = cleanSlug(
     params.get("slug") ||
-    decodeURIComponent(window.location.pathname.split("/").filter(Boolean)[1] || "");
+      decodeURIComponent(window.location.pathname.split("/").filter(Boolean)[1] || "")
+  );
+  // Match the slug however it was entered in Sanity (with or without surrounding slashes or a /blog/ prefix).
+  const slugVariants = [slug, slug + "/", "/" + slug, "/" + slug + "/", "/blog/" + slug, "/blog/" + slug + "/", "blog/" + slug, "blog/" + slug + "/"];
 
   const postQuery = `
-    *[_type == "post" && slug.current == $slug][0]{
+    *[_type == "post" && slug.current in $slugs][0]{
       title,
       excerpt,
       estimatedReadingTime,
@@ -81,7 +85,7 @@
     const description =
       post.excerpt ||
       "Read the latest Foster Health article on reimbursement capture and recovery for skilled nursing.";
-    const url = `https://www.fosterhealth.io/blog/${encodeURIComponent(post.slug)}`;
+    const url = `https://www.fosterhealth.io/blog/${encodeURIComponent(cleanSlug(post.slug))}`;
     const values = {
       metaDescription: description,
       ogTitle: title,
@@ -147,7 +151,7 @@
     }
 
     try {
-      const post = await fetchSanity(postQuery, { slug });
+      const post = await fetchSanity(postQuery, { slugs: slugVariants });
 
       if (!post) {
         showStatus(

@@ -24,84 +24,51 @@
   <meta id="articleModifiedTime" property="article:modified_time" content="">
   <meta id="articleAuthor" property="article:author" content="">
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/blog.css">
 </head>
+
 <body class="blog-page blog-article-page">
-  <header class="site-header">
-    <div class="wrap">
-      <nav data-site-nav aria-label="Primary navigation">
-        <a class="logo" href="/" aria-label="Foster Health home">Foster.</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-controls="primary-nav"
-          aria-expanded="false"
-          aria-label="Open navigation menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="nav-r" id="primary-nav">
-          <a href="/service">Full Service</a>
-          <a href="/copilot">Copilot</a>
-          <a href="/#plans">Plans</a>
-          <a href="/blog" aria-current="page">Blog</a>
-          <a class="btn" href="/contact">Contact us</a>
-        </div>
-      </nav>
-    </div>
+  <header class="site wrap">
+    <a class="logo" href="/" aria-label="Foster home">Foster<span class="dot">.</span></a>
+    <nav aria-label="Primary">
+      <a class="navlink" href="/blog"><i aria-hidden="true"></i>Blog</a>
+      <a class="navlink" href="mailto:recruiting@fosterhealth.io?subject=Careers%20at%20Foster"><i aria-hidden="true"></i>Careers</a>
+      <a class="navlink" href="/#contact"><i aria-hidden="true"></i>Contact</a>
+    </nav>
   </header>
 
-  <main class="blog-article-main">
-    <section class="blog-article-section">
-      <div class="wrap blog-article-wrap">
-        <a href="/blog" class="blog-back-link">← Back to all articles</a>
-
-        <div id="postStatus" class="blog-status hidden" aria-live="polite"></div>
-
-        <article id="articleShell" class="blog-post-shell hidden">
-          <header class="blog-post-header">
-            <div id="postChips" class="blog-chip-row"></div>
-            <h1 id="postTitle" class="blog-post-title"></h1>
-            <p id="postExcerpt" class="blog-post-excerpt"></p>
-            <div id="postMeta" class="blog-post-meta"></div>
-          </header>
-
-          <div id="postHeroWrap" class="blog-post-hero-wrap"></div>
-          <div id="postBody" class="blog-body"></div>
-        </article>
-      </div>
-    </section>
+  <main class="wrap">
+    <div class="blog-article-wrap">
+      <a href="/blog" class="blog-back-link">← All articles</a>
+      <div id="postStatus" class="blog-status hidden" aria-live="polite"></div>
+      <article id="articleShell" class="blog-post-shell hidden">
+        <header class="blog-post-header">
+          <div id="postChips" class="blog-chip-row"></div>
+          <h1 id="postTitle" class="blog-post-title"></h1>
+          <p id="postExcerpt" class="blog-post-excerpt"></p>
+          <div id="postMeta" class="blog-post-meta"></div>
+        </header>
+        <div id="postHeroWrap" class="blog-post-hero-wrap"></div>
+        <div id="postBody" class="blog-body"></div>
+      </article>
+    </div>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap site-footer-inner">
-      <div class="site-footer-identity">
-        <a class="site-footer-logo" href="/">Foster.</a>
-        <span>Foster Health Technologies, Inc. · San Francisco</span>
-      </div>
-      <nav class="site-footer-links" aria-label="Footer navigation">
-        <a href="/">Home</a>
-        <a href="/service">Full Service</a>
-        <a href="/copilot">Copilot</a>
-        <a href="/#plans">Plans</a>
-        <a href="/blog" aria-current="page">Blog</a>
-        <a href="/contact">Contact</a>
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Foster Health Technologies, Inc.</div>
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/sms-terms">SMS Terms</a>
       </nav>
-      <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sms-terms">SMS Terms</a> · © 2026 Foster Health</p>
     </div>
   </footer>
 
   <script src="/js/sanity-site-config.js"></script>
   <script src="/js/sanity-client.js"></script>
   <script src="/js/blog-post.js"></script>
-  <script src="/js/navbar.js"></script>
 </body>
 </html>

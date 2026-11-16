@@ -21,90 +21,53 @@
     {"@context":"https://schema.org","@type":"Blog","name":"Foster Health Insights","description":"Practical insights from Foster Health on reimbursement capture, PDPM optimization, denial prevention, and revenue recovery for skilled nursing operators.","url":"https://www.fosterhealth.io/blog","publisher":{"@type":"Organization","name":"Foster Health","url":"https://www.fosterhealth.io/"}}
   </script>
   <link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap"
-    rel="stylesheet"
-  >
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/blog.css">
 </head>
+
 <body class="blog-page">
-  <header class="site-header">
-    <div class="wrap">
-      <nav data-site-nav aria-label="Primary navigation">
-        <a class="logo" href="/" aria-label="Foster Health home">Foster.</a>
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-controls="primary-nav"
-          aria-expanded="false"
-          aria-label="Open navigation menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-        <div class="nav-r" id="primary-nav">
-          <a href="/service">Full Service</a>
-          <a href="/copilot">Copilot</a>
-          <a href="/#plans">Plans</a>
-          <a href="/blog" aria-current="page">Blog</a>
-          <a class="btn" href="/contact">Contact us</a>
-        </div>
-      </nav>
-    </div>
+  <header class="site wrap">
+    <a class="logo" href="/" aria-label="Foster home">Foster<span class="dot">.</span></a>
+    <nav aria-label="Primary">
+      <a class="navlink" href="/blog" aria-current="page"><i aria-hidden="true"></i>Blog</a>
+      <a class="navlink" href="mailto:recruiting@fosterhealth.io?subject=Careers%20at%20Foster"><i aria-hidden="true"></i>Careers</a>
+      <a class="navlink" href="/#contact"><i aria-hidden="true"></i>Contact</a>
+    </nav>
   </header>
 
-  <main>
+  <main class="wrap">
     <section class="blog-hero">
-      <div class="wrap blog-hero-inner">
-        <p class="blog-eyebrow">Foster Health insights</p>
-        <h1>Ideas for a better-run <em>MDS.</em></h1>
-        <p class="blog-hero-copy">
-          Practical playbooks and field notes on reimbursement, claim accuracy,
-          denials, and the work behind a reliable skilled nursing revenue cycle.
-        </p>
-      </div>
+      <p class="blog-eyebrow">Foster Health insights</p>
+      <h1>Ideas for a better-run <em>MDS.</em></h1>
+      <p class="blog-hero-copy">Practical playbooks and field notes on reimbursement, claim accuracy, denials, and the work behind a reliable skilled nursing revenue cycle.</p>
     </section>
-
-    <section class="blog-index-section" aria-label="Articles">
-      <div class="wrap">
-        <div id="blogStatus" class="blog-status hidden" aria-live="polite"></div>
-        <div id="featuredPost" class="blog-featured-slot"></div>
-
-        <section id="recentPostsSection" class="blog-recent-section">
-          <div class="blog-section-heading">
-            <p class="blog-section-kicker">Latest from the team</p>
-            <h2 class="blog-section-title">Recent articles</h2>
-          </div>
-          <div id="blogGrid" class="blog-grid"></div>
-        </section>
-      </div>
+    <section aria-label="Articles">
+      <div id="blogStatus" class="blog-status hidden" aria-live="polite"></div>
+      <div id="featuredPost" class="blog-featured-slot"></div>
+      <section id="recentPostsSection" class="blog-recent-section">
+        <div class="blog-section-heading">
+          <p class="blog-section-kicker">Latest from the team</p>
+          <h2 class="blog-section-title">Recent articles</h2>
+        </div>
+        <div id="blogGrid" class="blog-grid"></div>
+      </section>
     </section>
   </main>
 
-  <footer class="site-footer">
-    <div class="wrap site-footer-inner">
-      <div class="site-footer-identity">
-        <a class="site-footer-logo" href="/">Foster.</a>
-        <span>Foster Health Technologies, Inc. · San Francisco</span>
-      </div>
-      <nav class="site-footer-links" aria-label="Footer navigation">
-        <a href="/">Home</a>
-        <a href="/service">Full Service</a>
-        <a href="/copilot">Copilot</a>
-        <a href="/#plans">Plans</a>
-        <a href="/blog" aria-current="page">Blog</a>
-        <a href="/contact">Contact</a>
+  <footer>
+    <div class="wrap">
+      <div>© 2026 Foster Health Technologies, Inc.</div>
+      <nav aria-label="Legal">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/sms-terms">SMS Terms</a>
       </nav>
-      <p><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/sms-terms">SMS Terms</a> · © 2026 Foster Health</p>
     </div>
   </footer>
 
   <script src="/js/sanity-site-config.js"></script>
   <script src="/js/sanity-client.js"></script>
   <script src="/js/blog.js"></script>
-  <script src="/js/navbar.js"></script>
 </body>
 </html>
