@@ -1,8 +1,8 @@
 const assert = require("node:assert/strict");
 const test = require("node:test");
 
-const contactHandler = require("./contact-submit");
-const roiHandler = require("./roi-submit");
+const contactHandler = require("../api/contact-submit");
+const roiHandler = require("../api/roi-submit");
 
 const contact = {
   name: "Avery Smith",
@@ -48,6 +48,20 @@ test("contact form accepts and normalizes a valid submission", () => {
   assert.equal(result.ok, true);
   assert.equal(result.data.email, "avery@example.com");
   assert.equal(result.data.name, "Avery Smith");
+});
+
+test("contact form accepts the homepage modal submission", () => {
+  const modal = {
+    email: "Avery@Example.com",
+    org: "Example SNF",
+    buildings: "2–5",
+    message: "Please contact me.",
+    interest: "Chat with our team",
+  };
+  const result = contactHandler._test.validatePayload(modal);
+  assert.equal(result.ok, true);
+  assert.equal(result.data.name, "");
+  assert.equal(result.data.interest, "Chat with our team");
 });
 
 test("contact form rejects malformed bodies and invalid fields", () => {
