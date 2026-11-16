@@ -130,7 +130,7 @@ test("valid requests send normalized and escaped content to the email service", 
     assert.equal(sent.length, 2);
     assert.equal(sent[0].reply_to, "avery@example.com");
     assert.match(sent[0].html, /&lt;script&gt;/);
-    assert.doesNotMatch(sent[0].html, /<script>/);
+    assert.doesNotMatch(sent[0].html, /<script/i);
     assert.equal(sent[1].reply_to, "avery@example.com");
     assert.match(sent[1].subject, /Example SNF/);
   } finally {
