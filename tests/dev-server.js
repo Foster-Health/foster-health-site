@@ -82,15 +82,6 @@ function fillDestination(destination, params) {
   );
 }
 
-// A redirect must stay on this server. Resolve the target against a known host and compare origins.
-function isLocalUrl(target) {
-  try {
-    return new URL(target, "https://example.com").origin === "https://example.com";
-  } catch (error) {
-    return false;
-  }
-}
-
 function staticFile(pathname) {
   const safe = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, "");
   const candidates = [path.join(ROOT, safe)];
@@ -115,7 +106,7 @@ function runFunction(req, res, target) {
 }
 
 const server = http.createServer((req, res) => {
-  const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
+  let url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
 
   // Vercel redirects a trailing slash and a ".html" address to the clean address. This server
   // serves the clean address directly, so it never builds a redirect target from the request.
@@ -126,17 +117,17 @@ const server = http.createServer((req, res) => {
 
   for (const rule of config.redirects || []) {
     const params = matchRule(rule, url);
-    if (params) {
-      const target = fillDestination(rule.destination, params);
-      if (!isLocalUrl(target)) {
-        res.writeHead(400, { "Content-Type": TYPES[".txt"] });
-        res.end("Redirect target is not on this site.\n");
-        return;
-      }
-      res.writeHead(rule.permanent ? 308 : 307, { Location: target });
+    if (!params) continue;
+    if (!/:[A-Za-z0-9_]+/.test(rule.destination)) {
+      // The target is fixed text from vercel.json.
+      res.writeHead(rule.permanent ? 308 : 307, { Location: rule.destination });
       res.end();
       return;
     }
+    // Vercel redirects here. This server serves the target page directly, so a redirect
+    // header never carries text from the request.
+    url = new URL(fillDestination(rule.destination, params), url);
+    break;
   }
 
   const file = staticFile(url.pathname);
