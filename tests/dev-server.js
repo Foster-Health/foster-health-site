@@ -82,6 +82,15 @@ function fillDestination(destination, params) {
   );
 }
 
+// A redirect must stay on this server. Resolve the target against a known host and compare origins.
+function isLocalUrl(target) {
+  try {
+    return new URL(target, "https://example.com").origin === "https://example.com";
+  } catch (error) {
+    return false;
+  }
+}
+
 function staticFile(pathname) {
   const safe = path.normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, "");
   const candidates = [path.join(ROOT, safe)];
@@ -118,7 +127,13 @@ const server = http.createServer((req, res) => {
   for (const rule of config.redirects || []) {
     const params = matchRule(rule, url);
     if (params) {
-      res.writeHead(rule.permanent ? 308 : 307, { Location: fillDestination(rule.destination, params) });
+      const target = fillDestination(rule.destination, params);
+      if (!isLocalUrl(target)) {
+        res.writeHead(400, { "Content-Type": TYPES[".txt"] });
+        res.end("Redirect target is not on this site.\n");
+        return;
+      }
+      res.writeHead(rule.permanent ? 308 : 307, { Location: target });
       res.end();
       return;
     }
