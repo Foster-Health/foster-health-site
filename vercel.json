@@ -3,15 +3,28 @@
   "trailingSlash": false,
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/blog/:slug",
-      "destination": "/blog-post?slug=:slug"
-    }
+    { "source": "/blog", "destination": "/api/blog" },
+    { "source": "/blog/:slug([^/]+)\\.md", "destination": "/api/blog-post?slug=:slug&format=md" },
+    { "source": "/blog/:slug", "destination": "/api/blog-post?slug=:slug" },
+    { "source": "/sitemap.xml", "destination": "/api/sitemap" },
+    { "source": "/rss.xml", "destination": "/api/rss" },
+    { "source": "/llms.txt", "destination": "/api/llms" },
+    { "source": "/llms-full.txt", "destination": "/api/llms?full=1" }
   ],
   "redirects": [
     { "source": "/contact", "destination": "/#chat", "permanent": false },
+    { "source": "/book-a-demo", "destination": "/#chat", "permanent": false },
     { "source": "/service", "destination": "/", "permanent": false },
     { "source": "/copilot", "destination": "/", "permanent": false },
-    { "source": "/roi", "destination": "/", "permanent": false }
+    { "source": "/roi", "destination": "/", "permanent": false },
+    {
+      "source": "/blog-post",
+      "has": [{ "type": "query", "key": "slug", "value": "(?<slug>[A-Za-z0-9-]+)" }],
+      "destination": "/blog/:slug",
+      "permanent": true
+    },
+    { "source": "/blog-post", "destination": "/blog", "permanent": true },
+    { "source": "/feed", "destination": "/rss.xml", "permanent": true },
+    { "source": "/feed.xml", "destination": "/rss.xml", "permanent": true }
   ]
 }
