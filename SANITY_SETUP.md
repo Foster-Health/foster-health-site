@@ -87,8 +87,22 @@ Once the post is published in Sanity, it will appear on:
 - `/blog`
 - `/blog/your-post-slug`
 
+## How the blog reaches search engines and AI assistants
+
+The server renders the blog. A crawler that does not run JavaScript gets the full article text.
+
+- `api/blog.js` serves `/blog`, and `api/blog-post.js` serves `/blog/:slug`. Each article has its own title, description, canonical address, and structured data.
+- `/blog/:slug.md` is the same article as Markdown. `/llms.txt` and `/llms-full.txt` list the articles for AI assistants.
+- `/sitemap.xml` and `/rss.xml` come from the published posts. `robots.txt` points to the sitemap.
+- The shared code is in `lib/`. The rules that connect an address to a function are in `vercel.json`.
+- Do not add a `blog.html` or `blog-post.html` file at the root. A static file takes the address before the function does.
+- The CDN keeps a page for 5 minutes. A new or edited post appears in about 5 minutes. No deployment is necessary.
+- A slug that was entered with slashes or a `/blog/` prefix still works. The site shows the clean form and redirects other forms to it.
+- If the server cannot reach Sanity, the reader gets the earlier browser-rendered page (`js/blog.js`, `js/blog-post.js`).
+
+To preview the site with these rules, run `node tests/dev-server.js` and open `http://127.0.0.1:4173`. To run the checks, run `npm ci` and then `npm test`.
+
 ## Notes
 
 - This setup avoids a full site migration.
-- Vercel rewrites clean article URLs to the static article template.
 - Draft previews are not wired yet; the public site only shows published posts.

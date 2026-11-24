@@ -1,0 +1,31 @@
+# Foster Health — https://www.fosterhealth.io/
+# All crawlers may read the public site. The /api/, /lib/, and /tests/ paths hold code, not pages.
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /lib/
+Disallow: /tests/
+
+# AI search and assistant crawlers are welcome. They are named so the intent is explicit.
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Amazonbot
+User-agent: DuckAssistBot
+User-agent: MistralAI-User
+User-agent: Meta-ExternalAgent
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Disallow: /lib/
+Disallow: /tests/
+
+Sitemap: https://www.fosterhealth.io/sitemap.xml

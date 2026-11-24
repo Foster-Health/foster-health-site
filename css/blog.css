@@ -167,3 +167,7 @@ footer a{color:var(--gray)}footer a:hover{color:var(--ink)}
 .blog-body blockquote {
     padding: 18px 20px;
   }
+
+/* ---------- more articles (below an article) ---------- */
+.blog-more{margin-top:72px}
+.blog-more .blog-card-title{font-size:clamp(21px,1.7vw,25px);margin-top:0}
