@@ -39,6 +39,7 @@ const BODY = [
     rows: [
       { cells: ["Area", "Effect"] },
       { cells: ["NTA", "Points lost | per stay"] },
+      { cells: ["Path", "C:\\notes"] },
     ],
   },
 ];
@@ -218,6 +219,7 @@ test("an article is also available as Markdown", async () => {
     assert(response.body.includes("## What is the ARD window?"));
     assert(response.body.includes("[the second post](https://www.fosterhealth.io/blog/second-post)"));
     assert(response.body.includes("| NTA | Points lost \\| per stay |"));
+    assert(response.body.includes("| Path | C:\\\\notes |"), "a backslash in a table cell is escaped");
     assert(response.body.includes("- First item\n- Second item"));
   } finally {
     restore();

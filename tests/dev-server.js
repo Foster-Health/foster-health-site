@@ -48,7 +48,7 @@ function compileSource(source) {
       pattern += source.slice(index, index + 2);
       index += 2;
     } else {
-      pattern += char.replace(/[.*+?^${}()|[\]]/g, "\\$&");
+      pattern += char.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       index += 1;
     }
   }
@@ -108,17 +108,12 @@ function runFunction(req, res, target) {
 const server = http.createServer((req, res) => {
   const url = new URL(req.url, `http://${req.headers.host || "localhost"}`);
 
-  if (config.trailingSlash === false && url.pathname.length > 1 && url.pathname.endsWith("/")) {
-    res.writeHead(308, { Location: url.pathname.replace(/\/+$/, "") + url.search });
-    res.end();
-    return;
-  }
-  if (config.cleanUrls && url.pathname.endsWith(".html")) {
-    const clean = url.pathname.replace(/(\/index)?\.html$/, "") || "/";
-    res.writeHead(308, { Location: clean + url.search });
-    res.end();
-    return;
-  }
+  // Vercel redirects a trailing slash and a ".html" address to the clean address. This server
+  // serves the clean address directly, so it never builds a redirect target from the request.
+  let pathname = url.pathname;
+  if (config.trailingSlash === false && pathname.length > 1) pathname = pathname.replace(/\/+$/, "") || "/";
+  if (config.cleanUrls) pathname = pathname.replace(/(\/index)?\.html$/, "") || "/";
+  url.pathname = pathname;
 
   for (const rule of config.redirects || []) {
     const params = matchRule(rule, url);
