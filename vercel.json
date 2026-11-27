@@ -17,9 +17,31 @@
     { "source": "/service", "destination": "/", "permanent": false },
     { "source": "/copilot", "destination": "/", "permanent": false },
     { "source": "/roi", "destination": "/", "permanent": false },
+    { "source": "/contact-us", "destination": "/#chat", "permanent": false },
+    { "source": "/pricing", "destination": "/", "permanent": false },
+    { "source": "/platform", "destination": "/", "permanent": false },
+    { "source": "/team", "destination": "/", "permanent": false },
+    { "source": "/for-clinicians", "destination": "/", "permanent": false },
+    { "source": "/for-execs", "destination": "/", "permanent": false },
+    {
+      "source": "/blog/pdpm-revenue-loss-snf",
+      "destination": "/blog/how-much-revenue-are-snfs-leaving-on-the-table-under-pdpm-2026",
+      "permanent": false
+    },
+    {
+      "source": "/blog/5-mds-documentation-gaps-causing-snf-revenue-loss-under-pdpm",
+      "destination": "/blog/mds-documentation-gaps-snf-revenue-leakage",
+      "permanent": true
+    },
+    {
+      "source": "/blog/why-mds-documentation-gaps-happen-in-skilled-nursing-facilities-under-pdpm-2026",
+      "destination": "/blog/why-mds-documentation-gaps-happen",
+      "permanent": true
+    },
+    { "source": "/blog/blog/:slug", "destination": "/blog/:slug", "permanent": true },
     {
       "source": "/blog-post",
-      "has": [{ "type": "query", "key": "slug", "value": "(?<slug>[A-Za-z0-9-]+)" }],
+      "has": [{ "type": "query", "key": "slug", "value": "/?(?:blog/)?(?<slug>[A-Za-z0-9-]+)/?" }],
       "destination": "/blog/:slug",
       "permanent": true
     },

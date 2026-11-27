@@ -49,6 +49,31 @@ for (const rule of vercel.rewrites) {
   }
 }
 
+// Search engines still list addresses from earlier versions of the site. Each must reach a page.
+const redirects = Object.fromEntries(vercel.redirects.map((rule) => [rule.source, rule]));
+for (const [source, destination] of [
+  ["/blog/pdpm-revenue-loss-snf", "/blog/how-much-revenue-are-snfs-leaving-on-the-table-under-pdpm-2026"],
+  ["/blog/5-mds-documentation-gaps-causing-snf-revenue-loss-under-pdpm", "/blog/mds-documentation-gaps-snf-revenue-leakage"],
+  [
+    "/blog/why-mds-documentation-gaps-happen-in-skilled-nursing-facilities-under-pdpm-2026",
+    "/blog/why-mds-documentation-gaps-happen",
+  ],
+  ["/blog/blog/:slug", "/blog/:slug"],
+  ["/contact-us", "/#chat"],
+]) {
+  assert(redirects[source], `vercel.json has no redirect for ${source}`);
+  assert.strictEqual(redirects[source].destination, destination);
+}
+// An old article link such as /blog-post?slug=/blog/name/ must reach the article, not the blog index.
+const legacyRule = vercel.redirects.find((rule) => rule.source === "/blog-post" && rule.has);
+assert.strictEqual(legacyRule.destination, "/blog/:slug");
+const legacySlug = new RegExp(`^${legacyRule.has[0].value}$`);
+for (const value of ["name-of-post", "/blog/name-of-post/", "/name-of-post/", "name-of-post/"]) {
+  const match = legacySlug.exec(value);
+  assert(match && match.groups.slug === "name-of-post", `legacy slug "${value}" is not recognised`);
+}
+assert(!legacySlug.test("/blog/a/b"), "a slug with an extra path part must not match");
+
 const robots = fs.readFileSync("robots.txt", "utf8");
 assert(robots.includes("Sitemap: https://www.fosterhealth.io/sitemap.xml"));
 assert(/User-agent: \*\nAllow: \/\n/.test(robots), "robots.txt lets all crawlers read the site");
