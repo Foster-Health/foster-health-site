@@ -171,3 +171,13 @@ footer a{color:var(--gray)}footer a:hover{color:var(--ink)}
 /* ---------- more articles (below an article) ---------- */
 .blog-more{margin-top:72px}
 .blog-more .blog-card-title{font-size:clamp(21px,1.7vw,25px);margin-top:0}
+
+/* ---------- tables in articles ---------- */
+.blog-table-wrap{overflow-x:auto;margin:1.6em 0;-webkit-overflow-scrolling:touch}
+.blog-table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.5}
+.blog-table:has(th:nth-child(3)){min-width:480px}
+.blog-table:has(th:nth-child(4)){min-width:680px}
+.blog-table th,.blog-table td{text-align:left;vertical-align:top;padding:12px 16px 12px 0;border-bottom:1px solid var(--line)}
+.blog-table th{font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--ink)}
+.blog-table td:first-child{color:var(--ink);font-weight:600}
+.blog-body a{overflow-wrap:anywhere}
